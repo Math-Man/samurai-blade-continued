@@ -3,8 +3,11 @@
     <name>samurai-blade</name>
     <directory>samurai-blade-upgraded</directory>
     <id>2925246344</id>
-    <description>samurai-blade-upgraded is a currently a work in progress.</description>
-    <version>0.0.5</version>
+    <description>
+        [h1]A familiar sword from a well-known samurai can now be found in the basement[/h1]
+        [h5](Yes, it is Muramasa from Metal Gear Rising)[/h5]
+    </description>
+    <version>0.0.6</version>
     <visibility>Private</visibility>
     <tag id="Lua"/>
     <tag id="Items"/>

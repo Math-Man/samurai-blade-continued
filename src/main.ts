@@ -10,7 +10,9 @@ import { postRenderPickupInit } from "./callbacks/MCPostRenderPickup";
 import { postRenderPlayerInit } from "./callbacks/MCPostRenderPlayer";
 import { postTearUpdateInit } from "./callbacks/MCPostTearUpdate";
 import { postUpdateInit } from "./callbacks/MCPostUpdate";
+import { preGameExitInit } from "./callbacks/MCPreGameExit";
 
+const LOG_ID = "MAIN-SAMURAI";
 const MOD_NAME = "samurai-blade";
 
 main();
@@ -24,7 +26,9 @@ export function main(): void {
 }
 
 function registerCallbacks(mod: ModUpgraded) {
-  Isaac.DebugString(`Callback triggered: POST_GAME_STARTED ${ModCallback.POST_GAME_STARTED}`);
+  Isaac.DebugString(
+    `Callback triggered: POST_GAME_STARTED ${ModCallback.POST_GAME_STARTED}`,
+  );
 
   postUpdateInit(mod);
   postRenderInit(mod);
@@ -36,4 +40,5 @@ function registerCallbacks(mod: ModUpgraded) {
   postRenderPickupInit(mod);
   postItemPickupInit(mod);
   postTearUpdateInit(mod);
+  preGameExitInit(mod);
 }

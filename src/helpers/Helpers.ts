@@ -1,4 +1,5 @@
 import { ButtonAction } from "isaac-typescript-definitions";
+import { game } from "isaacscript-common";
 import { CollectibleTypeCustom } from "../enums/CollectibleTypeCustom";
 
 export function getPlayerById(playerNumber: int): EntityPlayer {
@@ -10,6 +11,10 @@ export function playerHasSamuraisBladeItem(player: EntityPlayer): boolean {
 }
 
 export function isPlayerShooting(player: EntityPlayer): boolean {
+  if (game.IsPaused() || ModConfigMenu?.IsVisible) {
+    return false;
+  }
+
   return (
     Input.IsActionPressed(ButtonAction.SHOOT_UP, player.ControllerIndex) ||
     Input.IsActionPressed(ButtonAction.SHOOT_RIGHT, player.ControllerIndex) ||

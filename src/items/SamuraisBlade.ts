@@ -1,5 +1,7 @@
 import { CacheFlag } from "isaac-typescript-definitions";
-import { getPlayers } from "isaacscript-common";
+import { getPlayers, ModUpgraded } from "isaacscript-common";
+import { setupMCM } from "../config/McmHandler";
+import { loadGame, saveGame } from "../config/ModGameDataManager";
 import { flushAllStateData, getPlayerStateData } from "../data/StateData";
 import { flog } from "../helpers/DebugHelper";
 import { playerHasSamuraisBladeItem } from "../helpers/Helpers";
@@ -36,10 +38,16 @@ export function SamuraiBladePostNewRoom(): void {
   }
 }
 
-export function SamuraiBladePostGameStarted(): void {
+export function SamuraiBladePostGameStarted(mod: ModUpgraded): void {
+  flog("Post game start fired", LOG_ID);
   flushAllStateData();
+  loadGame(mod);
+  setupMCM();
+}
 
-  flog("Resetting all states and synergy caches", LOG_ID);
+export function SamuraiBladePreGameExit(mod: ModUpgraded): void {
+  flog("Pre game exit fired", LOG_ID);
+  saveGame(mod);
 }
 
 export function SamuraiBladeEntityDamage(

@@ -1,11 +1,23 @@
 import { game, getPlayers } from "isaacscript-common";
 import { getPlayerStateData } from "../../../data/StateData";
 import { Tuneable } from "../../../data/Tuneable";
-import { Animations, isFinished, isPlaying, isPlayingOrFinishedChargedIdle, isPlayingOrFinishedChargedSwing, isPlayingOrFinishedFirstSwing, isPlayingOrFinishedIdle, isPlayingOrFinishedSwitchToChargedIdle, isPlayingOrFinishedSwitchToIdle } from "../../../helpers/AnimationHelpers";
+import {
+  Animations,
+  isFinished,
+  isPlaying,
+  isPlayingOrFinishedChargedIdle,
+  isPlayingOrFinishedChargedSwing,
+  isPlayingOrFinishedFirstSwing,
+  isPlayingOrFinishedIdle,
+  isPlayingOrFinishedSwitchToChargedIdle,
+  isPlayingOrFinishedSwitchToIdle,
+} from "../../../helpers/AnimationHelpers";
 import { getBladeSpriteScaleFromStats } from "../../../helpers/BladeHelpers";
 import { playerHasSamuraisBladeItem } from "../../../helpers/Helpers";
 
 export function renderBlades(): void {
+  if (game.IsPaused() || ModConfigMenu?.IsVisible) return;
+
   const realPlayers = getPlayers();
   for (const player of realPlayers) {
     if (!playerHasSamuraisBladeItem(player) || game.IsPaused()) {
@@ -16,24 +28,49 @@ export function renderBlades(): void {
 
     renderUserBlade(bladeSprite, player);
 
-    if (!(isPlayingOrFinishedIdle(bladeSprite) || isPlayingOrFinishedSwitchToIdle(bladeSprite) || isPlaying(bladeSprite, Animations.CHARGED_IDLE) || isPlayingOrFinishedSwitchToChargedIdle(bladeSprite))) {
+    if (
+      !(
+        isPlayingOrFinishedIdle(bladeSprite) ||
+        isPlayingOrFinishedSwitchToIdle(bladeSprite) ||
+        isPlaying(bladeSprite, Animations.CHARGED_IDLE) ||
+        isPlayingOrFinishedSwitchToChargedIdle(bladeSprite)
+      )
+    ) {
       renderUserEmptyHolster(holsterSprite, player);
     }
   }
 }
 
 function renderUserBlade(sprite: Sprite, player: EntityPlayer) {
-  if (!(isPlaying(sprite, Animations.IDLE) || isPlayingOrFinishedSwitchToIdle(sprite) || isPlayingOrFinishedChargedIdle(sprite) || isPlayingOrFinishedSwitchToChargedIdle(sprite) || isPlaying(sprite, Animations.CHARGED_IDLE) || isFinished(sprite, Animations.FIRST_SWING) || isFinished(sprite, Animations.SECOND_SWING) || isFinished(sprite, Animations.THIRD_SWING) || isFinished(sprite, Animations.CHARGED_SWING))) {
+  if (
+    !(
+      isPlaying(sprite, Animations.IDLE) ||
+      isPlayingOrFinishedSwitchToIdle(sprite) ||
+      isPlayingOrFinishedChargedIdle(sprite) ||
+      isPlayingOrFinishedSwitchToChargedIdle(sprite) ||
+      isPlaying(sprite, Animations.CHARGED_IDLE) ||
+      isFinished(sprite, Animations.FIRST_SWING) ||
+      isFinished(sprite, Animations.SECOND_SWING) ||
+      isFinished(sprite, Animations.THIRD_SWING) ||
+      isFinished(sprite, Animations.CHARGED_SWING)
+    )
+  ) {
     sprite.FlipX = false;
     sprite.Scale = getBladeSpriteScaleFromStats(player);
-    sprite.Offset = Vector(0, -8).add(getPlayerStateData(player).activeAimDirection.Resized(10));
+    sprite.Offset = Vector(0, -8).add(
+      getPlayerStateData(player).activeAimDirection.Resized(10),
+    );
   } else {
     sprite.Rotation = 25;
     sprite.Scale = Tuneable.IdleSize;
 
     if (player.Velocity.X < 0.1) {
       sprite.FlipX = true;
-      if (isPlayingOrFinishedSwitchToIdle(sprite) || isPlayingOrFinishedSwitchToChargedIdle(sprite) || isPlaying(sprite, Animations.CHARGED_IDLE)) {
+      if (
+        isPlayingOrFinishedSwitchToIdle(sprite) ||
+        isPlayingOrFinishedSwitchToChargedIdle(sprite) ||
+        isPlaying(sprite, Animations.CHARGED_IDLE)
+      ) {
         sprite.Offset = Vector(-110, 53);
       } else {
         sprite.Offset = Vector(-5, 3);
@@ -49,7 +86,11 @@ function renderUserBlade(sprite: Sprite, player: EntityPlayer) {
     sprite.PlaybackSpeed = 0.5;
   }
 
-  if (isPlayingOrFinishedChargedSwing(sprite) || isPlayingOrFinishedChargedIdle(sprite) || isPlayingOrFinishedFirstSwing(sprite)) {
+  if (
+    isPlayingOrFinishedChargedSwing(sprite) ||
+    isPlayingOrFinishedChargedIdle(sprite) ||
+    isPlayingOrFinishedFirstSwing(sprite)
+  ) {
     sprite.Offset = Vector(-5, 3);
   }
 
