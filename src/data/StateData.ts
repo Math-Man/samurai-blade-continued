@@ -9,14 +9,14 @@ interface PlayerState {
   hitStateEntities: number[]; // Entity indexes.
 }
 
-const StateData = new Map<int, PlayerState>();
+const stateData = new Map<int, PlayerState>();
 
 export function getStateData(): Map<int, PlayerState> {
-  return StateData;
+  return stateData;
 }
 
 export function flushAllStateData(): void {
-  StateData.clear();
+  stateData.clear();
 }
 
 export function getPlayerStateData(player: EntityPlayer): PlayerState {
@@ -44,6 +44,8 @@ export function getPlayerStateData(player: EntityPlayer): PlayerState {
   return playerData;
 }
 
-export function getPlayerStateDataNoCreate(player: EntityPlayer): PlayerState | undefined {
+export function getPlayerStateDataNoCreate(
+  player: EntityPlayer,
+): PlayerState | undefined {
   return getStateData().get(player.Index);
 }
