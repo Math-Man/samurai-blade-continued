@@ -8,6 +8,8 @@ samurai-blade is a mod for _[The Binding of Isaac: Repentance](https://store.ste
 
 ##### This mod is still in early stages, it works but there are many features and synergies I want to eventually add, there might also be _BUGS_. Also it's possible that the item might be severely unbalanced, I haven't had enough time to play test sadly.
 
+Steam Workshop Link: https://steamcommunity.com/sharedfiles/filedetails/?id=2925374699
+
 This mod only adds a single item called `Samurai's Blade` which can be found as a boss drop. Picking up This item changes Isaac's attack to a unique melee weapon.
 
 `Samurai's Blade` has direct and indirect synergies with most of vanilla and dlc items, so there is a lot to discover.
