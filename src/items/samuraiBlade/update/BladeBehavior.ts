@@ -1,10 +1,11 @@
 import {
   EffectVariant,
   EntityType,
+  ItemPoolType,
   PickupVariant,
   SoundEffect,
 } from "isaac-typescript-definitions";
-import { game, getPlayers, sfxManager } from "isaacscript-common";
+import { game, getPlayers, sfxManager, spawn } from "isaacscript-common";
 import { modStateData } from "../../../config/ModGameDataManager";
 import { getPlayerStateData } from "../../../data/StateData";
 import { Tuneable } from "../../../data/Tuneable";
@@ -51,6 +52,15 @@ export function updateBladeBehavior(): void {
   }
 }
 
+function spawnFromPool(player: EntityPlayer): void {
+  spawn(
+    EntityType.PICKUP,
+    PickupVariant.COLLECTIBLE,
+    game.GetItemPool().GetCollectible(ItemPoolType.TREASURE, false),
+    player.Position,
+  );
+}
+
 function updatePlayerBladeBehavior(player: EntityPlayer) {
   disableShooting(player);
   const { bladeSprite } = getPlayerStateData(player);
@@ -71,6 +81,8 @@ function updatePlayerBladeBehavior(player: EntityPlayer) {
     isPlayerShooting(player) &&
     canPlayerFireBlade(player, bladeSprite)
   ) {
+    // spawnFromPool(player);
+
     getAndUpdatePlayerBladeFireTime(player);
     let canDealDamage = true;
 

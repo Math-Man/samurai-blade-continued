@@ -22,7 +22,3 @@ export function isPlayerShooting(player: EntityPlayer): boolean {
     Input.IsActionPressed(ButtonAction.SHOOT_LEFT, player.ControllerIndex)
   );
 }
-
-export function boolToNumber(value: boolean): number {
-  return value ? 1 : 0;
-}

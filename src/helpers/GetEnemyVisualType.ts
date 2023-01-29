@@ -1,12 +1,16 @@
 import { EntityType } from "isaac-typescript-definitions";
 import { EnemyVisualType } from "../enums/EnemyVisualType";
 
-export function getEnemyVisualType(entityType: number, variant: number): EnemyVisualType {
+export function getEnemyVisualType(
+  entityType: number,
+  variant: number,
+): EnemyVisualType {
   switch (entityType) {
     case EntityType.GREED_GAPER:
     case EntityType.EXORCIST:
     case EntityType.KNIGHT:
     case EntityType.HORF:
+    case EntityType.GUSHER:
       return EnemyVisualType.BONE_AND_BLOOD;
 
     case EntityType.NECRO:
@@ -16,7 +20,6 @@ export function getEnemyVisualType(entityType: number, variant: number): EnemyVi
       return EnemyVisualType.BONE;
 
     case EntityType.GAPER_L2:
-    case EntityType.GUSHER:
     case EntityType.TWITCHY:
     case EntityType.BLACK_GLOBIN:
     case EntityType.BLACK_GLOBIN_BODY:

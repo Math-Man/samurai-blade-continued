@@ -1,3 +1,3 @@
 <items gfxroot="gfx/items/" version="1">
-  <passive cache="luck" description="This isn't my blade" gfx="samurai-blade.png" name="Samurai Blade" />
+  <passive cache="luck" description="This isn't my blade" gfx="samurai-blade.png" name="Samurai Blade" quality="4"/>
 </items>

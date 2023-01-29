@@ -1,5 +1,13 @@
 <ItemPools>
+  <Pool Name="treasure">
+    <Item Name="Samurai Blade" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+  </Pool>
+
   <Pool Name="boss">
-    <Item Name="Samurai Blade" Weight="10" DecreaseBy="1" RemoveOn="0.1" />
+    <Item Name="Samurai Blade" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+  </Pool>
+
+  <Pool Name="shop">
+    <Item Name="Samurai Blade" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
   </Pool>
 </ItemPools>

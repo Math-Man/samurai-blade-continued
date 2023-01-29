@@ -1,13 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <metadata>
-    <name>samurai-blade</name>
-    <directory>samurai-blade-upgraded</directory>
-    <id>2925246344</id>
+    <name>Samurai's Blade</name>
+    <directory>samurai-blade</directory>
+    <id>2925374699</id>
     <description>
         [h1]A familiar sword from a well-known samurai can now be found in the basement[/h1]
-        [h5](Yes, it is Muramasa from Metal Gear Rising)[/h5]
+        [h3](Yes, it is Muramasa from Metal Gear Rising, no this is only half a poop-post.)[/h3]
+
+        [i][u]This mod is still in the early stage, it works but there are many synergies missing. There might also be [b]BUGS[/b]. Also  it is probably severely unbalanced.[/u][/i]
+
+
+        This mod only adds a single item called Samurai's Blade which can be found as a boss drop [i](Or be picked up at the starting room if you enable that option in the mod config)[/i]. Picking up This item changes Isaac's attack to a unique melee weapon.
+
+        Samurai's Blade has direct and indirect synergies with most of vanilla and dlc items, so there is a lot to discover.
+
+        Although Samurai's Blade has stats of its own, (Swing time, charge-up time, damage, etc.) all of its stats are modified by Isaac's own stats.
+
+        [img]https://raw.githubusercontent.com/Math-Man/samurai-blade-continued/main/media/p2.gif[/img]
+
+
+        Player stats and what they effect:
+        [list]
+        [*] Damage: Directly modifies damage by a factor of player's damage.
+        [*] Fire Delay: Higher fire rate reduces delay between swings.
+        [*] Shot speed: Higher shot speed reduces time required for blade to be charged.
+        [*] Range, Shot height etc.: Increases blade's arc size.
+        [*] Luck : Increases critical hit chance. (For now this is a simple damage increase)
+        [/list]
+
+
+        Also do note any and all tear effect-based synergies will work but more complex synergies will not as they need custom implementations, some of which are;
+        [list]
+        [*] The Ludovico Technique
+        [*] Brimstone
+        [*] Anything that changes how tears work.
+        [/list]
+
+        If you have the mod config menu mod, you can also modify item stats (currently only damage).
+
+        Now go be a basement samurai or something, I don't really care.
     </description>
-    <version>0.0.6</version>
+    <version>0.0.8</version>
     <visibility>Private</visibility>
     <tag id="Lua"/>
     <tag id="Items"/>

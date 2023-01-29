@@ -5,7 +5,6 @@ import { loadGame, saveGame } from "../config/ModGameDataManager";
 import { flushAllStateData, getPlayerStateData } from "../data/StateData";
 import { flog } from "../helpers/DebugHelper";
 import { playerHasSamuraisBladeItem } from "../helpers/Helpers";
-import { applyCoolCostume } from "./samuraiBlade/onCache/CostumeApplier";
 import { motivatePlayer } from "./samuraiBlade/onCache/Motivate";
 import { playerHitSound } from "./samuraiBlade/onDealingDamage/HitSound";
 import { spawnGore } from "./samuraiBlade/onDealingDamage/SpawnGore";
@@ -92,5 +91,6 @@ export function SamuraiBladePostTearUpdate(tear: EntityTear): void {
 
 export function SamuraiBladePostPickup(player: EntityPlayer): void {
   flog("Item picked up!", LOG_ID);
-  applyCoolCostume(player);
+  // TODO: We don't have a costume yet...
+  //applyCoolCostume(player);
 }
