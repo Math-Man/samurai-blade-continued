@@ -6,11 +6,13 @@ export function getEnemyVisualType(
   variant: number,
 ): EnemyVisualType {
   switch (entityType) {
+    case EntityType.GUSHER:
+      return EnemyVisualType.DEFAULT_BLOOD;
+
     case EntityType.GREED_GAPER:
     case EntityType.EXORCIST:
     case EntityType.KNIGHT:
     case EntityType.HORF:
-    case EntityType.GUSHER:
       return EnemyVisualType.BONE_AND_BLOOD;
 
     case EntityType.NECRO:
