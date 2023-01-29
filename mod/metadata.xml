@@ -12,12 +12,14 @@
 
         This mod only adds a single item called Samurai's Blade which can be found as a boss drop [i](Or be picked up at the starting room if you enable that option in the mod config)[/i]. Picking up This item changes Isaac's attack to a unique melee weapon.
 
-        Samurai's Blade has direct and indirect synergies with most of vanilla and dlc items, so there is a lot to discover.
+        Samurai's Blade has direct and indirect synergies with most vanilla and dlc items, so there is a lot to discover.
 
         Although Samurai's Blade has stats of its own, (Swing time, charge-up time, damage, etc.) all of its stats are modified by Isaac's own stats.
 
         [img]https://raw.githubusercontent.com/Math-Man/samurai-blade-continued/main/media/p2.gif[/img]
 
+
+        By default config, item spawns in the starting room. However, this can be changed through mod config menu. The item does appear randomly in treasure, boss and shop item pools.
 
         Player stats and what they effect:
         [list]
