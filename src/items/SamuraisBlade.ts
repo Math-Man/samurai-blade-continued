@@ -9,7 +9,6 @@ import { playerHitSound } from "./samuraiBlade/onDealingDamage/HitSound";
 import { spawnGore } from "./samuraiBlade/onDealingDamage/SpawnGore";
 import { printDebugText } from "./samuraiBlade/rendering/DebugText";
 import { renderBlades } from "./samuraiBlade/rendering/RenderBlade";
-import { reloadCacheWithExistingItemSynergies } from "./samuraiBlade/synergy/SynergyCache";
 import { updateBladeBehavior } from "./samuraiBlade/update/BladeBehavior";
 import { setTearToBlade } from "./samuraiBlade/update/PlayerSpawnedTearUpdate";
 
@@ -39,18 +38,38 @@ export function SamuraiBladePostNewRoom(): void {
 
 export function SamuraiBladePostGameStarted(): void {
   flushAllStateData();
-  reloadCacheWithExistingItemSynergies();
 
   flog("Resetting all states and synergy caches", LOG_ID);
 }
 
-export function SamuraiBladeEntityDamage(tookDamage: Entity, damageAmount: number, damageFlags: BitFlag, damageSource: EntityRef, damageCountdownFrames: number): boolean {
-  spawnGore(tookDamage, damageAmount, damageFlags, damageSource, damageCountdownFrames);
-  playerHitSound(tookDamage, damageAmount, damageFlags, damageSource, damageCountdownFrames);
+export function SamuraiBladeEntityDamage(
+  tookDamage: Entity,
+  damageAmount: number,
+  damageFlags: BitFlag,
+  damageSource: EntityRef,
+  damageCountdownFrames: number,
+): boolean {
+  spawnGore(
+    tookDamage,
+    damageAmount,
+    damageFlags,
+    damageSource,
+    damageCountdownFrames,
+  );
+  playerHitSound(
+    tookDamage,
+    damageAmount,
+    damageFlags,
+    damageSource,
+    damageCountdownFrames,
+  );
   return true;
 }
 
-export function SamuraiBladeEvalCache(player: EntityPlayer, cacheFlag: CacheFlag): void {
+export function SamuraiBladeEvalCache(
+  player: EntityPlayer,
+  cacheFlag: CacheFlag,
+): void {
   motivatePlayer(player, cacheFlag);
 }
 
