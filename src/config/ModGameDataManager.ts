@@ -5,12 +5,14 @@ interface ModStateData {
   configSpawnItemInFirstRoom: boolean;
   configPrintDebugInfo: boolean;
   configAdjustmentDamageMultiplier: number;
+  configAdjustmentRangeMultiplier: number;
 }
 
 export let modStateData: ModStateData = {
   configSpawnItemInFirstRoom: true,
   configPrintDebugInfo: false,
   configAdjustmentDamageMultiplier: 1.0,
+  configAdjustmentRangeMultiplier: 1.0,
 } as const;
 
 export function saveGame(mod: ModUpgraded): void {
@@ -26,7 +28,7 @@ export function loadGame(mod: ModUpgraded): void {
 
   Isaac.DebugString(`Samurai-Blade is loading from save state`);
 
-  // TODO: I hate this, I hope I could find a better solution, but I suck at TS.
+  // TODO: I hate this, I wish I could find a better solution, but I suck at TS.
 
   // @ts-ignore
   if ("configAdjustmentDamageMultiplier" in saveState) {

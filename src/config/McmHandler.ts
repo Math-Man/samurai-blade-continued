@@ -25,6 +25,8 @@ export function setupMCM(): void {
   ModConfigMenu?.AddSpace(modCategoryName, "Tuning");
   setupConfigDamageMultiplier(modCategoryName);
 
+  setupConfigRangeMultiplier(modCategoryName);
+
   ModConfigMenu?.AddSpace(modCategoryName, "Tuning");
   ModConfigMenu?.AddText(
     modCategoryName,
@@ -83,7 +85,7 @@ function setupConfigDamageMultiplier(modCategoryName: string) {
     Display(): string {
       return `Current Damage Multiplier: ${modStateData.configAdjustmentDamageMultiplier}`;
     },
-    Info: ["Ye"],
+    Info: ["Damage multiplier for the combined contact damage of the blade."],
     Maximum: 10.0,
     Minimum: 0.1,
     ModifyBy: 0.1,
@@ -93,6 +95,31 @@ function setupConfigDamageMultiplier(modCategoryName: string) {
       }
       flog(
         `Damage value changed: ${modStateData.configAdjustmentDamageMultiplier}`,
+      );
+    },
+    PopupWidth: 0,
+    Type: ModConfigMenuOptionType.NUMBER,
+  });
+}
+
+function setupConfigRangeMultiplier(modCategoryName: string) {
+  ModConfigMenu?.AddSetting(modCategoryName, "Tuning", {
+    CurrentSetting(): number | boolean {
+      return modStateData.configAdjustmentRangeMultiplier;
+    },
+    Display(): string {
+      return `Current Range Multiplier: ${modStateData.configAdjustmentRangeMultiplier}`;
+    },
+    Info: ["Range multiplier for the arc size."],
+    Maximum: 10.0,
+    Minimum: 0.5,
+    ModifyBy: 0.1,
+    OnChange(newValue: number | boolean | undefined): void {
+      if (typeof newValue === "number") {
+        modStateData.configAdjustmentRangeMultiplier = newValue;
+      }
+      flog(
+        `Range value changed: ${modStateData.configAdjustmentRangeMultiplier}`,
       );
     },
     PopupWidth: 0,

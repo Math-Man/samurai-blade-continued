@@ -20,6 +20,8 @@ export function getBladeSpriteScaleFromStats(player: EntityPlayer): Vector {
     scaleMultiplier += scaleMultiplier * CHARGE_VALUE_MODIFIER_FACTOR;
   }
 
+  scaleMultiplier *= modStateData.configAdjustmentRangeMultiplier;
+
   return Vector(scaleMultiplier, scaleMultiplier);
 }
 
@@ -33,6 +35,9 @@ export function getBladePhysicalRange(player: EntityPlayer): float {
   if (charged) {
     calculatedRange += calculatedRange * CHARGE_VALUE_MODIFIER_FACTOR;
   }
+
+  calculatedRange *= modStateData.configAdjustmentRangeMultiplier;
+
   return calculatedRange;
 }
 
