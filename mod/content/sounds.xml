@@ -1,0 +1,50 @@
+<sounds root="sounds/">
+  <sound name="MOTIVATION">
+    <sample weight="1" path="SickRiff.wav" />
+  </sound>
+  <sound name="Slice">
+    <sample weight="1" path="Light Sword Swing 1.wav" />
+    <sample weight="1" path="Light Sword Swing 2.wav" />
+    <sample weight="1" path="Light Sword Swing 3.wav" />
+    <sample weight="1" path="Light Sword Swing 4.wav" />
+    <sample weight="1" path="Light Sword Swing 5.wav" />
+    <sample weight="1" path="Light Sword Swing 6.wav" />
+    <sample weight="1" path="Light Sword Swing 8.wav" />
+    <sample weight="1" path="Light Sword Swing 9.wav" />
+    <sample weight="1" path="Light Sword Swing 10.wav" />
+    <sample weight="1" path="Light Sword Swing 11.wav" />
+    <sample weight="1" path="Light Sword Swing 12.wav" />
+    <sample weight="1" path="Light Sword Swing 13.wav" />
+    <sample weight="1" path="Light Sword Swing 14.wav" />
+    <sample weight="1" path="Light Sword Swing 15.wav" />
+  </sound>
+  <sound name="BigSlice">
+    <sample weight="1" path="Heavy Sword Swing 1.wav" />
+    <sample weight="1" path="Heavy Sword Swing 2.wav" />
+    <sample weight="1" path="Heavy Sword Swing 3.wav" />
+    <sample weight="1" path="Heavy Sword Swing 4.wav" />
+    <sample weight="1" path="Heavy Sword Swing 5.wav" />
+    <sample weight="1" path="Heavy Sword Swing 6.wav" />
+    <sample weight="1" path="Heavy Sword Swing 7.wav" />
+    <sample weight="1" path="Heavy Sword Swing 8.wav" />
+    <sample weight="1" path="Heavy Sword Swing 9.wav" />
+    <sample weight="1" path="Heavy Sword Swing 10.wav" />
+  </sound>
+  <sound name="ChargedSlice">
+    <sample weight="1" path="Heavy Sword Swing 11.wav" />
+    <sample weight="1" path="Heavy Sword Swing 12.wav" />
+    <sample weight="1" path="Heavy Sword Swing 13.wav" />
+    <sample weight="1" path="Heavy Sword Swing 14.wav" />
+    <sample weight="1" path="Heavy Sword Swing 15.wav" />
+  </sound>
+  <sound name="ChargedUp">
+    <sample weight="1" path="MMCharged1.wav" />
+  </sound>
+  <sound name="Hit">
+    <sample weight="1" path="Sword Stab (Flesh) 1.wav" />
+    <sample weight="1" path="Sword Stab (Flesh) 2.wav" />
+    <sample weight="1" path="Sword Stab (Flesh) 3.wav" />
+    <sample weight="1" path="Sword Stab (Flesh) 4.wav" />
+    <sample weight="1" path="Sword Stab (Flesh) 5.wav" />
+  </sound>
+</sounds>
