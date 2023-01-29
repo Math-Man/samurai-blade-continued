@@ -19,8 +19,6 @@ export function saveGame(mod: ModUpgraded): void {
 }
 
 export function loadGame(mod: ModUpgraded): void {
-  Isaac.DebugString(`THIS WORLD IS AN ILLUSION EXILE`);
-
   if (!mod.HasData()) {
     return;
   }
