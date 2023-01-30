@@ -2678,10 +2678,17 @@ isaac-typescript-definitions@^11.0.3:
   dependencies:
     lua-types "^2.13.1"
 
-isaacscript-common-ts@^2.1.0:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/isaacscript-common-ts/-/isaacscript-common-ts-2.1.1.tgz#e21205a6aae5b1360660c0eaa9619417d3c22abb"
-  integrity sha512-1fandvNCe88UQJ9q6GCdBzAQcVNbItDKXHyOs73jg5nVo02qQPwOeqp8rMEGBjc25a4ppmTPKn24gVT5e6NSeA==
+isaac-typescript-definitions@^11.1.0:
+  version "11.1.0"
+  resolved "https://registry.yarnpkg.com/isaac-typescript-definitions/-/isaac-typescript-definitions-11.1.0.tgz#88251362453fc9f930dcf207a357a1f8e0aa4e64"
+  integrity sha512-WH7Jv5JPce+EVoQu+kG1sHQjSsWZLRAkCa8TunTEqorLKYFG3pOIC6D/yWZ/m3n+cyo0gVfwQpjZzfGZCczC0A==
+  dependencies:
+    lua-types "^2.13.1"
+
+isaacscript-common-ts@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/isaacscript-common-ts/-/isaacscript-common-ts-3.0.1.tgz#49eacb40c8fae3d9d9883593a08f3a66ea1d5e8e"
+  integrity sha512-mi0T0FAWVHPl5FWuIab5sFTbKR4r82D1pmVHsHkUAeiL7tHhDhwao8I80INu+XH9DuwHs1+e/Np5KtKDkc+5jA==
 
 isaacscript-common@^21.1.1:
   version "21.1.1"
@@ -2727,10 +2734,10 @@ isaacscript-tsconfig@^3.0.2:
   dependencies:
     "@tsconfig/strictest" "^1.0.2"
 
-isaacscript@^3.4.9:
-  version "3.4.9"
-  resolved "https://registry.yarnpkg.com/isaacscript/-/isaacscript-3.4.9.tgz#f0a058bfe9c77e60dc47ab6023e16738476dc00c"
-  integrity sha512-+VxSJwPQS2CrRvys6tklsjvKuZ8vMgOK8bM9mQOrcEdsE1ub9jXWxM1O6nkrH9rV2X+HN/aSOJ3DyhYj6m4EEw==
+isaacscript@^3.4.13:
+  version "3.4.13"
+  resolved "https://registry.yarnpkg.com/isaacscript/-/isaacscript-3.4.13.tgz#3835525f1981617485b8da43d1bf819cd85e1ddc"
+  integrity sha512-bwiyihxtgcLFY2fc88f0YlsDytUAvsYzCR2skt1gI5FpafcsgaEMFxotK8KzclY4dR+hIj4dD4wXvJUXNCunpg==
   dependencies:
     ajv "^8.12.0"
     chalk "4.1.2"
@@ -2739,7 +2746,7 @@ isaacscript@^3.4.9:
     figlet "^1.5.2"
     git-dirty "^1.0.2"
     glob "^8.1.0"
-    isaacscript-common-ts "^2.1.0"
+    isaacscript-common-ts "^3.0.1"
     isaacscript-tsconfig "^3.0.2"
     jsonc-parser "^3.2.0"
     moment "^2.29.4"

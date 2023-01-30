@@ -1,6 +1,6 @@
 {
   "name": "samurai-blade-upgraded",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "A mod for The Binding of Isaac: Repentance.",
   "keywords": [
     "isaac",
@@ -12,8 +12,8 @@
   "license": "GPL-3.0",
   "type": "commonjs",
   "dependencies": {
-    "isaac-typescript-definitions": "^11.0.3",
-    "isaacscript": "^3.4.9",
+    "isaac-typescript-definitions": "^11.1.0",
+    "isaacscript": "^3.4.13",
     "isaacscript-common": "^21.1.1",
     "isaacscript-lint": "^4.8.0",
     "isaacscript-spell": "^1.2.31",
