@@ -17,6 +17,8 @@ export function printDebugText(): void {
     return;
   }
 
+  // getPosition();
+
   const player = getPlayerById(0);
 
   Isaac.RenderText(`Player: ${player.Index}`, 68, 30, 0, 255, 255, 255);

@@ -94,6 +94,8 @@ function renderUserBlade(sprite: Sprite, player: EntityPlayer) {
     sprite.Offset = Vector(-5, 3);
   }
 
+  // game.GetRoom().GetGridWidth();
+
   updateVisualState(player, sprite);
   sprite.Update();
 }
