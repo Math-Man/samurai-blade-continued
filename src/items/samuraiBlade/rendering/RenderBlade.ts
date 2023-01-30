@@ -42,6 +42,7 @@ export function renderBlades(): void {
 }
 
 function renderUserBlade(sprite: Sprite, player: EntityPlayer) {
+  const isInMirror = game.GetRoom().IsMirrorWorld();
   if (
     !(
       isPlaying(sprite, Animations.IDLE) ||
@@ -55,16 +56,19 @@ function renderUserBlade(sprite: Sprite, player: EntityPlayer) {
       isFinished(sprite, Animations.CHARGED_SWING)
     )
   ) {
-    sprite.FlipX = false;
+    sprite.FlipX = isInMirror;
     sprite.Scale = getBladeSpriteScaleFromStats(player);
     sprite.Offset = Vector(0, -8).add(
-      getPlayerStateData(player).activeAimDirection.Resized(10),
+      getPlayerStateData(player).activeAimDirection,
     );
   } else {
     sprite.Rotation = 25;
     sprite.Scale = Tuneable.IdleSize;
 
-    if (player.Velocity.X < 0.1) {
+    if (
+      (player.Velocity.X < 0.1 && !isInMirror) ||
+      (player.Velocity.X > 0.1 && isInMirror)
+    ) {
       sprite.FlipX = true;
       if (
         isPlayingOrFinishedSwitchToIdle(sprite) ||
@@ -80,7 +84,12 @@ function renderUserBlade(sprite: Sprite, player: EntityPlayer) {
       sprite.Offset = Vector(0, -3);
     }
   }
-  sprite.Render(Isaac.WorldToScreen(player.Position));
+  const playerPos = player.Position;
+  const worldPos = Vector(
+    !isInMirror ? playerPos.X : -(playerPos.X - 640), // Just don't ask about the math here, it is ugly.
+    playerPos.Y,
+  );
+  sprite.Render(Isaac.WorldToScreen(worldPos));
   if (sprite.GetFrame() === -1) {
     sprite.Play(sprite.GetDefaultAnimation(), false);
     sprite.PlaybackSpeed = 0.5;
@@ -101,14 +110,23 @@ function renderUserBlade(sprite: Sprite, player: EntityPlayer) {
 }
 
 function renderUserEmptyHolster(sprite: Sprite, player: EntityPlayer) {
-  sprite.RenderLayer(7, Isaac.WorldToScreen(player.Position));
+  const isInMirror = game.GetRoom().IsMirrorWorld();
+  const playerPos = player.Position;
+  const worldPos = Vector(
+    !isInMirror ? playerPos.X : -(playerPos.X - 640), // Just don't ask about the math here, it is ugly.
+    playerPos.Y,
+  );
+  sprite.RenderLayer(7, Isaac.WorldToScreen(worldPos));
   if (sprite.GetFrame() === -1) {
     sprite.Play("EmptyHolsterOverlay", true);
   }
   sprite.Rotation = 25;
   sprite.Scale = Tuneable.IdleSize;
 
-  if (player.Velocity.X < 0.1) {
+  if (
+    (player.Velocity.X < 0.1 && !isInMirror) ||
+    (player.Velocity.X > 0.1 && isInMirror)
+  ) {
     sprite.FlipX = true;
     sprite.Offset = Vector(-110, 53);
   } else {
@@ -117,7 +135,10 @@ function renderUserEmptyHolster(sprite: Sprite, player: EntityPlayer) {
   }
 
   // Look at swing direction.
-  if (getPlayerStateData(player).activeAimDirection.X < 0) {
+  if (
+    (getPlayerStateData(player).activeAimDirection.X < 0 && !isInMirror) ||
+    (getPlayerStateData(player).activeAimDirection.X > 0 && isInMirror)
+  ) {
     sprite.FlipX = true;
     sprite.Offset = Vector(-110, 53);
   } else if (getPlayerStateData(player).activeAimDirection.X > 0) {
