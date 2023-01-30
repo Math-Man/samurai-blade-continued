@@ -192,7 +192,7 @@ export function LOSCheck(player: EntityPlayer, target: Entity): boolean {
       .CheckLine(
         player.Position,
         target.Position,
-        LineCheckMode.ECONOMIC,
+        LineCheckMode.PROJECTILE,
         0,
         true,
         false,
