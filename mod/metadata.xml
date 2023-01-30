@@ -3,11 +3,10 @@
     <name>Samurai's Blade</name>
     <directory>samurai-blade</directory>
     <id>2925374699</id>
-    <description>
-        [h1]A familiar sword from a well-known samurai can now be found in the basement[/h1]
+    <description>        [h1]A familiar sword from a well-known samurai can now be found in the basement[/h1]
         [h3](Yes, it is Muramasa from Metal Gear Rising, no this is only half a poop-post.)[/h3]
 
-        [i][u]This mod is still in the early stage, it works but there are many synergies missing. There might also be [b]BUGS[/b]. Also  it is probably severely unbalanced.[/u][/i]
+        [i][u]This mod is still in the early stage, it works but there are many synergies missing. There [strike]might also be[/strike] are [b]BUGS[/b]. Also  it is probably severely unbalanced.[/u][/i]
 
 
         This mod only adds a single item called Samurai's Blade which can be found as a boss drop [i](Or be picked up at the starting room if you enable that option in the mod config)[/i]. Picking up This item changes Isaac's attack to a unique melee weapon.
@@ -42,6 +41,12 @@
 
         Now go be a basement samurai or something, I don't really care.
 
+        Known issues:
+        [list]
+        [*] The item is very broken in the Mirror world.
+        [*] [strike]Wall-climbing and flying enemies do not ignore the blade's line-of-sight rule as expected.[/strike]
+        [*] [strike]Pits block line of sight. :( [/strike]
+        [/list]
 
 
         Github Link: https://github.com/Math-Man/samurai-blade-continued
@@ -53,9 +58,11 @@
         [*] Terrible Programming by me.
         [*] Metal Gear series and Metal Gear Rising owned by Konami Holdings Corporation
         [/list]
+
+
     </description>
-    <version>0.0.11</version>
-    <visibility>Private</visibility>
+    <version>0.0.12</version>
+    <visibility>Public</visibility>
     <tag id="Lua"/>
     <tag id="Items"/>
 </metadata>
