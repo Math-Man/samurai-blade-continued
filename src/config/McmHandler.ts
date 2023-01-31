@@ -20,6 +20,7 @@ export function setupMCM(): void {
 
   setupConfigSpawnItemInFirstRoom(modCategoryName);
   setupConfigPrintDebugInfo(modCategoryName);
+  setupConfigParticleMultiplier(modCategoryName);
 
   ModConfigMenu?.AddText(modCategoryName, "Tuning", () => "Change item stats");
   ModConfigMenu?.AddSpace(modCategoryName, "Tuning");
@@ -74,6 +75,29 @@ function setupConfigPrintDebugInfo(modCategoryName: string) {
       flog(`Display debug info: ${modStateData.configPrintDebugInfo}`, LOG_ID);
     },
     Type: ModConfigMenuOptionType.BOOLEAN,
+  });
+}
+
+function setupConfigParticleMultiplier(modCategoryName: string) {
+  ModConfigMenu?.AddSetting(modCategoryName, "Settings", {
+    CurrentSetting(): number | boolean {
+      return modStateData.configParticleMultiplier;
+    },
+    Display(): string {
+      return `Current Particle Multiplier: ${modStateData.configParticleMultiplier}`;
+    },
+    Info: ["Change the intensity of particle effects."],
+    Maximum: 3.0,
+    Minimum: 0.1,
+    ModifyBy: 0.1,
+    OnChange(newValue: number | boolean | undefined): void {
+      if (typeof newValue === "number") {
+        modStateData.configParticleMultiplier = newValue;
+      }
+      flog(`Particles value changed: ${modStateData.configParticleMultiplier}`);
+    },
+    PopupWidth: 0,
+    Type: ModConfigMenuOptionType.NUMBER,
   });
 }
 

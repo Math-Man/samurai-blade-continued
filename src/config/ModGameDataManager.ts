@@ -4,6 +4,7 @@ import { decode, encode } from "json";
 interface ModStateData {
   configSpawnItemInFirstRoom: boolean;
   configPrintDebugInfo: boolean;
+  configParticleMultiplier: number;
   configAdjustmentDamageMultiplier: number;
   configAdjustmentRangeMultiplier: number;
 }
@@ -11,6 +12,7 @@ interface ModStateData {
 export let modStateData: ModStateData = {
   configSpawnItemInFirstRoom: true,
   configPrintDebugInfo: false,
+  configParticleMultiplier: 1.0,
   configAdjustmentDamageMultiplier: 1.0,
   configAdjustmentRangeMultiplier: 1.0,
 } as const;

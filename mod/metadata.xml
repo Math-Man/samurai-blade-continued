@@ -3,7 +3,7 @@
     <name>Samurai's Blade</name>
     <directory>samurai-blade</directory>
     <id>2925374699</id>
-    <description>        [h1]A familiar sword from a well-known samurai can now be found in the basement[/h1]
+    <description>        [h1]A familiar sword wielded by a well-known samurai can now be found in the basement[/h1]
         [h3](Yes, it is Muramasa from Metal Gear Rising, no this is only half a poop-post.)[/h3]
 
         [i][u]This mod is still in the early stage, it works but there are many synergies missing. There [strike]might also be[/strike] are [b]BUGS[/b]. Also  it is probably severely unbalanced.[/u][/i]
@@ -43,10 +43,12 @@
 
         Known issues:
         [list]
-        [*] The item is very broken in the Mirror world.
+        [*] [strike]The item is very broken in the Mirror world (Just a visual bug).[/strike]
         [*] [strike]Wall-climbing and flying enemies do not ignore the blade's line-of-sight rule as expected.[/strike]
         [*] [strike]Pits block line of sight. :( [/strike]
-        [/list]
+        [*] There seems to be an issue with performance on some setups, currently investigating.
+        [*] Large mirror rooms still cause some visual issues. (I need to figure out a smarter solution, working on it. I hate mirrors.)
+        [*] Some enemies have the wrong visual type assigned to them, causing incorrect particles to spawn when they are damaged by the item.
 
 
         Github Link: https://github.com/Math-Man/samurai-blade-continued
