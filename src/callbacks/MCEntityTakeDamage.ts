@@ -9,6 +9,12 @@ export function entityTakeDamageInit(mod: Mod): void {
 
 function main(tookDamage: Entity, damageAmount: number, damageFlags: BitFlag, damageSource: EntityRef, damageCountdownFrames: number): boolean {
   const player = damageSource.Entity?.ToPlayer();
+
+  // flog(`Extending berserk! ${player} ${tookDamage.HasMortalDamage()}}`);
+  // if (player) {
+  //   extendBerserk(player);
+  // }
+
   if (player !== undefined && playerHasSamuraisBladeItem(player) && tookDamage.IsVulnerableEnemy() && damageFlags === DamageFlagsCustom.SB_BLADE_DAMAGE) {
     return SamuraiBladeEntityDamage(tookDamage, damageAmount, damageFlags, damageSource, damageCountdownFrames);
   }

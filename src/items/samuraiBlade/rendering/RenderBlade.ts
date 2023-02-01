@@ -1,3 +1,4 @@
+import { Direction } from "isaac-typescript-definitions";
 import { game, getPlayers } from "isaacscript-common";
 import { getPlayerStateData } from "../../../data/StateData";
 import { Tuneable } from "../../../data/Tuneable";
@@ -58,23 +59,15 @@ function renderUserBlade(sprite: Sprite, player: EntityPlayer) {
   ) {
     sprite.FlipX = isInMirror;
     sprite.Scale = getBladeSpriteScaleFromStats(player);
-    sprite.Offset = Vector(0, -8).add(
-      getPlayerStateData(player).activeAimDirection,
-    );
+    sprite.Offset = Vector(0, -8).add(getPlayerStateData(player).activeAimDirection);
   } else {
     sprite.Rotation = 25;
     sprite.Scale = Tuneable.IdleSize;
 
-    if (
-      (player.Velocity.X < 0.1 && !isInMirror) ||
-      (player.Velocity.X > 0.1 && isInMirror)
-    ) {
+    const hDir = player.GetHeadDirection();
+    if ((hDir !== Direction.RIGHT && !isInMirror) || (hDir === Direction.RIGHT && isInMirror)) {
       sprite.FlipX = true;
-      if (
-        isPlayingOrFinishedSwitchToIdle(sprite) ||
-        isPlayingOrFinishedSwitchToChargedIdle(sprite) ||
-        isPlaying(sprite, Animations.CHARGED_IDLE)
-      ) {
+      if (isPlayingOrFinishedSwitchToIdle(sprite) || isPlayingOrFinishedSwitchToChargedIdle(sprite) || isPlaying(sprite, Animations.CHARGED_IDLE)) {
         sprite.Offset = Vector(-110, 53);
       } else {
         sprite.Offset = Vector(-5, 3);
@@ -95,11 +88,7 @@ function renderUserBlade(sprite: Sprite, player: EntityPlayer) {
     sprite.PlaybackSpeed = 0.5;
   }
 
-  if (
-    isPlayingOrFinishedChargedSwing(sprite) ||
-    isPlayingOrFinishedChargedIdle(sprite) ||
-    isPlayingOrFinishedFirstSwing(sprite)
-  ) {
+  if (isPlayingOrFinishedChargedSwing(sprite) || isPlayingOrFinishedChargedIdle(sprite) || isPlayingOrFinishedFirstSwing(sprite)) {
     sprite.Offset = Vector(-5, 3);
   }
 
@@ -123,10 +112,8 @@ function renderUserEmptyHolster(sprite: Sprite, player: EntityPlayer) {
   sprite.Rotation = 25;
   sprite.Scale = Tuneable.IdleSize;
 
-  if (
-    (player.Velocity.X < 0.1 && !isInMirror) ||
-    (player.Velocity.X > 0.1 && isInMirror)
-  ) {
+  const hDir = player.GetHeadDirection();
+  if ((hDir !== Direction.RIGHT && !isInMirror) || (hDir === Direction.RIGHT && isInMirror)) {
     sprite.FlipX = true;
     sprite.Offset = Vector(-110, 53);
   } else {
@@ -135,10 +122,7 @@ function renderUserEmptyHolster(sprite: Sprite, player: EntityPlayer) {
   }
 
   // Look at swing direction.
-  if (
-    (getPlayerStateData(player).activeAimDirection.X < 0 && !isInMirror) ||
-    (getPlayerStateData(player).activeAimDirection.X > 0 && isInMirror)
-  ) {
+  if ((getPlayerStateData(player).activeAimDirection.X < 0 && !isInMirror) || (getPlayerStateData(player).activeAimDirection.X > 0 && isInMirror)) {
     sprite.FlipX = true;
     sprite.Offset = Vector(-110, 53);
   } else if (getPlayerStateData(player).activeAimDirection.X > 0) {
