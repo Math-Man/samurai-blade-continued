@@ -10,6 +10,7 @@ export function spawnSecretTear(player: EntityPlayer, targetEntity: Entity): voi
 
   const tear = player.FireTear(targetEntity.Position, Vector(0, 0), false, true, false, player, tearDamageMultiplier);
   tear.Visible = false;
+  tear.Height = -5;
   // tear.SetColor(Color(0, 0, 0, 0), 0, 999);
 
   // Piercing breaks the mechanism.
@@ -22,5 +23,6 @@ export function spawnSecretTear(player: EntityPlayer, targetEntity: Entity): voi
   tear.ChangeVariant(TearVariant.SWORD_BEAM);
 
   flog("Secret tear spawned ", "SecretTearSpawner");
+  flog(`TEAR HEIGHT: ${tear.Height}`, "TEAR HEIGHT!");
   logTearFlags(tear.TearFlags);
 }

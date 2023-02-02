@@ -105,7 +105,7 @@ function renderUserEmptyHolster(sprite: Sprite, player: EntityPlayer) {
     !isInMirror ? playerPos.X : -(playerPos.X - 640), // Just don't ask about the math here, it is ugly.
     playerPos.Y,
   );
-  sprite.RenderLayer(7, Isaac.WorldToScreen(worldPos));
+  sprite.RenderLayer(5, Isaac.WorldToScreen(worldPos));
   if (sprite.GetFrame() === -1) {
     sprite.Play("EmptyHolsterOverlay", true);
   }
