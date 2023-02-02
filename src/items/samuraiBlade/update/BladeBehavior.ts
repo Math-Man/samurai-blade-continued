@@ -1,10 +1,4 @@
-import {
-  EffectVariant,
-  EntityType,
-  ItemPoolType,
-  PickupVariant,
-  SoundEffect,
-} from "isaac-typescript-definitions";
+import { EffectVariant, EntityType, ItemPoolType, PickupVariant, SoundEffect } from "isaac-typescript-definitions";
 import { game, getPlayers, sfxManager, spawn } from "isaacscript-common";
 import { modStateData } from "../../../config/ModGameDataManager";
 import { getPlayerStateData } from "../../../data/StateData";
@@ -29,10 +23,7 @@ import {
   isPlayerInAttackState,
 } from "../../../helpers/BladeHelpers";
 import { flog } from "../../../helpers/DebugHelper";
-import {
-  isPlayerShooting,
-  playerHasSamuraisBladeItem,
-} from "../../../helpers/Helpers";
+import { isPlayerShooting, playerHasSamuraisBladeItem } from "../../../helpers/Helpers";
 import { isHitCritical } from "../onDealingDamage/CriticalHitHandler";
 import { clearDamageState } from "../onDealingDamage/DamageStateHandler";
 import { dealSamuraiBladeDamage } from "./BladeDamage";
@@ -53,12 +44,7 @@ export function updateBladeBehavior(): void {
 }
 
 function spawnFromPool(player: EntityPlayer): void {
-  spawn(
-    EntityType.PICKUP,
-    PickupVariant.COLLECTIBLE,
-    game.GetItemPool().GetCollectible(ItemPoolType.TREASURE, false),
-    player.Position,
-  );
+  spawn(EntityType.PICKUP, PickupVariant.COLLECTIBLE, game.GetItemPool().GetCollectible(ItemPoolType.TREASURE, false), player.Position);
 }
 
 function updatePlayerBladeBehavior(player: EntityPlayer) {
@@ -76,30 +62,21 @@ function updatePlayerBladeBehavior(player: EntityPlayer) {
     getPlayerStateData(player).charged = false;
   }
 
-  if (
-    player.IsExtraAnimationFinished() &&
-    isPlayerShooting(player) &&
-    canPlayerFireBlade(player, bladeSprite)
-  ) {
+  if (player.IsExtraAnimationFinished() && isPlayerShooting(player) && canPlayerFireBlade(player, bladeSprite)) {
     // spawnFromPool(player);
 
     getAndUpdatePlayerBladeFireTime(player);
     let canDealDamage = true;
 
     if (
-      (hitChainProgression === 1 &&
-        (isPlaying(bladeSprite, Animations.IDLE) ||
-          isPlayingOrFinishedSwitchToIdle(bladeSprite))) ||
+      (hitChainProgression === 1 && (isPlaying(bladeSprite, Animations.IDLE) || isPlayingOrFinishedSwitchToIdle(bladeSprite))) ||
       isFinished(bladeSprite, Animations.THIRD_SWING)
     ) {
       bladeSprite.Play(Animations.FIRST_SWING, true);
       hitChainProgression = 2;
       sfxManager.Play(SoundsCustom.SB_SMALL_SLICE, 1, 1, false);
       game.ShakeScreen(2);
-    } else if (
-      isPlaying(bladeSprite, Animations.CHARGED_IDLE) ||
-      isPlayingOrFinishedSwitchToChargedIdle(bladeSprite)
-    ) {
+    } else if (isPlaying(bladeSprite, Animations.CHARGED_IDLE) || isPlayingOrFinishedSwitchToChargedIdle(bladeSprite)) {
       bladeSprite.Play(Animations.CHARGED_SWING, true);
       hitChainProgression = 2;
       game.ShakeScreen(12);
@@ -119,9 +96,7 @@ function updatePlayerBladeBehavior(player: EntityPlayer) {
       game.ShakeScreen(3);
     } else if (
       hitChainProgression === 3 &&
-      (isFinished(bladeSprite, Animations.SECOND_SWING) ||
-        isPlayingOrFinishedSwitchToIdle(bladeSprite) ||
-        isPlayingOrFinishedIdle(bladeSprite))
+      (isFinished(bladeSprite, Animations.SECOND_SWING) || isPlayingOrFinishedSwitchToIdle(bladeSprite) || isPlayingOrFinishedIdle(bladeSprite))
     ) {
       bladeSprite.Play(Animations.THIRD_SWING, true);
       hitChainProgression = 1;
@@ -134,16 +109,11 @@ function updatePlayerBladeBehavior(player: EntityPlayer) {
     if (canDealDamage) {
       clearDamageState(player);
       const playerAimDir = player.GetAimDirection();
-      getPlayerStateData(player).activeAimDirection = Vector(
-        playerAimDir.X,
-        playerAimDir.Y,
-      );
+      getPlayerStateData(player).activeAimDirection = Vector(playerAimDir.X, playerAimDir.Y);
       flog(
         `I can attack: ${getPlayerStateData(player).lastFireTime} R:${
           game.GetFrameCount() - getPlayerStateData(player).lastFireTime
-        } D:${Tuneable.FireDelayByProgressionStage.get(
-          getPlayerStateData(player).hitChainProgression,
-        )}`,
+        } D:${Tuneable.FireDelayByProgressionStage.get(getPlayerStateData(player).hitChainProgression)}`,
         LOG_ID,
       );
     }
@@ -179,8 +149,7 @@ function updatePlayerBladeBehavior(player: EntityPlayer) {
       const chargeTime = getChargeTime(player);
       if (
         game.GetFrameCount() - lastFireTime > chargeTime &&
-        ((!isPlaying(bladeSprite, Animations.CHARGED_IDLE) &&
-          !isPlaying(bladeSprite, Animations.SWITCH_CHARGED_IDLE)) ||
+        ((!isPlaying(bladeSprite, Animations.CHARGED_IDLE) && !isPlaying(bladeSprite, Animations.SWITCH_CHARGED_IDLE)) ||
           isFinished(bladeSprite, Animations.SWITCH_CHARGED_IDLE))
       ) {
         getPlayerStateData(player).charged = true;
@@ -197,9 +166,7 @@ function updatePlayerBladeBehavior(player: EntityPlayer) {
   }
 
   if (isPlayerInAttackState(bladeSprite)) {
-    const canHitThisFrame = Tuneable.hitStateFrames
-      .get(getPlayerStateData(player).hitChainProgression)
-      ?.includes(bladeSprite.GetFrame());
+    const canHitThisFrame = Tuneable.hitStateFrames.get(getPlayerStateData(player).hitChainProgression)?.includes(bladeSprite.GetFrame());
     if (canHitThisFrame ?? false) {
       dealSamuraiBladeDamage(player, isHitCritical(player));
     }
@@ -213,21 +180,12 @@ function updatePlayerBladeBehavior(player: EntityPlayer) {
 
 function spawnItemFirstFrame() {
   if (game.GetFrameCount() === 1) {
-    Isaac.DebugString(
-      `Spawning item on the floor: ${CollectibleTypeCustom.SB_SAMURAI_BLADE}`,
-    );
-    Isaac.Spawn(
-      EntityType.PICKUP,
-      PickupVariant.COLLECTIBLE,
-      CollectibleTypeCustom.SB_SAMURAI_BLADE,
-      Vector(320, 300),
-      Vector(0, 0),
-      undefined,
-    );
+    Isaac.DebugString(`Spawning item on the floor: ${CollectibleTypeCustom.SB_SAMURAI_BLADE}`);
+    Isaac.Spawn(EntityType.PICKUP, PickupVariant.COLLECTIBLE, CollectibleTypeCustom.SB_SAMURAI_BLADE, Vector(320, 300), Vector(0, 0), undefined);
   }
 }
 
 function disableShooting(player: EntityPlayer) {
-  player.FireDelay = 42069;
+  player.FireDelay = player.MaxFireDelay + 1;
   player.UpdateCanShoot();
 }
