@@ -2574,10 +2574,10 @@ isaacscript-lint@^4.8.4:
     prettier-plugin-organize-imports "^3.2.2"
     ts-prune-2 "^0.10.7"
 
-isaacscript-spell@^1.2.31:
-  version "1.2.31"
-  resolved "https://registry.yarnpkg.com/isaacscript-spell/-/isaacscript-spell-1.2.31.tgz#da4e841e3df8ebc3efce80cd1fc6ea50f5a0da4b"
-  integrity sha512-DjIdGbAv7Ttrh3EaOIVudwNs5rTWJbb88inNIPrXLyJLUz7Ca3u+ZhoPTpclkTCylIUgXtHo3Mb5gmxEGqug0A==
+isaacscript-spell@^1.2.32:
+  version "1.2.32"
+  resolved "https://registry.yarnpkg.com/isaacscript-spell/-/isaacscript-spell-1.2.32.tgz#65b74635e71ed3324c3b95826645a74ab17a51d0"
+  integrity sha512-d0sejPNRyIlJHKetjpcOmoxnwY+5rC/pdPXmSOo6BTfi73lyzYNaj+m66byYoGY8oWXCU2dpGQQk23VbkVD/RQ==
 
 isaacscript-tsconfig@^3.0.4:
   version "3.0.4"
