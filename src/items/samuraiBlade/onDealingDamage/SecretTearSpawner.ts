@@ -9,8 +9,8 @@ export function spawnSecretTear(player: EntityPlayer, targetEntity: Entity): voi
   const tearDamageMultiplier = Tuneable.TearDamageMult.get(hitChainProgression);
 
   const tear = player.FireTear(targetEntity.Position, Vector(0, 0), false, true, false, player, tearDamageMultiplier);
-  tear.Visible = true;
-  tear.SetColor(Color(0, 0, 0, 0), 1, 999);
+  tear.Visible = false;
+  // tear.SetColor(Color(0, 0, 0, 0), 0, 999);
 
   // Piercing breaks the mechanism.
   if (tear.HasTearFlags(TearFlag.PIERCING)) {
