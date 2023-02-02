@@ -51,6 +51,7 @@
         [*] Some enemies have the wrong visual type assigned to them, causing incorrect particles to spawn when they are damaged by the item.
         [*] Tainted Samson's berserk timer does not increase on getting a kill with the item. (Modding API has no non-read-only field for berserk effect cooldown so this might be impossible to fix without doing something custom.)
         [*] [strike]Some Visual strangeness when walking into walls. [/strike]
+        [*][strike]"If you remove this item from your inventory after picking it up (with d4 or some other reroll) it removes your ability to fire" (This is a pretty bad one, I know how to fix it I think. (Thanks American Bagel for giving me a headsup))[/strike]
 
         Github Link: https://github.com/Math-Man/samurai-blade-continued
 

@@ -32,7 +32,7 @@ export const Tuneable: ITuneable = {
   FireDelayByProgressionStage: new Map<unknown, number>([
     [1, 20],
     [2, 10],
-    [3, 12],
+    [3, 15],
   ]),
   Damage: new Map<unknown, number>([
     [1, 0.25],
@@ -58,7 +58,7 @@ export const Tuneable: ITuneable = {
   hitStateFrames: new Map<int, int[]>([
     [1, [2, 3, 4, 5, 6, 7, 8]],
     [2, [1, 2, 3, 4, 5, 6, 7]],
-    [3, [2, 3, 4, 5, 6, 7, 8, 9]],
+    [3, [4, 5, 6, 7, 8, 9, 10]],
   ]),
   maxNumberOfHitsInOneSwingToSameEntity: 3,
   baseCriticalChance: 5,
