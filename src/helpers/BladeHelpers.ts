@@ -12,9 +12,7 @@ const CHARGE_VALUE_MODIFIER_FACTOR = 0.25;
 
 export function getBladeSpriteScaleFromStats(player: EntityPlayer): Vector {
   const { charged } = getPlayerStateData(player);
-  let scaleMultiplier =
-    (1 + (player.TearRange / 40) * Tuneable.StatRange * 0.02) *
-    Tuneable.StatRangeVisual;
+  let scaleMultiplier = (1 + (player.TearRange / 40) * Tuneable.StatRange * 0.02) * Tuneable.StatRangeVisual;
 
   if (charged) {
     scaleMultiplier += scaleMultiplier * CHARGE_VALUE_MODIFIER_FACTOR;
@@ -27,10 +25,7 @@ export function getBladeSpriteScaleFromStats(player: EntityPlayer): Vector {
 
 export function getBladePhysicalRange(player: EntityPlayer): float {
   const { charged } = getPlayerStateData(player);
-  let calculatedRange =
-    (Tuneable.BaseRange +
-      (player.TearRange / RANGE_CONVERSION_FACTOR) * Tuneable.StatDamage) *
-    Tuneable.StatRangePhysical;
+  let calculatedRange = (Tuneable.BaseRange + (Math.pow(player.TearRange, 1.2) / RANGE_CONVERSION_FACTOR) * Tuneable.StatDamage) * Tuneable.StatRangePhysical;
 
   if (charged) {
     calculatedRange += calculatedRange * CHARGE_VALUE_MODIFIER_FACTOR;
@@ -59,9 +54,7 @@ export function getBladeDamage(player: EntityPlayer): float {
 }
 
 export function getBladeFireDelay(player: EntityPlayer): number {
-  const fireDelay = Tuneable.FireDelayByProgressionStage.get(
-    getPlayerStateData(player).hitChainProgression,
-  );
+  const fireDelay = Tuneable.FireDelayByProgressionStage.get(getPlayerStateData(player).hitChainProgression);
   if (fireDelay === undefined) {
     error("Invalid hit chain progression value");
   }
@@ -74,17 +67,12 @@ export function getAndUpdatePlayerBladeFireTime(player: EntityPlayer): number {
   return lastFireTime;
 }
 
-export function canPlayerFireBlade(
-  player: EntityPlayer,
-  bladeSprite: Sprite,
-): boolean {
+export function canPlayerFireBlade(player: EntityPlayer, bladeSprite: Sprite): boolean {
   if (getPlayerStateData(player).lastFireTime === -1) {
     getPlayerStateData(player).lastFireTime = 0;
   }
 
-  const firingDelay = Tuneable.FireDelayByProgressionStage.get(
-    getPlayerStateData(player).hitChainProgression,
-  );
+  const firingDelay = Tuneable.FireDelayByProgressionStage.get(getPlayerStateData(player).hitChainProgression);
 
   if (firingDelay === undefined) {
     error("Invalid hit chain progression value");
@@ -94,26 +82,17 @@ export function canPlayerFireBlade(
     flog("Animation finished so that the player can fire.", LOG_ID);
   }
 
-  return (
-    math.abs(game.GetFrameCount() - getPlayerStateData(player).lastFireTime) >=
-    firingDelay
-  );
+  return math.abs(game.GetFrameCount() - getPlayerStateData(player).lastFireTime) >= firingDelay;
 }
 
 export function getChargeTime(player: EntityPlayer): number {
   const timeToGoIdle = getActualTimeToGoIdle(player);
-  return clamp(
-    (3 * timeToGoIdle) / player.ShotSpeed,
-    timeToGoIdle * 2,
-    timeToGoIdle * 10,
-  );
+  return clamp((3 * timeToGoIdle) / player.ShotSpeed, timeToGoIdle * 2, timeToGoIdle * 10);
 }
 
 export function getActualTimeToGoIdle(player: EntityPlayer): number {
   const fireDelay = getBladeFireDelay(player);
-  return Tuneable.TimeToGoIdleFrames <= getBladeFireDelay(player)
-    ? fireDelay + 5
-    : Tuneable.TimeToGoIdleFrames;
+  return Tuneable.TimeToGoIdleFrames <= getBladeFireDelay(player) ? fireDelay + 5 : Tuneable.TimeToGoIdleFrames;
 }
 
 export function isPlayerInAttackState(bladeSprite: Sprite): boolean {
