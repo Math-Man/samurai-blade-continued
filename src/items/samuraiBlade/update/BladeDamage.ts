@@ -77,7 +77,9 @@ export function pushEntityAway(player: EntityPlayer, entity: Entity): void {
   if (getPlayerStateData(player).charged) {
     diff.Resize(2);
   }
-  entity.Velocity = entity.Velocity.add(diff.Resized(Tuneable.PushMultiplier));
+
+  const pushMultiplier = Tuneable.PushMultiplier * (entity.IsBoss() ? 0.75 : 1);
+  entity.Velocity = entity.Velocity.add(diff.Resized(pushMultiplier));
 }
 
 export function doTileDamage(player: EntityPlayer): void {
