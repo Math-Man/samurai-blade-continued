@@ -78,7 +78,11 @@ export function pushEntityAway(player: EntityPlayer, entity: Entity): void {
     diff.Resize(2);
   }
 
-  const pushMultiplier = Tuneable.PushMultiplier * (entity.IsBoss() ? 0.75 : 1);
+  let pushMultiplier = Tuneable.PushMultiplier * (entity.IsBoss() ? 0.75 : 1);
+  if (Math.sign(diff.X) == Math.sign(entity.Velocity.X) && Math.sign(diff.Y) == Math.sign(entity.Velocity.Y)) {
+    pushMultiplier *= -1;
+  }
+
   entity.Velocity = entity.Velocity.add(diff.Resized(pushMultiplier));
 }
 

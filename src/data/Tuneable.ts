@@ -45,7 +45,7 @@ export const Tuneable: ITuneable = {
     [3, 0.2],
   ]),
   BaseRange: 100,
-  PushMultiplier: 3,
+  PushMultiplier: 10,
   TimeToGoIdleFrames: 32,
   DamageModifierForHittingSameEnemy: 0.55,
   StatRange: 2.1,
