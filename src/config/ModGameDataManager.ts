@@ -1,10 +1,12 @@
 import { ModUpgraded } from "isaacscript-common";
 import { decode, encode } from "json";
+import { TearFiringBehaviour } from "../enums/TearFiringBehaviour";
 
 interface ModStateData {
   configSpawnItemInFirstRoom: boolean;
   configPrintDebugInfo: boolean;
   configParticleMultiplier: number;
+  configTearFiringBehaviour: TearFiringBehaviour;
   configAdjustmentDamageMultiplier: number;
   configAdjustmentRangeMultiplier: number;
 }
@@ -13,6 +15,7 @@ export let modStateData: ModStateData = {
   configSpawnItemInFirstRoom: true,
   configPrintDebugInfo: false,
   configParticleMultiplier: 1.0,
+  configTearFiringBehaviour: TearFiringBehaviour.FIRE_DELAY_HACK,
   configAdjustmentDamageMultiplier: 1.0,
   configAdjustmentRangeMultiplier: 1.0,
 } as const;
@@ -35,23 +38,17 @@ export function loadGame(mod: ModUpgraded): void {
   // @ts-ignore
   if ("configAdjustmentDamageMultiplier" in saveState) {
     // @ts-ignore
-    modStateData.configAdjustmentDamageMultiplier =
-      saveState.configAdjustmentDamageMultiplier;
+    modStateData.configAdjustmentDamageMultiplier = saveState.configAdjustmentDamageMultiplier;
 
-    Isaac.DebugString(
-      `Samurai-Blade, loaded setting 'configAdjustmentDamageMultiplier', ${modStateData.configAdjustmentDamageMultiplier}`,
-    );
+    Isaac.DebugString(`Samurai-Blade, loaded setting 'configAdjustmentDamageMultiplier', ${modStateData.configAdjustmentDamageMultiplier}`);
   }
 
   // @ts-ignore
   if ("configSpawnItemInFirstRoom" in saveState) {
     // @ts-ignore
-    modStateData.configSpawnItemInFirstRoom =
-      saveState.configSpawnItemInFirstRoom;
+    modStateData.configSpawnItemInFirstRoom = saveState.configSpawnItemInFirstRoom;
 
-    Isaac.DebugString(
-      `Samurai-Blade, loaded setting 'configSpawnItemInFirstRoom', ${modStateData.configSpawnItemInFirstRoom}`,
-    );
+    Isaac.DebugString(`Samurai-Blade, loaded setting 'configSpawnItemInFirstRoom', ${modStateData.configSpawnItemInFirstRoom}`);
   }
 
   // @ts-ignore
@@ -60,7 +57,5 @@ export function loadGame(mod: ModUpgraded): void {
     modStateData.configPrintDebugInfo = saveState.configPrintDebugInfo;
   }
 
-  Isaac.DebugString(
-    `Samurai-Blade, loaded setting 'configPrintDebugInfo', ${modStateData.configPrintDebugInfo}`,
-  );
+  Isaac.DebugString(`Samurai-Blade, loaded setting 'configPrintDebugInfo', ${modStateData.configPrintDebugInfo}`);
 }

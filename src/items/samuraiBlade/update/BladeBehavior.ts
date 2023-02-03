@@ -5,6 +5,7 @@ import { getPlayerStateData } from "../../../data/StateData";
 import { Tuneable } from "../../../data/Tuneable";
 import { CollectibleTypeCustom } from "../../../enums/CollectibleTypeCustom";
 import { SoundsCustom } from "../../../enums/SoundsCustom";
+import { TearFiringBehaviour } from "../../../enums/TearFiringBehaviour";
 import {
   Animations,
   isFinished,
@@ -186,6 +187,8 @@ function spawnItemFirstFrame() {
 }
 
 function disableShooting(player: EntityPlayer) {
-  player.FireDelay = player.MaxFireDelay + 1;
-  player.UpdateCanShoot();
+  if (modStateData.configTearFiringBehaviour == TearFiringBehaviour.FIRE_DELAY_HACK) {
+    player.FireDelay = player.MaxFireDelay + 1;
+    player.UpdateCanShoot();
+  }
 }

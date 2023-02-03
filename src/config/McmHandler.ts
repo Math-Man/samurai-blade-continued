@@ -1,3 +1,4 @@
+import { TearFiringBehaviourAsString } from "../enums/TearFiringBehaviour";
 import { flog } from "../helpers/DebugHelper";
 import { modStateData } from "./ModGameDataManager";
 
@@ -21,6 +22,7 @@ export function setupMCM(): void {
   setupConfigSpawnItemInFirstRoom(modCategoryName);
   setupConfigPrintDebugInfo(modCategoryName);
   setupConfigParticleMultiplier(modCategoryName);
+  setupConfigTearFiringBehaviour(modCategoryName);
 
   ModConfigMenu?.AddText(modCategoryName, "Tuning", () => "Change item stats");
   ModConfigMenu?.AddSpace(modCategoryName, "Tuning");
@@ -29,11 +31,7 @@ export function setupMCM(): void {
   setupConfigRangeMultiplier(modCategoryName);
 
   ModConfigMenu?.AddSpace(modCategoryName, "Tuning");
-  ModConfigMenu?.AddText(
-    modCategoryName,
-    "Tuning",
-    () => "More settings might be added later on.",
-  );
+  ModConfigMenu?.AddText(modCategoryName, "Tuning", () => "More settings might be added later on.");
 }
 
 function setupConfigSpawnItemInFirstRoom(modCategoryName: string) {
@@ -42,19 +40,14 @@ function setupConfigSpawnItemInFirstRoom(modCategoryName: string) {
       return modStateData.configSpawnItemInFirstRoom;
     },
     Display(): string {
-      return (
-        "Spawn in the starting room :" + modStateData.configSpawnItemInFirstRoom
-      );
+      return "Spawn in the starting room :" + modStateData.configSpawnItemInFirstRoom;
     },
     Info: ["Should The Samurai Blade spawn in the first room?"],
     OnChange(newValue: number | boolean | undefined): void {
       if (typeof newValue === "boolean") {
         modStateData.configSpawnItemInFirstRoom = newValue;
       }
-      flog(
-        `Spawn On start: ${modStateData.configSpawnItemInFirstRoom}`,
-        LOG_ID,
-      );
+      flog(`Spawn On start: ${modStateData.configSpawnItemInFirstRoom}`, LOG_ID);
     },
     Type: ModConfigMenuOptionType.BOOLEAN,
   });
@@ -101,6 +94,29 @@ function setupConfigParticleMultiplier(modCategoryName: string) {
   });
 }
 
+function setupConfigTearFiringBehaviour(modCategoryName: string) {
+  ModConfigMenu?.AddSetting(modCategoryName, "Settings", {
+    CurrentSetting(): number | boolean {
+      return modStateData.configTearFiringBehaviour;
+    },
+    Display(): string {
+      return `Tear behaviour: ${TearFiringBehaviourAsString(modStateData.configTearFiringBehaviour)}`;
+    },
+    Info: ["Change how the tear firing behaves", "Fire Delay Hack is the default"],
+    Maximum: 1,
+    Minimum: 0,
+    ModifyBy: 1,
+    OnChange(newValue: number | boolean | undefined): void {
+      if (typeof newValue === "number") {
+        modStateData.configTearFiringBehaviour = newValue;
+      }
+      flog(`Tear Firing Behaviour Changed: ${modStateData.configTearFiringBehaviour}}`);
+    },
+    PopupWidth: 0,
+    Type: ModConfigMenuOptionType.NUMBER,
+  });
+}
+
 function setupConfigDamageMultiplier(modCategoryName: string) {
   ModConfigMenu?.AddSetting(modCategoryName, "Tuning", {
     CurrentSetting(): number | boolean {
@@ -117,9 +133,7 @@ function setupConfigDamageMultiplier(modCategoryName: string) {
       if (typeof newValue === "number") {
         modStateData.configAdjustmentDamageMultiplier = newValue;
       }
-      flog(
-        `Damage value changed: ${modStateData.configAdjustmentDamageMultiplier}`,
-      );
+      flog(`Damage value changed: ${modStateData.configAdjustmentDamageMultiplier}`);
     },
     PopupWidth: 0,
     Type: ModConfigMenuOptionType.NUMBER,
@@ -142,9 +156,7 @@ function setupConfigRangeMultiplier(modCategoryName: string) {
       if (typeof newValue === "number") {
         modStateData.configAdjustmentRangeMultiplier = newValue;
       }
-      flog(
-        `Range value changed: ${modStateData.configAdjustmentRangeMultiplier}`,
-      );
+      flog(`Range value changed: ${modStateData.configAdjustmentRangeMultiplier}`);
     },
     PopupWidth: 0,
     Type: ModConfigMenuOptionType.NUMBER,

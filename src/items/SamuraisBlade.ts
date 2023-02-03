@@ -56,27 +56,12 @@ export function SamuraiBladeEntityDamage(
   damageSource: EntityRef,
   damageCountdownFrames: number,
 ): boolean {
-  spawnGore(
-    tookDamage,
-    damageAmount,
-    damageFlags,
-    damageSource,
-    damageCountdownFrames,
-  );
-  playerHitSound(
-    tookDamage,
-    damageAmount,
-    damageFlags,
-    damageSource,
-    damageCountdownFrames,
-  );
+  spawnGore(tookDamage, damageAmount, damageFlags, damageSource, damageCountdownFrames);
+  playerHitSound(tookDamage, damageAmount, damageFlags, damageSource, damageCountdownFrames);
   return true;
 }
 
-export function SamuraiBladeEvalCache(
-  player: EntityPlayer,
-  cacheFlag: CacheFlag,
-): void {
+export function SamuraiBladeEvalCache(player: EntityPlayer, cacheFlag: CacheFlag): void {
   motivatePlayer(player, cacheFlag);
 }
 

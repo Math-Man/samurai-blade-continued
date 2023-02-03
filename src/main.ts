@@ -2,6 +2,7 @@ import { ModCallback } from "isaac-typescript-definitions";
 import { ModUpgraded, upgradeMod } from "isaacscript-common";
 import { entityTakeDamageInit } from "./callbacks/MCEntityTakeDamage";
 import { evaluateCacheInit } from "./callbacks/MCEvaluateCache";
+import { postCollectibleRemoved } from "./callbacks/MCPostCollectibleRemoved";
 import { postGameStartedInit } from "./callbacks/MCPostGameStarted";
 import { postItemPickupInit } from "./callbacks/MCPostItemPickup";
 import { postNewRoomInit } from "./callbacks/MCPostNewRoom";
@@ -26,9 +27,7 @@ export function main(): void {
 }
 
 function registerCallbacks(mod: ModUpgraded) {
-  Isaac.DebugString(
-    `Callback triggered: POST_GAME_STARTED ${ModCallback.POST_GAME_STARTED}`,
-  );
+  Isaac.DebugString(`Callback triggered: POST_GAME_STARTED ${ModCallback.POST_GAME_STARTED}`);
 
   postUpdateInit(mod);
   postRenderInit(mod);
@@ -41,4 +40,5 @@ function registerCallbacks(mod: ModUpgraded) {
   postItemPickupInit(mod);
   postTearUpdateInit(mod);
   preGameExitInit(mod);
+  postCollectibleRemoved(mod);
 }
