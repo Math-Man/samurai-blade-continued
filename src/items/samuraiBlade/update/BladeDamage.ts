@@ -18,7 +18,7 @@ const LOG_ID = "BladeDamage";
 export function dealSamuraiBladeDamage(player: EntityPlayer, isCritical: boolean): void {
   const targets = getHitTargetsInsideArea(player, player.Position, player.GetAimDirection(), getBladePhysicalRange(player));
   for (const target of targets) {
-    if (target.IsVulnerableEnemy() || target.Type === EntityType.FIREPLACE || target.Type === EntityType.BOMB) {
+    if (target.IsVulnerableEnemy() || target.Type === EntityType.FIREPLACE || target.Type === EntityType.BOMB || target.Type === EntityType.MOVABLE_TNT) {
       const previousHitCountToSameEntity = countOccurrencesOfState(player, target);
       flog(`hit count ${previousHitCountToSameEntity}, UNDEFINED: ${countOccurrencesOfState(player, target) === undefined}`, LOG_ID);
       if (
