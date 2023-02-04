@@ -51,6 +51,7 @@
             [*] Some enemies have the wrong visual type assigned to them, causing incorrect particles to spawn when they are damaged by the item.
             [*] Tainted Samson's berserk timer does not increase on getting a kill with the item. (Modding API has no non-read-only field for berserk effect cooldown so this might be impossible to fix without doing something custom.)
             [*] Swing sounds are stereo, they should be mono.
+            [*] When playing with Jacob and Esua, item does not work if you pick it up with Esua.
         [/list]
 
 

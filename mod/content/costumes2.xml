@@ -1,3 +1,6 @@
 <costumes anm2root="gfx/characters/">
-    <costume anm2path="SamNew2_f.anm2" type="none" priority="999999999" skinColor="0" forceHeadColor="true"/>
+    <costume anm2path="SamNew2_f.anm2" type="none" priority="9999" skinColor="0" forceHeadColor="true"/>
+    <costume anm2path="SamNew2_f_no_face.anm2" type="none" priority="9999" />
+    <costume anm2path="SamNew2_f_no_hair.anm2" type="none" priority="9999" />
+    <costume anm2path="SamNew2_f_no_face_no_hair.anm2" type="none" priority="9999" />
 </costumes>
