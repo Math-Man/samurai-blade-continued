@@ -2,6 +2,7 @@ import { ModUpgraded } from "isaacscript-common";
 import { decode, encode } from "json";
 import { TearFiringBehaviour } from "../enums/TearFiringBehaviour";
 
+/** Don't forget to modify loadGame() method after adding an option **/
 interface ModStateData {
   configSpawnItemInFirstRoom: boolean;
   configPrintDebugInfo: boolean;
@@ -47,7 +48,6 @@ export function loadGame(mod: ModUpgraded): void {
   if ("configSpawnItemInFirstRoom" in saveState) {
     // @ts-ignore
     modStateData.configSpawnItemInFirstRoom = saveState.configSpawnItemInFirstRoom;
-
     Isaac.DebugString(`Samurai-Blade, loaded setting 'configSpawnItemInFirstRoom', ${modStateData.configSpawnItemInFirstRoom}`);
   }
 
@@ -55,6 +55,24 @@ export function loadGame(mod: ModUpgraded): void {
   if ("configPrintDebugInfo" in saveState) {
     // @ts-ignore
     modStateData.configPrintDebugInfo = saveState.configPrintDebugInfo;
+  }
+
+  // @ts-ignore
+  if ("configParticleMultiplier" in saveState) {
+    // @ts-ignore
+    modStateData.configParticleMultiplier = saveState.configParticleMultiplier;
+  }
+
+  // @ts-ignore
+  if ("configTearFiringBehaviour" in saveState) {
+    // @ts-ignore
+    modStateData.configTearFiringBehaviour = saveState.configTearFiringBehaviour;
+  }
+
+  // @ts-ignore
+  if ("configAdjustmentRangeMultiplier" in saveState) {
+    // @ts-ignore
+    modStateData.configAdjustmentRangeMultiplier = saveState.configAdjustmentRangeMultiplier;
   }
 
   Isaac.DebugString(`Samurai-Blade, loaded setting 'configPrintDebugInfo', ${modStateData.configPrintDebugInfo}`);

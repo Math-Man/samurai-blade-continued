@@ -2,10 +2,10 @@ import { TearFlag, TearVariant } from "isaac-typescript-definitions";
 import { logTearFlags } from "isaacscript-common";
 import { getPlayerStateData } from "../../../data/StateData";
 import { Tuneable } from "../../../data/Tuneable";
-import { flog } from "../../../helpers/DebugHelper";
+import { infoLog } from "../../../helpers/DebugHelper";
 
 export function spawnSecretTear(player: EntityPlayer, targetEntity: Entity): void {
-  const { charged, hitChainProgression } = getPlayerStateData(player);
+  const { hitChainProgression } = getPlayerStateData(player);
   const tearDamageMultiplier = Tuneable.TearDamageMult.get(hitChainProgression);
 
   const tear = player.FireTear(targetEntity.Position, Vector(0, 0), false, true, false, player, tearDamageMultiplier);
@@ -22,7 +22,6 @@ export function spawnSecretTear(player: EntityPlayer, targetEntity: Entity): voi
   // body, it looks like an intended effect.
   tear.ChangeVariant(TearVariant.SWORD_BEAM);
 
-  flog("Secret tear spawned ", "SecretTearSpawner");
-  flog(`TEAR HEIGHT: ${tear.Height}`, "TEAR HEIGHT!");
+  infoLog("Secret tear spawned! Tear flags will be logged", "SECRET TEAR");
   logTearFlags(tear.TearFlags);
 }

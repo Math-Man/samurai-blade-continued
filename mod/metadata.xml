@@ -3,10 +3,12 @@
     <name>Samurai's Blade</name>
     <directory>samurai-blade</directory>
     <id>2925374699</id>
-    <description>        [h1]A familiar sword wielded by a well-known samurai can now be found in the basement[/h1]
+    <description>[h1]A familiar sword wielded by a well-known samurai can now be found in the basement[/h1]
         [h3](Yes, it is Muramasa from Metal Gear Rising, no this is only half a poop-post.)[/h3]
 
-        [i][u]This mod is still in the early stage, it works but there are many synergies missing. There [strike]might also be[/strike] are [b]BUGS[/b]. Also  it is probably severely unbalanced.[/u][/i]
+        [i][u]This mod is still in the early stage, it works but there are many synergies missing. There [strike]might also be[/strike] are [b]BUGS[/b]. Also, it is probably severely unbalanced.[/u][/i]
+
+        Quick announcement: I'll hopefully be releasing an update tomorrow that makes some cosmetic additions, [b]I'll also be switching the default setting for 'spawn the item in the starting room' to false in the mod config manager.[/b]
 
 
         This mod only adds a single item called Samurai's Blade which can be found randomly in boss, treasure and shop rooms [i](Or be picked up at the starting room if you enable that option in the mod config)[/i]. Picking up This item changes Isaac's attack to a unique melee weapon.
@@ -15,54 +17,52 @@
 
         Although Samurai's Blade has stats of its own, (Swing time, charge-up time, damage, etc.) all of its stats are modified by Isaac's own stats.
 
-        [img]https://raw.githubusercontent.com/Math-Man/samurai-blade-continued/main/media/p2.gif[/img]
+        [img]https://raw.githubusercontent.com/Math-Man/samurai-blade-continued/main/media/p3.gif[/img]
 
 
         By default config, item spawns in the starting room. However, this can be changed through mod config menu. The item does appear randomly in treasure, boss and shop item pools.
 
         Player stats and what they effect:
         [list]
-        [*] Damage: Directly modifies damage by a factor of player's damage.
-        [*] Fire Delay: Higher fire rate reduces delay between swings.
-        [*] Shot speed: Higher shot speed reduces time required for blade to be charged.
-        [*] Range, Shot height etc.: Increases blade's arc size.
-        [*] Luck : Increases critical hit chance. (For now this is a simple damage increase)
+            [*] Damage: Directly modifies damage by a factor of player's damage.
+            [*] Fire Delay: Higher fire rate reduces delay between swings.
+            [*] Shot speed: Higher shot speed reduces time required for blade to be charged.
+            [*] Range, Shot height etc.: Increases blade's arc size.
+            [*] Luck : Increases critical hit chance. (For now this is a simple damage increase)
         [/list]
 
 
         Also do note any and all tear effect-based synergies will work but more complex synergies will not as they need custom implementations, some of which are;
         [list]
-        [*] The Ludovico Technique
-        [*] Brimstone
-        [*] Anything that changes how tears work.
+            [*] The Ludovico Technique
+            [*] Brimstone
+            [*] Anything that changes how tears work.
         [/list]
 
-        If you have the mod config menu mod, you can also modify item stats (currently only damage).
+        If you have the mod config menu mod, you can also modify item stats (currently only damage and range). Also you can enable tear-shooting and adjust particle effect intensity from the mod config menu as well.
 
-        Now go be a basement samurai or something, I don't really care.
 
-        Known issues:
+        [i]Now go be a basement samurai or something, I don't really care.[/i]
+
+        [h3]Known issues[/h3]
         [list]
-        [*] [strike]The item is very broken in the Mirror world (Just a visual bug).[/strike]
-        [*] [strike]Wall-climbing and flying enemies do not ignore the blade's line-of-sight rule as expected.[/strike]
-        [*] [strike]Pits block line of sight. :( [/strike]
-        [*] There seems to be an issue with performance on some setups, currently investigating.
-        [*] Large mirror rooms still cause some visual issues. (I need to figure out a smarter solution, working on it. I hate mirrors.)
-        [*] Some enemies have the wrong visual type assigned to them, causing incorrect particles to spawn when they are damaged by the item.
-        [*] Tainted Samson's berserk timer does not increase on getting a kill with the item. (Modding API has no non-read-only field for berserk effect cooldown so this might be impossible to fix without doing something custom.)
-        [*] [strike]Some Visual strangeness when walking into walls. [/strike]
-        [*][strike]"If you remove this item from your inventory after picking it up (with d4 or some other reroll) it removes your ability to fire" (This is a pretty bad one, I know how to fix it I think. (Thanks American Bagel for giving me a headsup))[/strike]
-
-        Github Link: https://github.com/Math-Man/samurai-blade-continued
-
-        Credits:
-        [list]
-        [*] Base sound effects are from Ultimate Sound FX Bundle.
-        [*] Art by Von Duckling.
-        [*] Terrible Programming by me.
-        [*] Metal Gear series and Metal Gear Rising owned by Konami Holdings Corporation
+            [*] There seems to be an issue with performance on some setups, currently investigating.
+            [*] Large mirror rooms still cause some visual issues. (I need to figure out a smarter solution, working on it. I hate mirrors.)
+            [*] Some enemies have the wrong visual type assigned to them, causing incorrect particles to spawn when they are damaged by the item.
+            [*] Tainted Samson's berserk timer does not increase on getting a kill with the item. (Modding API has no non-read-only field for berserk effect cooldown so this might be impossible to fix without doing something custom.)
+            [*] Swing sounds are stereo, they should be mono.
         [/list]
 
+
+        For implementation details and more info here is the [url=https://github.com/Math-Man/samurai-blade-continued]Github link[/url]
+
+        [h3]Credits[/h3]
+        [list]
+            [*] Base sound effects are from Ultimate Sound FX Bundle.
+            [*] Art by Von Duckling.
+            [*] Terrible Programming by me.
+            [*] Metal Gear series and Metal Gear Rising owned by Konami Holdings Corporation
+        [/list]
 
     </description>
     <version>0.0.20</version>

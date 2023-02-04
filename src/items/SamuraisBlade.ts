@@ -3,7 +3,7 @@ import { getPlayers, ModUpgraded } from "isaacscript-common";
 import { setupMCM } from "../config/McmHandler";
 import { loadGame, saveGame } from "../config/ModGameDataManager";
 import { flushAllStateData, getPlayerStateData } from "../data/StateData";
-import { flog } from "../helpers/DebugHelper";
+import { flog, infoLog } from "../helpers/DebugHelper";
 import { playerHasSamuraisBladeItem } from "../helpers/Helpers";
 import { motivatePlayer } from "./samuraiBlade/onCache/Motivate";
 import { playerHitSound } from "./samuraiBlade/onDealingDamage/HitSound";
@@ -75,7 +75,8 @@ export function SamuraiBladePostTearUpdate(tear: EntityTear): void {
 }
 
 export function SamuraiBladePostPickup(player: EntityPlayer): void {
-  flog("Item picked up!", LOG_ID);
+  infoLog("Item picked up!", LOG_ID);
+
   // TODO: We don't have a costume yet...
   //applyCoolCostume(player);
 }

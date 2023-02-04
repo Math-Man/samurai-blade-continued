@@ -1,5 +1,5 @@
 import { TearFiringBehaviourAsString } from "../enums/TearFiringBehaviour";
-import { flog } from "../helpers/DebugHelper";
+import { flog, infoLog } from "../helpers/DebugHelper";
 import { modStateData } from "./ModGameDataManager";
 
 const LOG_ID = "MCM CONFIG";
@@ -47,7 +47,7 @@ function setupConfigSpawnItemInFirstRoom(modCategoryName: string) {
       if (typeof newValue === "boolean") {
         modStateData.configSpawnItemInFirstRoom = newValue;
       }
-      flog(`Spawn On start: ${modStateData.configSpawnItemInFirstRoom}`, LOG_ID);
+      infoLog(`Spawn On start: ${modStateData.configSpawnItemInFirstRoom}`, LOG_ID);
     },
     Type: ModConfigMenuOptionType.BOOLEAN,
   });
@@ -65,7 +65,7 @@ function setupConfigPrintDebugInfo(modCategoryName: string) {
       if (typeof newValue === "boolean") {
         modStateData.configPrintDebugInfo = newValue;
       }
-      flog(`Display debug info: ${modStateData.configPrintDebugInfo}`, LOG_ID);
+      infoLog(`Display debug info: ${modStateData.configPrintDebugInfo}`, LOG_ID);
     },
     Type: ModConfigMenuOptionType.BOOLEAN,
   });
@@ -87,7 +87,7 @@ function setupConfigParticleMultiplier(modCategoryName: string) {
       if (typeof newValue === "number") {
         modStateData.configParticleMultiplier = newValue;
       }
-      flog(`Particles value changed: ${modStateData.configParticleMultiplier}`);
+      infoLog(`Particles value changed: ${modStateData.configParticleMultiplier}`);
     },
     PopupWidth: 0,
     Type: ModConfigMenuOptionType.NUMBER,
@@ -110,7 +110,7 @@ function setupConfigTearFiringBehaviour(modCategoryName: string) {
       if (typeof newValue === "number") {
         modStateData.configTearFiringBehaviour = newValue;
       }
-      flog(`Tear Firing Behaviour Changed: ${modStateData.configTearFiringBehaviour}}`);
+      infoLog(`Tear Firing Behaviour Changed: ${modStateData.configTearFiringBehaviour}}`);
     },
     PopupWidth: 0,
     Type: ModConfigMenuOptionType.NUMBER,
@@ -133,7 +133,7 @@ function setupConfigDamageMultiplier(modCategoryName: string) {
       if (typeof newValue === "number") {
         modStateData.configAdjustmentDamageMultiplier = newValue;
       }
-      flog(`Damage value changed: ${modStateData.configAdjustmentDamageMultiplier}`);
+      infoLog(`Damage value changed: ${modStateData.configAdjustmentDamageMultiplier}`);
     },
     PopupWidth: 0,
     Type: ModConfigMenuOptionType.NUMBER,
@@ -156,7 +156,7 @@ function setupConfigRangeMultiplier(modCategoryName: string) {
       if (typeof newValue === "number") {
         modStateData.configAdjustmentRangeMultiplier = newValue;
       }
-      flog(`Range value changed: ${modStateData.configAdjustmentRangeMultiplier}`);
+      infoLog(`Range value changed: ${modStateData.configAdjustmentRangeMultiplier}`);
     },
     PopupWidth: 0,
     Type: ModConfigMenuOptionType.NUMBER,
