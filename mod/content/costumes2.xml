@@ -1,0 +1,3 @@
+<costumes anm2root="gfx/characters/">
+    <costume anm2path="SamNew2_f.anm2" type="none" priority="999999999" skinColor="0" forceHeadColor="true"/>
+</costumes>

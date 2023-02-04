@@ -1,3 +1,3 @@
 export const CostumesCustom = {
-  SB_COSTUME_SAM: Isaac.GetCostumeIdByPath("gfx/characters/costume_sam.anm2"),
+  SB_COSTUME_SAM: Isaac.GetCostumeIdByPath("gfx/characters/SamNew2_f.anm2"),
 } as const;
