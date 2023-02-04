@@ -21,12 +21,10 @@ export function renderBlades(): void {
 
   const realPlayers = getPlayers();
   for (const player of realPlayers) {
-    if (!playerHasSamuraisBladeItem(player) || game.IsPaused()) {
-      return;
+    if (!playerHasSamuraisBladeItem(player)) {
+      continue;
     }
-
     const { bladeSprite, holsterSprite } = getPlayerStateData(player);
-
     renderUserBlade(bladeSprite, player);
 
     if (
