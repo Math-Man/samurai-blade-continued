@@ -128,6 +128,9 @@ export function IsLOSIgnoreType(target: Entity): boolean {
     case EntityType.WALL_CREEP:
     case EntityType.RAGE_CREEP:
     case EntityType.THE_THING:
+    case EntityType.HORF:
+    case EntityType.SUB_HORF:
+    case EntityType.NECRO:
       return true;
     default:
       return false;
