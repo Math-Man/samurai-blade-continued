@@ -67,4 +67,6 @@
     <visibility>Public</visibility>
     <tag id="Lua"/>
     <tag id="Items"/>
+    <tag id="Graphics"/>
+    <tag id="Sound Effects"/>
 </metadata>

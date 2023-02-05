@@ -10,15 +10,14 @@ import { DamageFlagsCustom } from "../../../enums/DamageFlagsCustom";
 import { LineOfSightCheckBehaviour } from "../../../enums/LineOfSightCheckBehaviour";
 import { getBladeDamage, getBladePhysicalRange } from "../../../helpers/BladeHelpers";
 import { flog, infoLog } from "../../../helpers/DebugHelper";
-import { getHitTargetsInsideArea, isHitTargetInsideArea } from "../../../helpers/TargetFinding";
+import { isHitTargetInsideArea } from "../../../helpers/TargetFinding";
 import { countOccurrencesOfState, registerDamageState } from "../onDealingDamage/DamageStateHandler";
 import { spawnSecretTear } from "../onDealingDamage/SecretTearSpawner";
 import { handleTearCountSynergies, hasSpectral } from "../synergy/SynergyHandlers";
 
 const LOG_ID = "BladeDamage";
 
-export function dealSamuraiBladeDamage(player: EntityPlayer, isCritical: boolean): void {
-  const targets = getHitTargetsInsideArea(player, player.Position, player.GetAimDirection(), getBladePhysicalRange(player));
+export function dealSamuraiBladeDamage(player: EntityPlayer, isCritical: boolean, targets: Entity[]): void {
   for (const target of targets) {
     if (target.IsVulnerableEnemy() || target.Type === EntityType.FIREPLACE || target.Type === EntityType.BOMB || target.Type === EntityType.MOVABLE_TNT) {
       const previousHitCountToSameEntity = countOccurrencesOfState(player, target);

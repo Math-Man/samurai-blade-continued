@@ -18,6 +18,7 @@ import {
   canPlayerFireBlade,
   getActualTimeToGoIdle,
   getAndUpdatePlayerBladeFireTime,
+  getBladePhysicalRange,
   getChargeTime,
   getNextPlayerStateFromAnimation,
   hasPlayerExitedAttackState,
@@ -25,8 +26,10 @@ import {
 } from "../../../helpers/BladeHelpers";
 import { flog, infoLog } from "../../../helpers/DebugHelper";
 import { isPlayerShooting, playerHasSamuraisBladeItem } from "../../../helpers/Helpers";
+import { getHitTargetsInsideArea } from "../../../helpers/TargetFinding";
 import { isHitCritical } from "../onDealingDamage/CriticalHitHandler";
 import { clearDamageState } from "../onDealingDamage/DamageStateHandler";
+import { pickupBasics } from "../specialBehaviour/BasicPickups";
 import { dealSamuraiBladeDamage } from "./BladeDamage";
 
 const LOG_ID = "BladeBehavior";
@@ -167,9 +170,18 @@ function updatePlayerBladeBehavior(player: EntityPlayer) {
   }
 
   if (isPlayerInAttackState(bladeSprite)) {
-    const canHitThisFrame = Tuneable.hitStateFrames.get(getPlayerStateData(player).hitChainProgression)?.includes(bladeSprite.GetFrame());
+    const frameIndexes = Tuneable.hitStateFrames.get(getPlayerStateData(player).hitChainProgression);
+    const canHitThisFrame = frameIndexes?.includes(bladeSprite.GetFrame());
+
     if (canHitThisFrame ?? false) {
-      dealSamuraiBladeDamage(player, isHitCritical(player));
+      const targets = getHitTargetsInsideArea(player, player.Position, player.GetAimDirection(), getBladePhysicalRange(player));
+
+      dealSamuraiBladeDamage(player, isHitCritical(player), targets);
+
+      // if it is the first frame of the swing animation, allow item pickups
+      if (modStateData.configBladePicksUpItems && frameIndexes && frameIndexes[0] === bladeSprite.GetFrame()) {
+        pickupBasics(player, targets);
+      }
     }
   }
 

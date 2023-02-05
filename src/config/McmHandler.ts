@@ -25,6 +25,7 @@ export function setupMCM(): void {
   setupConfigParticleMultiplier(modCategoryName);
   setupConfigTearFiringBehaviour(modCategoryName);
   setupConfigLineOfSightCheck(modCategoryName);
+  setupConfigBladePicksUpItems(modCategoryName);
 
   ModConfigMenu?.AddText(modCategoryName, "Tuning", () => "Change item stats");
   ModConfigMenu?.AddSpace(modCategoryName, "Tuning");
@@ -139,6 +140,25 @@ function setupConfigLineOfSightCheck(modCategoryName: string) {
     },
     PopupWidth: 0,
     Type: ModConfigMenuOptionType.NUMBER,
+  });
+}
+
+function setupConfigBladePicksUpItems(modCategoryName: string) {
+  ModConfigMenu?.AddSetting(modCategoryName, "Settings", {
+    CurrentSetting(): number | boolean {
+      return modStateData.configBladePicksUpItems;
+    },
+    Display(): string {
+      return `Attacks collects items: ${modStateData.configBladePicksUpItems}`;
+    },
+    Info: ["Should attacking collect items on the ground similarly to the spirit sword"],
+    OnChange(newValue: number | boolean | undefined): void {
+      if (typeof newValue === "boolean") {
+        modStateData.configBladePicksUpItems = newValue;
+      }
+      infoLog(`Pickup Item Behaviour Changed: ${modStateData.configBladePicksUpItems}}`);
+    },
+    Type: ModConfigMenuOptionType.BOOLEAN,
   });
 }
 
