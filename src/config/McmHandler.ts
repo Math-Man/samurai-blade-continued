@@ -1,3 +1,4 @@
+import { LOSCheckBehaviourAsString } from "../enums/LineOfSightCheckBehaviour";
 import { TearFiringBehaviourAsString } from "../enums/TearFiringBehaviour";
 import { flog, infoLog } from "../helpers/DebugHelper";
 import { modStateData } from "./ModGameDataManager";
@@ -23,6 +24,7 @@ export function setupMCM(): void {
   setupConfigPrintDebugInfo(modCategoryName);
   setupConfigParticleMultiplier(modCategoryName);
   setupConfigTearFiringBehaviour(modCategoryName);
+  setupConfigLineOfSightCheck(modCategoryName);
 
   ModConfigMenu?.AddText(modCategoryName, "Tuning", () => "Change item stats");
   ModConfigMenu?.AddSpace(modCategoryName, "Tuning");
@@ -111,6 +113,29 @@ function setupConfigTearFiringBehaviour(modCategoryName: string) {
         modStateData.configTearFiringBehaviour = newValue;
       }
       infoLog(`Tear Firing Behaviour Changed: ${modStateData.configTearFiringBehaviour}}`);
+    },
+    PopupWidth: 0,
+    Type: ModConfigMenuOptionType.NUMBER,
+  });
+}
+
+function setupConfigLineOfSightCheck(modCategoryName: string) {
+  ModConfigMenu?.AddSetting(modCategoryName, "Settings", {
+    CurrentSetting(): number | boolean {
+      return modStateData.configLineOfSightCheck;
+    },
+    Display(): string {
+      return `Line-of-sight Check: ${LOSCheckBehaviourAsString(modStateData.configLineOfSightCheck)}`;
+    },
+    Info: ["Change how the Line of Sight check behaves", "Normal is default"],
+    Maximum: 1,
+    Minimum: 0,
+    ModifyBy: 1,
+    OnChange(newValue: number | boolean | undefined): void {
+      if (typeof newValue === "number") {
+        modStateData.configLineOfSightCheck = newValue;
+      }
+      infoLog(`LOS Check Behaviour Changed: ${modStateData.configLineOfSightCheck}}`);
     },
     PopupWidth: 0,
     Type: ModConfigMenuOptionType.NUMBER,

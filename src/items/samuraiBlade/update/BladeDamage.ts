@@ -3,9 +3,11 @@
 
 import { EntityType, LineCheckMode, TearFlag } from "isaac-typescript-definitions";
 import { clamp, game, getRandomInt, hasFlag } from "isaacscript-common";
+import { modStateData } from "../../../config/ModGameDataManager";
 import { getPlayerStateData } from "../../../data/StateData";
 import { Tuneable } from "../../../data/Tuneable";
 import { DamageFlagsCustom } from "../../../enums/DamageFlagsCustom";
+import { LineOfSightCheckBehaviour } from "../../../enums/LineOfSightCheckBehaviour";
 import { getBladeDamage, getBladePhysicalRange } from "../../../helpers/BladeHelpers";
 import { flog } from "../../../helpers/DebugHelper";
 import { getHitTargetsInsideArea, isHitTargetInsideArea } from "../../../helpers/TargetFinding";
@@ -105,6 +107,10 @@ export function doTileDamage(player: EntityPlayer): void {
 }
 
 export function LOSCheck(player: EntityPlayer, target: Entity): boolean {
+  if (modStateData.configLineOfSightCheck === LineOfSightCheckBehaviour.IGNORED) {
+    return true;
+  }
+
   if (shouldIgnoreLosChecks(player)) {
     return true;
   }

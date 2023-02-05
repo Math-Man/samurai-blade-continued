@@ -1,6 +1,8 @@
 import { ModUpgraded } from "isaacscript-common";
 import { decode, encode } from "json";
+import { LineOfSightCheckBehaviour } from "../enums/LineOfSightCheckBehaviour";
 import { TearFiringBehaviour } from "../enums/TearFiringBehaviour";
+import { infoLog } from "../helpers/DebugHelper";
 
 /** Don't forget to modify loadGame() method after adding an option **/
 interface ModStateData {
@@ -10,6 +12,7 @@ interface ModStateData {
   configTearFiringBehaviour: TearFiringBehaviour;
   configAdjustmentDamageMultiplier: number;
   configAdjustmentRangeMultiplier: number;
+  configLineOfSightCheck: LineOfSightCheckBehaviour;
 }
 
 export let modStateData: ModStateData = {
@@ -19,6 +22,7 @@ export let modStateData: ModStateData = {
   configTearFiringBehaviour: TearFiringBehaviour.FIRE_DELAY_HACK,
   configAdjustmentDamageMultiplier: 1.0,
   configAdjustmentRangeMultiplier: 1.0,
+  configLineOfSightCheck: LineOfSightCheckBehaviour.NORMAL,
 } as const;
 
 export function saveGame(mod: ModUpgraded): void {
@@ -40,15 +44,12 @@ export function loadGame(mod: ModUpgraded): void {
   if ("configAdjustmentDamageMultiplier" in saveState) {
     // @ts-ignore
     modStateData.configAdjustmentDamageMultiplier = saveState.configAdjustmentDamageMultiplier;
-
-    Isaac.DebugString(`Samurai-Blade, loaded setting 'configAdjustmentDamageMultiplier', ${modStateData.configAdjustmentDamageMultiplier}`);
   }
 
   // @ts-ignore
   if ("configSpawnItemInFirstRoom" in saveState) {
     // @ts-ignore
     modStateData.configSpawnItemInFirstRoom = saveState.configSpawnItemInFirstRoom;
-    Isaac.DebugString(`Samurai-Blade, loaded setting 'configSpawnItemInFirstRoom', ${modStateData.configSpawnItemInFirstRoom}`);
   }
 
   // @ts-ignore
@@ -75,5 +76,11 @@ export function loadGame(mod: ModUpgraded): void {
     modStateData.configAdjustmentRangeMultiplier = saveState.configAdjustmentRangeMultiplier;
   }
 
-  Isaac.DebugString(`Samurai-Blade, loaded setting 'configPrintDebugInfo', ${modStateData.configPrintDebugInfo}`);
+  // @ts-ignore
+  if ("configLineOfSightCheck" in saveState) {
+    // @ts-ignore
+    modStateData.configLineOfSightCheck = saveState.configLineOfSightCheck;
+  }
+
+  infoLog(`Samurai-Blade, loaded setting 'configPrintDebugInfo', ${modStateData.configPrintDebugInfo}`);
 }
