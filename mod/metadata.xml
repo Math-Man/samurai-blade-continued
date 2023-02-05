@@ -63,7 +63,7 @@
         [/list]
 
     </description>
-    <version>0.0.24</version>
+    <version>0.0.25</version>
     <visibility>Public</visibility>
     <tag id="Lua"/>
     <tag id="Items"/>
