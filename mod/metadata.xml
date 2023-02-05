@@ -30,14 +30,17 @@
         [/list]
 
 
-        Also do note any and all tear effect-based synergies will work but more complex synergies will not as they need custom implementations, some of which are;
+        Also, do note any and all tear effect-based synergies will work but more complex synergies will not as they need custom implementations, some of which are;
         [list]
         [*] The Ludovico Technique
         [*] Brimstone
         [*] Anything that changes how tears work.
         [/list]
 
-        If you have the mod config menu mod, you can also modify item stats (currently only damage and range). Also you can enable tear-shooting and adjust particle effect intensity from the mod config menu as well.
+        [b]I strongly recommend you to get the Mod Config Menu either [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2681875787&searchtext=Mod+Config+Menu] Pure[/url] or the [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2487535818&searchtext=Mod+Config+Menu]continued [/url] version. There are many options to customize the blade's behavior to your liking.[/b]
+
+
+        We have also added a Jetstream Sam costume that gets applied when you pick up the item :)
 
 
         [i]Now go be a basement samurai or something, I don't really care.[/i]

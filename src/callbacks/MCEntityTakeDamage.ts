@@ -4,10 +4,16 @@ import { playerHasSamuraisBladeItem } from "../helpers/Helpers";
 import { SamuraiBladeEntityDamage } from "../items/SamuraisBlade";
 
 export function entityTakeDamageInit(mod: Mod): void {
-  mod.AddCallback(ModCallback.ENTITY_TAKE_DMG, main);
+  mod.AddCallback(ModCallback.ENTITY_TAKE_DMG, entityTakeDamageMain);
 }
 
-function main(tookDamage: Entity, damageAmount: number, damageFlags: BitFlag, damageSource: EntityRef, damageCountdownFrames: number): boolean {
+function entityTakeDamageMain(
+  tookDamage: Entity,
+  damageAmount: number,
+  damageFlags: BitFlag,
+  damageSource: EntityRef,
+  damageCountdownFrames: number,
+): boolean | undefined {
   const player = damageSource.Entity?.ToPlayer();
 
   // flog(`Extending berserk! ${player} ${tookDamage.HasMortalDamage()}}`);
@@ -16,7 +22,7 @@ function main(tookDamage: Entity, damageAmount: number, damageFlags: BitFlag, da
   // }
 
   if (player !== undefined && playerHasSamuraisBladeItem(player) && tookDamage.IsVulnerableEnemy() && damageFlags === DamageFlagsCustom.SB_BLADE_DAMAGE) {
-    return SamuraiBladeEntityDamage(tookDamage, damageAmount, damageFlags, damageSource, damageCountdownFrames);
+    SamuraiBladeEntityDamage(tookDamage, damageAmount, damageFlags, damageSource, damageCountdownFrames);
   }
-  return true;
+  return undefined;
 }
