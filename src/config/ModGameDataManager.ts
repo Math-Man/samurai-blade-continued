@@ -2,7 +2,6 @@ import { ModUpgraded } from "isaacscript-common";
 import { decode, encode } from "json";
 import { LineOfSightCheckBehaviour } from "../enums/LineOfSightCheckBehaviour";
 import { TearFiringBehaviour } from "../enums/TearFiringBehaviour";
-import { infoLog } from "../helpers/DebugHelper";
 
 /** Don't forget to modify loadGame() method after adding an option **/
 interface ModStateData {
@@ -22,7 +21,7 @@ export let modStateData: ModStateData = {
   configTearFiringBehaviour: TearFiringBehaviour.FIRE_DELAY_HACK,
   configAdjustmentDamageMultiplier: 1.0,
   configAdjustmentRangeMultiplier: 1.0,
-  configLineOfSightCheck: LineOfSightCheckBehaviour.NORMAL,
+  configLineOfSightCheck: LineOfSightCheckBehaviour.SOFT,
 } as const;
 
 export function saveGame(mod: ModUpgraded): void {
@@ -82,5 +81,5 @@ export function loadGame(mod: ModUpgraded): void {
     modStateData.configLineOfSightCheck = saveState.configLineOfSightCheck;
   }
 
-  infoLog(`Samurai-Blade, loaded setting 'configPrintDebugInfo', ${modStateData.configPrintDebugInfo}`);
+  Isaac.DebugString(`Samurai-Blade, loaded setting 'configPrintDebugInfo', ${modStateData.configPrintDebugInfo}`);
 }

@@ -19,6 +19,7 @@ interface ITuneable {
   baseCriticalChance: float;
   luckCriticalChanceEffect: float;
   baseCriticalDamageMultiplier: float;
+  LOSCheckRadiusSoftness: float;
 }
 
 export const Tuneable: ITuneable = {
@@ -64,4 +65,5 @@ export const Tuneable: ITuneable = {
   baseCriticalChance: 5,
   luckCriticalChanceEffect: 5,
   baseCriticalDamageMultiplier: 1.5,
+  LOSCheckRadiusSoftness: 1.1,
 } as const;

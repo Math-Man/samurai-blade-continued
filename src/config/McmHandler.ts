@@ -82,7 +82,7 @@ function setupConfigParticleMultiplier(modCategoryName: string) {
       return `Current Particle Multiplier: ${modStateData.configParticleMultiplier}`;
     },
     Info: ["Change the intensity of particle effects."],
-    Maximum: 3.0,
+    Maximum: 5.0,
     Minimum: 0.1,
     ModifyBy: 0.1,
     OnChange(newValue: number | boolean | undefined): void {
@@ -127,8 +127,8 @@ function setupConfigLineOfSightCheck(modCategoryName: string) {
     Display(): string {
       return `Line-of-sight Check: ${LOSCheckBehaviourAsString(modStateData.configLineOfSightCheck)}`;
     },
-    Info: ["Change how the Line of Sight check behaves", "Normal is default"],
-    Maximum: 1,
+    Info: ["Change how the Line of Sight check behaves", "Soft is the default", "Soft is more resource intensive and more accurate"],
+    Maximum: 2,
     Minimum: 0,
     ModifyBy: 1,
     OnChange(newValue: number | boolean | undefined): void {

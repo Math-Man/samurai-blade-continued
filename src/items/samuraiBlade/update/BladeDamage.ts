@@ -1,15 +1,15 @@
 // Compiler messes up nil checks in reduce statements. This why we add this exclude.
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 
-import { EntityType, LineCheckMode, TearFlag } from "isaac-typescript-definitions";
-import { clamp, game, getRandomInt, hasFlag } from "isaacscript-common";
+import { EntityType, LineCheckMode } from "isaac-typescript-definitions";
+import { clamp, game, getRandomInt } from "isaacscript-common";
 import { modStateData } from "../../../config/ModGameDataManager";
 import { getPlayerStateData } from "../../../data/StateData";
 import { Tuneable } from "../../../data/Tuneable";
 import { DamageFlagsCustom } from "../../../enums/DamageFlagsCustom";
 import { LineOfSightCheckBehaviour } from "../../../enums/LineOfSightCheckBehaviour";
 import { getBladeDamage, getBladePhysicalRange } from "../../../helpers/BladeHelpers";
-import { flog } from "../../../helpers/DebugHelper";
+import { flog, infoLog } from "../../../helpers/DebugHelper";
 import { getHitTargetsInsideArea, isHitTargetInsideArea } from "../../../helpers/TargetFinding";
 import { countOccurrencesOfState, registerDamageState } from "../onDealingDamage/DamageStateHandler";
 import { spawnSecretTear } from "../onDealingDamage/SecretTearSpawner";
@@ -118,8 +118,45 @@ export function LOSCheck(player: EntityPlayer, target: Entity): boolean {
   if (IsLOSIgnoreType(target)) {
     return true;
   }
-  flog(`hit count ${game.GetRoom().CheckLine(player.Position, target.Position, LineCheckMode.PROJECTILE)[0]}`, LOG_ID);
-  return hasSpectral(player) || game.GetRoom().CheckLine(player.Position, target.Position, LineCheckMode.PROJECTILE, 0, true, false)[0];
+
+  /* Soften up the LOS check: */
+  /* Here is the mad science math:
+   *  1. Check Line, if it hits, it hits, return true.
+   *  2. If it doesn't hit do the following
+   *  3. grab the hit position from the CheckLine method
+   *  4. do a small 'in range' check from hit point to the target position
+   *  5. if in range, return true
+   *  6. If still not true try one last thing
+   *  7. Since hit boxes are circles in Isaac, we can do basic line-casting on the surface of the circle around the coordinate edges
+   *  8. Doing 4 of these should be enough.
+   *  9. If any hits, return true.
+   *  10. Last check is really expansive as it does multiple line casts. Might need a better custom solution later on.
+   * */
+  const lineCheckResult = game.GetRoom().CheckLine(player.Position, target.Position, LineCheckMode.PROJECTILE, 0, true, false);
+  if (lineCheckResult[0]) {
+    return true;
+  } else if (modStateData.configLineOfSightCheck === LineOfSightCheckBehaviour.SOFT) {
+    const hitPosition = lineCheckResult[1];
+    const distance = hitPosition.Distance(target.Position);
+
+    infoLog(`Hit position: ${hitPosition}, distance: ${distance}, size: ${target.Size}, size mult: ${target.SizeMulti}`);
+
+    const targetLOSSize = Tuneable.LOSCheckRadiusSoftness * target.Size;
+
+    if (targetLOSSize * 2 + 28 >= distance) {
+      return true;
+    } else {
+      if (
+        game.GetRoom().CheckLine(player.Position, target.Position.add(Vector(targetLOSSize, 0)), LineCheckMode.PROJECTILE, 0, true, false)[0] ||
+        game.GetRoom().CheckLine(player.Position, target.Position.add(Vector(-targetLOSSize, 0)), LineCheckMode.PROJECTILE, 0, true, false)[0] ||
+        game.GetRoom().CheckLine(player.Position, target.Position.add(Vector(0, targetLOSSize)), LineCheckMode.PROJECTILE, 0, true, false)[0] ||
+        game.GetRoom().CheckLine(player.Position, target.Position.add(Vector(0, -targetLOSSize)), LineCheckMode.PROJECTILE, 0, true, false)[0]
+      ) {
+        return true;
+      }
+    }
+  }
+  return false;
 }
 
 export function IsLOSIgnoreType(target: Entity): boolean {
@@ -144,5 +181,5 @@ export function IsLOSIgnoreType(target: Entity): boolean {
 }
 
 export function shouldIgnoreLosChecks(player: EntityPlayer): boolean {
-  return hasFlag(player.TearFlags, TearFlag.SPECTRAL) || player.IsFlying();
+  return hasSpectral(player) || player.IsFlying();
 }
