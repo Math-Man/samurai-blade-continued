@@ -2,8 +2,9 @@ import { clamp, game } from "isaacscript-common";
 import { modStateData } from "../config/ModGameDataManager";
 import { getPlayerStateData } from "../data/StateData";
 import { Tuneable } from "../data/Tuneable";
+import { getTotalDamageIncreaseFromScaling, getTotalRangeIncreaseFromScaling } from "../items/samuraiBlade/scaling/BladeScalingManager";
 import { Animations, isFinished, isPlaying } from "./AnimationHelpers";
-import { flog } from "./DebugHelper";
+import { flog, infoLog } from "./DebugHelper";
 
 const LOG_ID = "BladeHelpers";
 
@@ -19,6 +20,8 @@ export function getBladeSpriteScaleFromStats(player: EntityPlayer): Vector {
   }
 
   scaleMultiplier *= modStateData.configAdjustmentRangeMultiplier;
+  const scalingMultiplier = 1 + getTotalRangeIncreaseFromScaling(player.ControllerIndex) / 100;
+  scaleMultiplier *= scalingMultiplier;
 
   return Vector(scaleMultiplier, scaleMultiplier);
 }
@@ -32,6 +35,8 @@ export function getBladePhysicalRange(player: EntityPlayer): float {
   }
 
   calculatedRange *= modStateData.configAdjustmentRangeMultiplier;
+  const scalingMultiplier = 1 + getTotalRangeIncreaseFromScaling(player.ControllerIndex) / 100;
+  calculatedRange *= scalingMultiplier;
 
   return calculatedRange;
 }
@@ -49,6 +54,12 @@ export function getBladeDamage(player: EntityPlayer): float {
 
   // Apply user modified adjustment
   damageVal *= modStateData.configAdjustmentDamageMultiplier;
+
+  const totalDamageIncreaseFromScaling = 1 + getTotalDamageIncreaseFromScaling(player.ControllerIndex) / 100;
+
+  infoLog(`TOTAL DAMAGE INCREASE FROM SCALING: ${totalDamageIncreaseFromScaling}`);
+
+  damageVal *= totalDamageIncreaseFromScaling;
 
   return damageVal;
 }

@@ -2,6 +2,7 @@ import { CacheFlag } from "isaac-typescript-definitions";
 import { getPlayers, ModUpgraded } from "isaacscript-common";
 import { setupMCM } from "../config/McmHandler";
 import { loadGame, saveGame } from "../config/ModGameDataManager";
+import { increaseDamageDealt } from "../data/saveFile/SaveDataHandler";
 import { flushAllStateData, getPlayerStateData } from "../data/StateData";
 import { flog, infoLog } from "../helpers/DebugHelper";
 import { playerHasSamuraisBladeItem } from "../helpers/Helpers";
@@ -59,6 +60,11 @@ export function SamuraiBladeEntityDamage(
 ): boolean {
   spawnGore(tookDamage, damageAmount, damageFlags, damageSource, damageCountdownFrames);
   playerHitSound(tookDamage, damageAmount, damageFlags, damageSource, damageCountdownFrames);
+
+  const player = damageSource.Entity?.ToPlayer();
+  if (player) {
+    increaseDamageDealt(player.ControllerIndex, damageAmount);
+  }
   return true;
 }
 
@@ -77,6 +83,5 @@ export function SamuraiBladePostTearUpdate(tear: EntityTear): void {
 
 export function SamuraiBladePostPickup(player: EntityPlayer): void {
   infoLog("Item picked up!", LOG_ID);
-
   applyCoolCostume(player);
 }

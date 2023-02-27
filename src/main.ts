@@ -1,17 +1,19 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { ModUpgraded, upgradeMod } from "isaacscript-common";
+import { ModUpgraded } from "isaacscript-common";
 import { entityTakeDamageInit } from "./callbacks/MCEntityTakeDamage";
 import { evaluateCacheInit } from "./callbacks/MCEvaluateCache";
 import { postCollectibleRemoved } from "./callbacks/MCPostCollectibleRemoved";
 import { postGameStartedInit } from "./callbacks/MCPostGameStarted";
 import { postItemPickupInit } from "./callbacks/MCPostItemPickup";
 import { postNewRoomInit } from "./callbacks/MCPostNewRoom";
+import { postPlayerInit } from "./callbacks/MCPostPlayerInit";
 import { postRenderInit } from "./callbacks/MCPostRender";
 import { postRenderPickupInit } from "./callbacks/MCPostRenderPickup";
 import { postRenderPlayerInit } from "./callbacks/MCPostRenderPlayer";
 import { postTearUpdateInit } from "./callbacks/MCPostTearUpdate";
 import { postUpdateInit } from "./callbacks/MCPostUpdate";
 import { preGameExitInit } from "./callbacks/MCPreGameExit";
+import { mod } from "./Mod";
 
 const LOG_ID = "MAIN-SAMURAI";
 const MOD_NAME = "samurai-blade";
@@ -19,9 +21,6 @@ const MOD_NAME = "samurai-blade";
 main();
 
 export function main(): void {
-  const modVanilla = RegisterMod(MOD_NAME, 1);
-  const mod = upgradeMod(modVanilla);
-
   Isaac.DebugString(`${MOD_NAME} initialized.`);
   registerCallbacks(mod);
 }
@@ -41,4 +40,5 @@ function registerCallbacks(mod: ModUpgraded) {
   postTearUpdateInit(mod);
   preGameExitInit(mod);
   postCollectibleRemoved(mod);
+  postPlayerInit(mod);
 }
