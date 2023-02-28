@@ -1,4 +1,5 @@
 export enum BladeScalingUpgradeType {
+  DUMMY,
   DAMAGE,
   CHARGE_ATTACK_DAMAGE,
   BOSS_DAMAGE,
