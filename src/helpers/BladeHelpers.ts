@@ -2,7 +2,8 @@ import { clamp, game } from "isaacscript-common";
 import { modStateData } from "../config/ModGameDataManager";
 import { getPlayerStateData } from "../data/StateData";
 import { Tuneable } from "../data/Tuneable";
-import { getTotalDamageIncreaseFromScaling, getTotalRangeIncreaseFromScaling } from "../items/samuraiBlade/scaling/BladeScalingManager";
+import { getTotalIncreaseFromScaling } from "../items/samuraiBlade/scaling/BladeScalingManager";
+import { BladeScalingUpgradeType } from "../items/samuraiBlade/scaling/BladeScalingUpgradeType";
 import { Animations, isFinished, isPlaying } from "./AnimationHelpers";
 import { flog, infoLog } from "./DebugHelper";
 
@@ -20,7 +21,7 @@ export function getBladeSpriteScaleFromStats(player: EntityPlayer): Vector {
   }
 
   scaleMultiplier *= modStateData.configAdjustmentRangeMultiplier;
-  const scalingMultiplier = 1 + getTotalRangeIncreaseFromScaling(player.ControllerIndex) / 100;
+  const scalingMultiplier = 1 + getTotalIncreaseFromScaling(player.ControllerIndex, BladeScalingUpgradeType.RANGE) / 100;
   scaleMultiplier *= scalingMultiplier;
 
   return Vector(scaleMultiplier, scaleMultiplier);
@@ -35,7 +36,7 @@ export function getBladePhysicalRange(player: EntityPlayer): float {
   }
 
   calculatedRange *= modStateData.configAdjustmentRangeMultiplier;
-  const scalingMultiplier = 1 + getTotalRangeIncreaseFromScaling(player.ControllerIndex) / 100;
+  const scalingMultiplier = 1 + getTotalIncreaseFromScaling(player.ControllerIndex, BladeScalingUpgradeType.RANGE) / 100;
   calculatedRange *= scalingMultiplier;
 
   return calculatedRange;
@@ -55,7 +56,7 @@ export function getBladeDamage(player: EntityPlayer): float {
   // Apply user modified adjustment
   damageVal *= modStateData.configAdjustmentDamageMultiplier;
 
-  const totalDamageIncreaseFromScaling = 1 + getTotalDamageIncreaseFromScaling(player.ControllerIndex) / 100;
+  const totalDamageIncreaseFromScaling = 1 + getTotalIncreaseFromScaling(player.ControllerIndex, BladeScalingUpgradeType.DAMAGE) / 100;
 
   infoLog(`TOTAL DAMAGE INCREASE FROM SCALING: ${totalDamageIncreaseFromScaling}`);
 

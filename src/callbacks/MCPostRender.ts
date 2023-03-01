@@ -1,4 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
+import { renderHudForPlayers } from "../items/samuraiBlade/hud/HudRenderer";
 import { SamuraiBladePostRender } from "../items/SamuraisBlade";
 
 export function postRenderInit(mod: Mod): void {
@@ -7,4 +8,6 @@ export function postRenderInit(mod: Mod): void {
 
 function main() {
   SamuraiBladePostRender();
+
+  renderHudForPlayers();
 }
