@@ -18,37 +18,7 @@ export function getTotalIncreaseFromScaling(controllerIndex: number, upgradeType
   return totalBonus;
 }
 
-// export function getTotalDamageIncreaseFromScaling(controllerIndex: number): number {
-//   const totalDamageDealt = getTotalDamageDealt(controllerIndex);
-//   let totalBonus = 0;
-//   BladeScalingMap.forEach((value, key) => {
-//     if (value.type === BladeScalingUpgradeType.DAMAGE) {
-//       if (totalDamageDealt >= key) {
-//         totalBonus += value.value;
-//       }
-//     }
-//   });
-//
-//   // const lim = getUpgradeLimits(controllerIndex);
-//   //infoLog(`Upgrade checks: ${totalDamageDealt}, ${getNextUpgradeTypes(controllerIndex)}, ASDFS  DFGSSDF ${lim[0]}, ${lim[1]}`);
-//
-//   return totalBonus;
-// }
-//
-// export function getTotalRangeIncreaseFromScaling(controllerIndex: number): number {
-//   const totalDamageDealt = getTotalDamageDealt(controllerIndex);
-//   let totalBonus = 0;
-//   BladeScalingMap.forEach((value, key) => {
-//     if (value.type === BladeScalingUpgradeType.RANGE) {
-//       if (totalDamageDealt >= key) {
-//         totalBonus += value.value;
-//       }
-//     }
-//   });
-//   return totalBonus;
-// }
-
-export function getNextUpgradeTypes(controllerIndex: number): BladeScalingUpgrade {
+export function getNextUpgradeType(controllerIndex: number): BladeScalingUpgrade {
   const totalDamageDealt = getTotalDamageDealt(controllerIndex);
   let nextUpgrade = DUMMY_UPGRADE;
   for (let [key, value] of BladeScalingMap.entries()) {
