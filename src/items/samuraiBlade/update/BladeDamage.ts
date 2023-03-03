@@ -67,8 +67,8 @@ export function doEntityDamage(
   isCritical: boolean,
 ): void {
   const damageValue =
-    (flatDamageIncrease + getBladeDamage(player) * damageModifier * Tuneable.DamageModifierForHittingSameEnemy ** index) *
-      (isCritical ? Tuneable.baseCriticalDamageMultiplier : 1) +
+    flatDamageIncrease +
+    getBladeDamage(player, entity.IsBoss()) * damageModifier * Tuneable.DamageModifierForHittingSameEnemy ** index +
     (entity.IsBoss() ? 3 : 0);
   entity.TakeDamage(damageValue, DamageFlagsCustom.SB_BLADE_DAMAGE, EntityRef(player), damageDelay);
 }

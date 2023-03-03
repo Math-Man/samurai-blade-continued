@@ -5,16 +5,26 @@ import { BladeScalingUpgradeType } from "./BladeScalingUpgradeType";
 
 // TODO: Cache end value of this methods and invalidate them on reaching an upgrade point, or just calculate them every time not like a few additions and multiplications are going to slow down anything.
 
+const cachedScalingMap = Array.from(BladeScalingMap.entries());
+
 export function getTotalIncreaseFromScaling(controllerIndex: number, upgradeType: BladeScalingUpgradeType): number {
   const totalDamageDealt = getTotalDamageDealt(controllerIndex);
   let totalBonus = 0;
-  BladeScalingMap.forEach((value, key) => {
-    if (value.type === upgradeType) {
-      if (totalDamageDealt >= key) {
-        totalBonus += value.value;
+
+  for (let index = 0; index < cachedScalingMap.length; index++) {
+    const rawEntry = cachedScalingMap[index];
+    if (rawEntry) {
+      const [key, value] = rawEntry;
+
+      if (value.type === upgradeType) {
+        if (totalDamageDealt >= key) {
+          totalBonus += value.value;
+        } else {
+          break;
+        }
       }
     }
-  });
+  }
   return totalBonus;
 }
 

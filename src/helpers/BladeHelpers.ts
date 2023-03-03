@@ -5,7 +5,7 @@ import { Tuneable } from "../data/Tuneable";
 import { getTotalIncreaseFromScaling } from "../items/samuraiBlade/scaling/BladeScalingManager";
 import { BladeScalingUpgradeType } from "../items/samuraiBlade/scaling/BladeScalingUpgradeType";
 import { Animations, isFinished, isPlaying } from "./AnimationHelpers";
-import { flog, infoLog } from "./DebugHelper";
+import { flog } from "./DebugHelper";
 
 const LOG_ID = "BladeHelpers";
 
@@ -42,7 +42,7 @@ export function getBladePhysicalRange(player: EntityPlayer): float {
   return calculatedRange;
 }
 
-export function getBladeDamage(player: EntityPlayer): float {
+export function getBladeDamage(player: EntityPlayer, targetingBoss: boolean): float {
   const { charged, hitChainProgression } = getPlayerStateData(player);
   const damage = Tuneable.Damage.get(hitChainProgression);
   if (damage === undefined) {
@@ -50,18 +50,21 @@ export function getBladeDamage(player: EntityPlayer): float {
   }
   let damageVal = damage + player.Damage * 0.6;
   if (charged) {
-    damageVal *= 1 + CHARGE_VALUE_MODIFIER_FACTOR;
+    const totalChargedDamageIncreaseFromScaling = getTotalIncreaseFromScaling(player.ControllerIndex, BladeScalingUpgradeType.CHARGE_ATTACK_DAMAGE) / 100;
+    damageVal *= 1 + CHARGE_VALUE_MODIFIER_FACTOR + totalChargedDamageIncreaseFromScaling + Tuneable.baseCriticalDamageMultiplier;
   }
 
   // Apply user modified adjustment
   damageVal *= modStateData.configAdjustmentDamageMultiplier;
 
+  // Apply progression buffs
   const totalDamageIncreaseFromScaling = 1 + getTotalIncreaseFromScaling(player.ControllerIndex, BladeScalingUpgradeType.DAMAGE) / 100;
-
-  infoLog(`TOTAL DAMAGE INCREASE FROM SCALING: ${totalDamageIncreaseFromScaling}`);
-
   damageVal *= totalDamageIncreaseFromScaling;
 
+  if (targetingBoss) {
+    const bossDamageIncreaseFromScaling = 1 + getTotalIncreaseFromScaling(player.ControllerIndex, BladeScalingUpgradeType.BOSS_DAMAGE) / 100;
+    damageVal *= bossDamageIncreaseFromScaling;
+  }
   return damageVal;
 }
 
@@ -70,7 +73,9 @@ export function getBladeFireDelay(player: EntityPlayer): number {
   if (fireDelay === undefined) {
     error("Invalid hit chain progression value");
   }
-  return clamp(fireDelay - (1 / player.MaxFireDelay - 0.1) * 100, 4, 100);
+  const totalFireRateIncreaseFromScaling = clamp(0.5 + getTotalIncreaseFromScaling(player.ControllerIndex, BladeScalingUpgradeType.FIRE_RATE) / 100, 0, 10);
+  const actualFireRate = clamp(fireDelay - (1 / (player.MaxFireDelay / totalFireRateIncreaseFromScaling) - 0.1) * 100, 4, 100);
+  return actualFireRate;
 }
 
 export function getAndUpdatePlayerBladeFireTime(player: EntityPlayer): number {
@@ -84,7 +89,7 @@ export function canPlayerFireBlade(player: EntityPlayer, bladeSprite: Sprite): b
     getPlayerStateData(player).lastFireTime = 0;
   }
 
-  const firingDelay = Tuneable.FireDelayByProgressionStage.get(getPlayerStateData(player).hitChainProgression);
+  const firingDelay = getBladeFireDelay(player);
 
   if (firingDelay === undefined) {
     error("Invalid hit chain progression value");

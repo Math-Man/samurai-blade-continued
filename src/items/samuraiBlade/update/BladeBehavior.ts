@@ -24,7 +24,7 @@ import {
   hasPlayerExitedAttackState,
   isPlayerInAttackState,
 } from "../../../helpers/BladeHelpers";
-import { flog, infoLog } from "../../../helpers/DebugHelper";
+import { infoLog } from "../../../helpers/DebugHelper";
 import { isPlayerShooting, playerHasSamuraisBladeItem } from "../../../helpers/Helpers";
 import { getHitTargetsInsideArea } from "../../../helpers/TargetFinding";
 import { isHitCritical } from "../onDealingDamage/CriticalHitHandler";
@@ -114,12 +114,6 @@ function updatePlayerBladeBehavior(player: EntityPlayer) {
       clearDamageState(player);
       const playerAimDir = player.GetAimDirection();
       getPlayerStateData(player).activeAimDirection = Vector(playerAimDir.X, playerAimDir.Y);
-      flog(
-        `I can attack: ${getPlayerStateData(player).lastFireTime} R:${
-          game.GetFrameCount() - getPlayerStateData(player).lastFireTime
-        } D:${Tuneable.FireDelayByProgressionStage.get(getPlayerStateData(player).hitChainProgression)}`,
-        LOG_ID,
-      );
     }
   } else {
     // Player is idling.

@@ -41,7 +41,7 @@ export function printDebugText(): void {
     Isaac.RenderText(`Pers A.D.: ${tostring(getPlayerStateData(player).activeAimDirection)}`, 280, 135, 255, 255, 255, 69);
     Isaac.RenderText(`Flipped  : ${tostring(blade.FlipX)}`, 280, 150, 255, 255, 255, 69);
     Isaac.RenderText(`Offset   : ${tostring(blade.Offset)}`, 280, 165, 255, 255, 255, 69);
-    Isaac.RenderText(`Damage   : ${tostring(getBladeDamage(player))}`, 280, 180, 255, 255, 255, 69);
+    Isaac.RenderText(`Damage   : ${tostring(getBladeDamage(player, false))}`, 280, 180, 255, 255, 255, 69);
     Isaac.RenderText(`Fire Dly : ${tostring(getBladeFireDelay(player))}`, 280, 195, 255, 255, 255, 69);
     Isaac.RenderText(
       `Fire TTL : ${tostring(game.GetFrameCount() - (getPlayerStateData(player).lastFireTime + getBladeFireDelay(player)))}`,
