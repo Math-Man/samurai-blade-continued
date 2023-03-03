@@ -1,6 +1,6 @@
 import { EntityType, PickupVariant } from "isaac-typescript-definitions";
 import { isRedHeart } from "isaacscript-common";
-import { flog, infoLog } from "../../../helpers/DebugHelper";
+import { flog } from "../../../helpers/DebugHelper";
 
 export function pickupBasics(player: EntityPlayer, targets: Entity[]): void {
   targets.forEach((value) => {
@@ -9,8 +9,6 @@ export function pickupBasics(player: EntityPlayer, targets: Entity[]): void {
       if (pickup.Type === EntityType.PICKUP && !pickup.IsShopItem()) {
         switch (pickup.Variant) {
           case PickupVariant.HEART:
-            infoLog(`I don't understand this but I want to understand this : ${player.HasFullHealth()} ${player.HasFullHearts()}, ${isRedHeart(pickup)}`);
-
             if ((!player.HasFullHearts() && isRedHeart(pickup)) || !isRedHeart(pickup)) {
               flog(`[PICKUP DETECTION] Red heart}`);
               pickup.Position = player.Position;
@@ -33,11 +31,4 @@ export function pickupBasics(player: EntityPlayer, targets: Entity[]): void {
       }
     }
   });
-  //
-  // targets
-  //   .filter((entity) => isPickup(entity))
-  //   .forEach((pickup) => {
-  //     infoLog(`[PICKUP DETECTION]Found a thing: ${pickup}`);
-  //     pickup.Position = player.Position;
-  //   });
 }

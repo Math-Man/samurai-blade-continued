@@ -24,7 +24,6 @@ import {
   hasPlayerExitedAttackState,
   isPlayerInAttackState,
 } from "../../../helpers/BladeHelpers";
-import { infoLog } from "../../../helpers/DebugHelper";
 import { isPlayerShooting, playerHasSamuraisBladeItem } from "../../../helpers/Helpers";
 import { getHitTargetsInsideArea } from "../../../helpers/TargetFinding";
 import { isHitCritical } from "../onDealingDamage/CriticalHitHandler";
@@ -187,7 +186,6 @@ function updatePlayerBladeBehavior(player: EntityPlayer) {
 
 function spawnItemFirstFrame() {
   if (game.GetFrameCount() === 1) {
-    infoLog(`Spawning item on the floor: ${CollectibleTypeCustom.SB_SAMURAI_BLADE}`, LOG_ID);
     Isaac.Spawn(EntityType.PICKUP, PickupVariant.COLLECTIBLE, CollectibleTypeCustom.SB_SAMURAI_BLADE, Vector(320, 300), Vector(0, 0), undefined);
   }
 }

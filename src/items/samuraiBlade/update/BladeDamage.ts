@@ -9,7 +9,7 @@ import { Tuneable } from "../../../data/Tuneable";
 import { DamageFlagsCustom } from "../../../enums/DamageFlagsCustom";
 import { LineOfSightCheckBehaviour } from "../../../enums/LineOfSightCheckBehaviour";
 import { getBladeDamage, getBladePhysicalRange } from "../../../helpers/BladeHelpers";
-import { flog, infoLog } from "../../../helpers/DebugHelper";
+import { flog } from "../../../helpers/DebugHelper";
 import { isHitTargetInsideArea } from "../../../helpers/TargetFinding";
 import { countOccurrencesOfState, registerDamageState } from "../onDealingDamage/DamageStateHandler";
 import { spawnSecretTear } from "../onDealingDamage/SecretTearSpawner";
@@ -137,9 +137,6 @@ export function LOSCheck(player: EntityPlayer, target: Entity): boolean {
   } else if (modStateData.configLineOfSightCheck === LineOfSightCheckBehaviour.SOFT) {
     const hitPosition = lineCheckResult[1];
     const distance = hitPosition.Distance(target.Position);
-
-    infoLog(`Hit position: ${hitPosition}, distance: ${distance}, size: ${target.Size}, size mult: ${target.SizeMulti}`);
-
     const targetLOSSize = Tuneable.LOSCheckRadiusSoftness * target.Size;
 
     if (targetLOSSize * 2 + 28 >= distance) {

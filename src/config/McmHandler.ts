@@ -50,7 +50,6 @@ function setupConfigSpawnItemInFirstRoom(modCategoryName: string) {
       if (typeof newValue === "boolean") {
         modStateData.configSpawnItemInFirstRoom = newValue;
       }
-      infoLog(`Spawn On start: ${modStateData.configSpawnItemInFirstRoom}`, LOG_ID);
     },
     Type: ModConfigMenuOptionType.BOOLEAN,
   });

@@ -2,7 +2,6 @@ import { TearFlag, TearVariant } from "isaac-typescript-definitions";
 import { logTearFlags } from "isaacscript-common";
 import { getPlayerStateData } from "../../../data/StateData";
 import { Tuneable } from "../../../data/Tuneable";
-import { infoLog } from "../../../helpers/DebugHelper";
 
 export function spawnSecretTear(player: EntityPlayer, targetEntity: Entity): void {
   const { hitChainProgression } = getPlayerStateData(player);
@@ -21,7 +20,5 @@ export function spawnSecretTear(player: EntityPlayer, targetEntity: Entity): voi
   // Creates a chunky audio effect spawns some nice particles on hit. Also with things like crickets
   // body, it looks like an intended effect.
   tear.ChangeVariant(TearVariant.SWORD_BEAM);
-
-  infoLog("Secret tear spawned! Tear flags will be logged", "SECRET TEAR");
   logTearFlags(tear.TearFlags);
 }

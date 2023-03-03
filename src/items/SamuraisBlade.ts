@@ -4,7 +4,7 @@ import { setupMCM } from "../config/McmHandler";
 import { loadGame, saveGame } from "../config/ModGameDataManager";
 import { increaseDamageDealt } from "../data/saveFile/SaveDataHandler";
 import { flushAllStateData, getPlayerStateData } from "../data/StateData";
-import { flog, infoLog } from "../helpers/DebugHelper";
+import { flog } from "../helpers/DebugHelper";
 import { playerHasSamuraisBladeItem } from "../helpers/Helpers";
 import { applyCoolCostume } from "./samuraiBlade/onCache/CostumeApplier";
 import { motivatePlayer } from "./samuraiBlade/onCache/Motivate";
@@ -82,6 +82,5 @@ export function SamuraiBladePostTearUpdate(tear: EntityTear): void {
 }
 
 export function SamuraiBladePostPickup(player: EntityPlayer): void {
-  infoLog("Item picked up!", LOG_ID);
   applyCoolCostume(player);
 }
