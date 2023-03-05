@@ -1,6 +1,7 @@
 import { LOSCheckBehaviourAsString } from "../enums/LineOfSightCheckBehaviour";
 import { TearFiringBehaviourAsString } from "../enums/TearFiringBehaviour";
 import { flog, infoLog } from "../helpers/DebugHelper";
+import { HudPositionOptionsAsString } from "../items/samuraiBlade/hud/HudPositionOptions";
 import { modStateData } from "./ModGameDataManager";
 
 const LOG_ID = "MCM CONFIG";
@@ -26,6 +27,7 @@ export function setupMCM(): void {
   setupConfigTearFiringBehaviour(modCategoryName);
   setupConfigLineOfSightCheck(modCategoryName);
   setupConfigBladePicksUpItems(modCategoryName);
+  setupConfigHudPosition(modCategoryName);
 
   ModConfigMenu?.AddText(modCategoryName, "Tuning", () => "Change item stats");
   ModConfigMenu?.AddSpace(modCategoryName, "Tuning");
@@ -35,6 +37,29 @@ export function setupMCM(): void {
 
   ModConfigMenu?.AddSpace(modCategoryName, "Tuning");
   ModConfigMenu?.AddText(modCategoryName, "Tuning", () => "More settings might be added later on.");
+}
+
+function setupConfigHudPosition(modCategoryName: string) {
+  ModConfigMenu?.AddSetting(modCategoryName, "Settings", {
+    CurrentSetting(): number | boolean {
+      return modStateData.configHudPosition;
+    },
+    Display(): string {
+      return `Hud Position: ${HudPositionOptionsAsString(modStateData.configHudPosition)}`;
+    },
+    Info: ["Change where the hud is located"],
+    Maximum: 3,
+    Minimum: 0,
+    ModifyBy: 1,
+    OnChange(newValue: number | boolean | undefined): void {
+      if (typeof newValue === "number") {
+        modStateData.configHudPosition = newValue;
+      }
+      infoLog(`Hud Position Changed: ${modStateData.configHudPosition}}`);
+    },
+    PopupWidth: 0,
+    Type: ModConfigMenuOptionType.NUMBER,
+  });
 }
 
 function setupConfigSpawnItemInFirstRoom(modCategoryName: string) {

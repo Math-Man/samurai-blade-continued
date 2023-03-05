@@ -3,7 +3,37 @@ import { BladeScalingMap, DUMMY_UPGRADE } from "./BladeScalingMap";
 import { BladeScalingUpgrade } from "./BladeScalingUpgrade";
 import { BladeScalingUpgradeType } from "./BladeScalingUpgradeType";
 
-// TODO: Cache end value of this methods and invalidate them on reaching an upgrade point, or just calculate them every time not like a few additions and multiplications are going to slow down anything.
+//  O P T I M I Z E D
+const scalingStateCache = new Map<number, Map<BladeScalingUpgradeType, CachePosition>>();
+
+class CachePosition {
+  public index: number;
+  public value: number;
+
+  constructor(index: number, value: number) {
+    this.index = index;
+    this.value = value;
+  }
+}
+
+function getFromCache(controllerIndex: number, upgradeType: BladeScalingUpgradeType): CachePosition | undefined {
+  let playerMap = scalingStateCache.get(controllerIndex);
+  if (playerMap) {
+    return playerMap.get(upgradeType);
+  }
+  return undefined;
+}
+
+function setCache(controllerIndex: number, upgradeType: BladeScalingUpgradeType, currentIndex: number, currentValue: number): CachePosition {
+  let playerMap = scalingStateCache.get(controllerIndex);
+  if (!playerMap) {
+    playerMap = new Map<BladeScalingUpgradeType, CachePosition>();
+    scalingStateCache.set(controllerIndex, playerMap);
+  }
+  const cachePosition = new CachePosition(currentIndex, currentValue);
+  playerMap.set(upgradeType, cachePosition);
+  return cachePosition;
+}
 
 const cachedScalingMap = Array.from(BladeScalingMap.entries());
 
@@ -11,8 +41,16 @@ export function getTotalIncreaseFromScaling(controllerIndex: number, upgradeType
   const totalDamageDealt = getTotalDamageDealt(controllerIndex);
   let totalBonus = 0;
 
-  for (let index = 0; index < cachedScalingMap.length; index++) {
-    const rawEntry = cachedScalingMap[index];
+  let scalingIndex = 0;
+  const cachedValues = getFromCache(controllerIndex, upgradeType);
+  if (cachedValues) {
+    scalingIndex = cachedValues.index;
+    totalBonus = cachedValues.value;
+  }
+
+  for (; scalingIndex < cachedScalingMap.length; scalingIndex++) {
+    const rawEntry = cachedScalingMap[scalingIndex];
+
     if (rawEntry) {
       const [key, value] = rawEntry;
 
@@ -25,6 +63,8 @@ export function getTotalIncreaseFromScaling(controllerIndex: number, upgradeType
       }
     }
   }
+
+  setCache(controllerIndex, upgradeType, scalingIndex, totalBonus);
   return totalBonus;
 }
 

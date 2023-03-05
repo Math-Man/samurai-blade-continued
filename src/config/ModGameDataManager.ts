@@ -13,10 +13,11 @@ interface ModStateData {
   configAdjustmentRangeMultiplier: number;
   configLineOfSightCheck: LineOfSightCheckBehaviour;
   configBladePicksUpItems: boolean;
+  configHudPosition: number;
 }
 
 export let modStateData: ModStateData = {
-  configSpawnItemInFirstRoom: true,
+  configSpawnItemInFirstRoom: false,
   configPrintDebugInfo: false,
   configParticleMultiplier: 1.0,
   configTearFiringBehaviour: TearFiringBehaviour.FIRE_DELAY_HACK,
@@ -24,6 +25,7 @@ export let modStateData: ModStateData = {
   configAdjustmentRangeMultiplier: 1.0,
   configLineOfSightCheck: LineOfSightCheckBehaviour.SOFT,
   configBladePicksUpItems: true,
+  configHudPosition: 0,
 } as const;
 
 export function saveGame(mod: ModUpgraded): void {
@@ -87,6 +89,12 @@ export function loadGame(mod: ModUpgraded): void {
   if ("configBladePicksUpItems" in saveState) {
     // @ts-ignore
     modStateData.configBladePicksUpItems = saveState.configBladePicksUpItems;
+  }
+
+  // @ts-ignore
+  if ("configHudPosition" in saveState) {
+    // @ts-ignore
+    modStateData.configHudPosition = saveState.configHudPosition;
   }
 
   Isaac.DebugString(`Samurai-Blade, loaded setting 'configPrintDebugInfo', ${modStateData.configPrintDebugInfo}`);
