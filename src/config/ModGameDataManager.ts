@@ -19,7 +19,7 @@ interface ModStateData {
 export let modStateData: ModStateData = {
   configSpawnItemInFirstRoom: false,
   configPrintDebugInfo: false,
-  configParticleMultiplier: 1.0,
+  configParticleMultiplier: 0.8,
   configTearFiringBehaviour: TearFiringBehaviour.FIRE_DELAY_HACK,
   configAdjustmentDamageMultiplier: 1.0,
   configAdjustmentRangeMultiplier: 1.0,
