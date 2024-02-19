@@ -14,6 +14,7 @@ import { isHitTargetInsideArea } from "../../../helpers/TargetFinding";
 import { countOccurrencesOfState, registerDamageState } from "../onDealingDamage/DamageStateHandler";
 import { spawnSecretTear } from "../onDealingDamage/SecretTearSpawner";
 import { handleTearCountSynergies, hasSpectral } from "../synergy/SynergyHandlers";
+import {increaseDamageDealt} from "../../../data/saveFile/SaveDataHandler";
 
 const LOG_ID = "BladeDamage";
 
@@ -71,6 +72,9 @@ export function doEntityDamage(
     getBladeDamage(player, entity.IsBoss()) * damageModifier * Tuneable.DamageModifierForHittingSameEnemy ** index +
     (entity.IsBoss() ? 3 : 0);
   entity.TakeDamage(damageValue, DamageFlagsCustom.SB_BLADE_DAMAGE, EntityRef(player), damageDelay);
+  if (player) {
+    increaseDamageDealt(player.ControllerIndex, damageValue);
+  }
 }
 
 export function pushEntityAway(player: EntityPlayer, entity: Entity): void {

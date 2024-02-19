@@ -57,15 +57,9 @@ export function SamuraiBladeEntityDamage(
   damageFlags: BitFlag,
   damageSource: EntityRef,
   damageCountdownFrames: number,
-): boolean {
+): void {
   spawnGore(tookDamage, damageAmount, damageFlags, damageSource, damageCountdownFrames);
   playerHitSound(tookDamage, damageAmount, damageFlags, damageSource, damageCountdownFrames);
-
-  const player = damageSource.Entity?.ToPlayer();
-  if (player) {
-    increaseDamageDealt(player.ControllerIndex, damageAmount);
-  }
-  return true;
 }
 
 export function SamuraiBladeEvalCache(player: EntityPlayer, cacheFlag: CacheFlag): void {
