@@ -24,9 +24,8 @@ export function spawnSecretTear(player: EntityPlayer, targetEntity: Entity): voi
         tear.Visible = true;
         tear.Height = originalTearHeight + 1;
     } else {
+        // Creates a chunky audio effect, spawns some nice particles on hit. Also works with things like crickets body, it looks like an intended effect.
         tear.ChangeVariant(TearVariant.SWORD_BEAM);
     }
 
-    // Creates a chunky audio effect, spawns some nice particles on hit. Also works with things like crickets body, it looks like an intended effect.
-    logTearFlags(tear.TearFlags);
 }
