@@ -1,23 +1,11 @@
-import { getTotalDamageDealt } from "../../../data/saveFile/SaveDataHandler";
+import {getScalingStateCache, getTotalDamageDealt} from "../../../data/saveFile/SaveDataHandler";
 import { BladeScalingMap, DUMMY_UPGRADE } from "./BladeScalingMap";
 import { BladeScalingUpgrade } from "./BladeScalingUpgrade";
 import { BladeScalingUpgradeType } from "./BladeScalingUpgradeType";
-
-//  O P T I M I Z E D
-const scalingStateCache = new Map<number, Map<BladeScalingUpgradeType, CachePosition>>();
-
-class CachePosition {
-  public index: number;
-  public value: number;
-
-  constructor(index: number, value: number) {
-    this.index = index;
-    this.value = value;
-  }
-}
+import {CachePosition} from "./CachePosition";
 
 function getFromCache(controllerIndex: number, upgradeType: BladeScalingUpgradeType): CachePosition | undefined {
-  let playerMap = scalingStateCache.get(controllerIndex);
+  let playerMap = getScalingStateCache().get(controllerIndex);
   if (playerMap) {
     return playerMap.get(upgradeType);
   }
@@ -25,10 +13,10 @@ function getFromCache(controllerIndex: number, upgradeType: BladeScalingUpgradeT
 }
 
 function setCache(controllerIndex: number, upgradeType: BladeScalingUpgradeType, currentIndex: number, currentValue: number): CachePosition {
-  let playerMap = scalingStateCache.get(controllerIndex);
+  let playerMap = getScalingStateCache().get(controllerIndex);
   if (!playerMap) {
     playerMap = new Map<BladeScalingUpgradeType, CachePosition>();
-    scalingStateCache.set(controllerIndex, playerMap);
+    getScalingStateCache().set(controllerIndex, playerMap);
   }
   const cachePosition = new CachePosition(currentIndex, currentValue);
   playerMap.set(upgradeType, cachePosition);
