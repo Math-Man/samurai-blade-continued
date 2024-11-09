@@ -65,7 +65,6 @@
 
         [h3]Known issues[/h3]
         [list]
-        [*] Scaling stats don't carry over sessions. If you close the game and reopen it, the scaling stats are reset.
         [*] Large mirror rooms still cause some visual issues. (This is happening because I abused the Sprite rendering in a way I shouldn't have. Unfortunately, a proper fix to this issue would require me to rewrite a large part of the code.)
         [*] Some enemies have the wrong visual type assigned to them, causing incorrect particles to spawn when they are damaged by the item. (Fixed most of them, let me know if you find more.)
         [*] Tainted Samson's berserk timer does not increase on getting a kill with the item. (Modding API has no non-read-only field for berserk effect cooldown so this might be impossible to fix without doing something custom.)
@@ -84,7 +83,7 @@
         [/list]
 
     </description>
-    <version>0.0.33</version>
+    <version>0.0.34</version>
     <visibility>Public</visibility>
     <tag id="Lua"/>
     <tag id="Items"/>
