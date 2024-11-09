@@ -1,51 +1,51 @@
 interface PlayerState {
-  bladeSprite: Sprite;
-  holsterSprite: Sprite;
-  lastFireTime: float;
-  hitChainProgression: int;
-  activeAimDirection: Vector;
-  charged: boolean;
+    bladeSprite: Sprite;
+    holsterSprite: Sprite;
+    lastFireTime: float;
+    hitChainProgression: int;
+    activeAimDirection: Vector;
+    charged: boolean;
 
-  hitStateEntities: number[]; // Entity indexes.
+    hitStateEntities: number[]; // Entity indexes.
 }
 
 const stateData = new Map<int, PlayerState>();
 
 export function getStateData(): Map<int, PlayerState> {
-  return stateData;
+    return stateData;
 }
 
 export function flushAllStateData(): void {
-  stateData.clear();
+    stateData.clear();
 }
 
 export function getPlayerStateData(player: EntityPlayer): PlayerState {
-  let playerData = getStateData().get(player.Index);
+    let playerData = getStateData().get(player.Index);
 
-  // Data doesn't exist, add it.
-  if (playerData === undefined) {
-    playerData = {
-      bladeSprite: Sprite(),
-      holsterSprite: Sprite(),
-      lastFireTime: -1,
-      hitChainProgression: 1,
-      activeAimDirection: Vector(0, 0),
-      charged: false,
-      hitStateEntities: [],
-    };
+    // Data doesn't exist, add it.
+    if (playerData === undefined) {
+        playerData = {
+            bladeSprite: Sprite(),
+            holsterSprite: Sprite(),
+            lastFireTime: -1,
+            hitChainProgression: 1,
+            activeAimDirection: Vector(0, 0),
+            charged: false,
+            hitStateEntities: [],
+        };
 
-    // Load sprite data.
-    playerData.bladeSprite.Load("gfx/animation/BladeAnim.anm2", true);
-    playerData.holsterSprite.Load("gfx/animation/BladeAnim.anm2", true);
+        // Load sprite data.
+        playerData.bladeSprite.Load("gfx/animation/BladeAnim.anm2", true);
+        playerData.holsterSprite.Load("gfx/animation/BladeAnim.anm2", true);
 
-    getStateData().set(player.Index, playerData);
-  }
+        getStateData().set(player.Index, playerData);
+    }
 
-  return playerData;
+    return playerData;
 }
 
 export function getPlayerStateDataNoCreate(
-  player: EntityPlayer,
+    player: EntityPlayer,
 ): PlayerState | undefined {
-  return getStateData().get(player.Index);
+    return getStateData().get(player.Index);
 }

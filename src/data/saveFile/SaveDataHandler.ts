@@ -5,8 +5,6 @@ import {SaveDataSource} from "./SaveDataSource";
 import {AnyClass} from "isaacscript-common/src/types/AnyClass";
 
 
-
-
 const saveDataObject = {
     persistent: {},
     run: {

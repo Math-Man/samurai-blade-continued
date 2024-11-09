@@ -12,7 +12,8 @@ export class SaveDataManager {
 
     static #instance: SaveDataManager;
 
-    private constructor() {}
+    private constructor() {
+    }
 
     public static get instance(): SaveDataManager {
         if (!SaveDataManager.#instance) {
