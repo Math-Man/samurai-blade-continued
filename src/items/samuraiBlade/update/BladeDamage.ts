@@ -3,7 +3,6 @@
 
 import { EntityType, LineCheckMode } from "isaac-typescript-definitions";
 import { clamp, game, getRandomInt } from "isaacscript-common";
-import { modStateData } from "../../../config/ModGameDataManager";
 import { getPlayerStateData } from "../../../data/StateData";
 import { Tuneable } from "../../../data/Tuneable";
 import { DamageFlagsCustom } from "../../../enums/DamageFlagsCustom";
@@ -15,6 +14,7 @@ import { countOccurrencesOfState, registerDamageState } from "../onDealingDamage
 import { spawnSecretTear } from "../onDealingDamage/SecretTearSpawner";
 import { handleTearCountSynergies, hasSpectral } from "../synergy/SynergyHandlers";
 import {increaseDamageDealt} from "../../../data/saveFile/SaveDataHandler";
+import {configDataObject} from "../../../data/saveFile/ConfigSaveDataHandler";
 
 const LOG_ID = "BladeDamage";
 
@@ -110,7 +110,7 @@ export function doTileDamage(player: EntityPlayer): void {
 }
 
 export function LOSCheck(player: EntityPlayer, target: Entity): boolean {
-  if (modStateData.configLineOfSightCheck === LineOfSightCheckBehaviour.IGNORED) {
+  if (configDataObject.persistent.configLineOfSightCheck === LineOfSightCheckBehaviour.IGNORED) {
     return true;
   }
 
@@ -138,7 +138,7 @@ export function LOSCheck(player: EntityPlayer, target: Entity): boolean {
   const lineCheckResult = game.GetRoom().CheckLine(player.Position, target.Position, LineCheckMode.PROJECTILE, 0, true, false);
   if (lineCheckResult[0]) {
     return true;
-  } else if (modStateData.configLineOfSightCheck === LineOfSightCheckBehaviour.SOFT) {
+  } else if (configDataObject.persistent.configLineOfSightCheck === LineOfSightCheckBehaviour.SOFT) {
     const hitPosition = lineCheckResult[1];
     const distance = hitPosition.Distance(target.Position);
     const targetLOSSize = Tuneable.LOSCheckRadiusSoftness * target.Size;

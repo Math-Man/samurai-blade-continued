@@ -2,6 +2,7 @@ import {flog} from "../../helpers/DebugHelper";
 import {mod} from "../../Mod";
 import {BladeScalingUpgradeType} from "../../items/samuraiBlade/scaling/BladeScalingUpgradeType";
 import {CachePosition} from "../../items/samuraiBlade/scaling/CachePosition";
+import {configDataObject} from "./ConfigSaveDataHandler";
 
 
 const saveDataObject = {
@@ -18,7 +19,10 @@ const saveDataObject = {
 
 
 mod.saveDataManagerRegisterClass(CachePosition);
+
 mod.saveDataManager("bladeProgressionData", saveDataObject);
+mod.saveDataManager("bladeConfigData", configDataObject);
+
 flog(`Save data registered: ${saveDataObject.run.damageDealt}`, `[PERSISTENT BLADE DATA]`);
 mod.saveDataManagerSetGlobal();
 

@@ -1,5 +1,4 @@
 import { getPlayers } from "isaacscript-common";
-import { modStateData } from "../../../config/ModGameDataManager";
 import { getTotalDamageDealt } from "../../../data/saveFile/SaveDataHandler";
 import { playerHasSamuraisBladeItem } from "../../../helpers/Helpers";
 import { Remap } from "../../../helpers/Maths";
@@ -8,6 +7,7 @@ import { BladeScalingUpgradeType } from "../scaling/BladeScalingUpgradeType";
 import { getHudSpritesSet } from "./HudManager";
 import { HudPositionOptions } from "./HudPositionOptions";
 import { HudProgressionIconFrames } from "./HudProgressionIconFrames";
+import {configDataObject} from "../../../data/saveFile/ConfigSaveDataHandler";
 
 const OFFSET_FOR_HUDS = 150;
 
@@ -51,7 +51,7 @@ export function renderHudForPlayers(): void {
 }
 
 function progressBarPositionFromConfig(): Vector {
-  const position = modStateData.configHudPosition;
+  const position = configDataObject.persistent.configHudPosition;
   switch (position) {
     case HudPositionOptions.BELOW_HEALTH_BAR:
       return Vector(55, 28);
@@ -66,7 +66,7 @@ function progressBarPositionFromConfig(): Vector {
 }
 
 function iconPositionFromConfig(): Vector {
-  const position = modStateData.configHudPosition;
+  const position = configDataObject.persistent.configHudPosition;
   switch (position) {
     case HudPositionOptions.BELOW_HEALTH_BAR:
       return Vector(160, 48);

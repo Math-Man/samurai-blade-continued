@@ -1,5 +1,5 @@
 import { game } from "isaacscript-common";
-import { modStateData } from "../config/ModGameDataManager";
+import {configDataObject} from "../data/saveFile/ConfigSaveDataHandler";
 
 export function flog(text: string, source?: string): void {
   if (isDebugMode()) {
@@ -8,7 +8,7 @@ export function flog(text: string, source?: string): void {
 }
 
 export function isDebugMode(): boolean {
-  return modStateData.configPrintDebugInfo;
+  return configDataObject.persistent.configPrintDebugInfo;
 }
 
 export function infoLog(text: string, source?: string): void {

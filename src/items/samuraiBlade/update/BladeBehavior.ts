@@ -1,6 +1,5 @@
 import { EffectVariant, EntityType, ItemPoolType, PickupVariant, SoundEffect } from "isaac-typescript-definitions";
 import { game, getPlayers, sfxManager, spawn } from "isaacscript-common";
-import { modStateData } from "../../../config/ModGameDataManager";
 import { getPlayerStateData } from "../../../data/StateData";
 import { Tuneable } from "../../../data/Tuneable";
 import { CollectibleTypeCustom } from "../../../enums/CollectibleTypeCustom";
@@ -30,11 +29,12 @@ import { isHitCritical } from "../onDealingDamage/CriticalHitHandler";
 import { clearDamageState } from "../onDealingDamage/DamageStateHandler";
 import { pickupBasics } from "../specialBehaviour/BasicPickups";
 import { dealSamuraiBladeDamage } from "./BladeDamage";
+import {configDataObject} from "../../../data/saveFile/ConfigSaveDataHandler";
 
 const LOG_ID = "BladeBehavior";
 
 export function updateBladeBehavior(): void {
-  if (modStateData.configSpawnItemInFirstRoom) {
+  if (configDataObject.persistent.configSpawnItemInFirstRoom) {
     spawnItemFirstFrame();
   }
 
@@ -172,7 +172,7 @@ function updatePlayerBladeBehavior(player: EntityPlayer) {
       dealSamuraiBladeDamage(player, isHitCritical(player), targets);
 
       // if it is the first frame of the swing animation, allow item pickups
-      if (modStateData.configBladePicksUpItems && frameIndexes && frameIndexes[0] === bladeSprite.GetFrame()) {
+      if (configDataObject.persistent.configBladePicksUpItems && frameIndexes && frameIndexes[0] === bladeSprite.GetFrame()) {
         pickupBasics(player, targets);
       }
     }
@@ -191,7 +191,7 @@ function spawnItemFirstFrame() {
 }
 
 function disableShooting(player: EntityPlayer) {
-  if (modStateData.configTearFiringBehaviour == TearFiringBehaviour.FIRE_DELAY_HACK) {
+  if (configDataObject.persistent.configTearFiringBehaviour == TearFiringBehaviour.FIRE_DELAY_HACK) {
     player.FireDelay = player.MaxFireDelay + 1;
     player.UpdateCanShoot();
   }

@@ -1,11 +1,11 @@
 import { clamp, game } from "isaacscript-common";
-import { modStateData } from "../config/ModGameDataManager";
 import { getPlayerStateData } from "../data/StateData";
 import { Tuneable } from "../data/Tuneable";
 import { getTotalIncreaseFromScaling } from "../items/samuraiBlade/scaling/BladeScalingManager";
 import { BladeScalingUpgradeType } from "../items/samuraiBlade/scaling/BladeScalingUpgradeType";
 import { Animations, isFinished, isPlaying } from "./AnimationHelpers";
 import { flog } from "./DebugHelper";
+import {configDataObject} from "../data/saveFile/ConfigSaveDataHandler";
 
 const LOG_ID = "BladeHelpers";
 
@@ -20,7 +20,7 @@ export function getBladeSpriteScaleFromStats(player: EntityPlayer): Vector {
     scaleMultiplier += scaleMultiplier * CHARGE_VALUE_MODIFIER_FACTOR;
   }
 
-  scaleMultiplier *= modStateData.configAdjustmentRangeMultiplier;
+  scaleMultiplier *= configDataObject.persistent.configAdjustmentRangeMultiplier;
   const scalingMultiplier = 1 + getTotalIncreaseFromScaling(player.ControllerIndex, BladeScalingUpgradeType.RANGE) / 100;
   scaleMultiplier *= scalingMultiplier;
 
@@ -35,7 +35,7 @@ export function getBladePhysicalRange(player: EntityPlayer): float {
     calculatedRange += calculatedRange * CHARGE_VALUE_MODIFIER_FACTOR;
   }
 
-  calculatedRange *= modStateData.configAdjustmentRangeMultiplier;
+  calculatedRange *= configDataObject.persistent.configAdjustmentRangeMultiplier;
   const scalingMultiplier = 1 + getTotalIncreaseFromScaling(player.ControllerIndex, BladeScalingUpgradeType.RANGE) / 100;
   calculatedRange *= scalingMultiplier;
 
@@ -55,7 +55,7 @@ export function getBladeDamage(player: EntityPlayer, targetingBoss: boolean): fl
   }
 
   // Apply user modified adjustment
-  damageVal *= modStateData.configAdjustmentDamageMultiplier;
+  damageVal *= configDataObject.persistent.configAdjustmentDamageMultiplier;
 
   // Apply progression buffs
   const totalDamageIncreaseFromScaling = 1 + getTotalIncreaseFromScaling(player.ControllerIndex, BladeScalingUpgradeType.DAMAGE) / 100;

@@ -1,8 +1,6 @@
 import { CacheFlag } from "isaac-typescript-definitions";
 import { getPlayers, ModUpgraded } from "isaacscript-common";
 import { setupMCM } from "../config/McmHandler";
-import { loadGame, saveGame } from "../config/ModGameDataManager";
-import { increaseDamageDealt } from "../data/saveFile/SaveDataHandler";
 import { flushAllStateData, getPlayerStateData } from "../data/StateData";
 import { flog } from "../helpers/DebugHelper";
 import { playerHasSamuraisBladeItem } from "../helpers/Helpers";
@@ -42,13 +40,11 @@ export function SamuraiBladePostNewRoom(): void {
 export function SamuraiBladePostGameStarted(mod: ModUpgraded): void {
   flog("Post game start fired", LOG_ID);
   flushAllStateData();
-  loadGame(mod);
   setupMCM();
 }
 
 export function SamuraiBladePreGameExit(mod: ModUpgraded): void {
   flog("Pre game exit fired", LOG_ID);
-  saveGame(mod);
 }
 
 export function SamuraiBladeEntityDamage(

@@ -1,9 +1,9 @@
 import { EffectVariant } from "isaac-typescript-definitions";
 import { clamp, COLORS, game } from "isaacscript-common";
-import { modStateData } from "../../../config/ModGameDataManager";
 import { EnemyVisualType } from "../../../enums/EnemyVisualType";
 import { flog } from "../../../helpers/DebugHelper";
 import { getEnemyVisualType } from "../../../helpers/GetEnemyVisualType";
+import {configDataObject} from "../../../data/saveFile/ConfigSaveDataHandler";
 
 const LOG_ID = "SpawnGore/SpawnParticles";
 
@@ -14,7 +14,7 @@ export function spawnGore(damagedEntity: Entity, damageAmount: number, damageFla
   );
 
   const spawnModifier = clamp(math.floor(1.2 ** damageAmount), 0, 20);
-  const amountModifier = Math.max(1, Math.ceil(spawnModifier * modStateData.configParticleMultiplier));
+  const amountModifier = Math.max(1, Math.ceil(spawnModifier * configDataObject.persistent.configParticleMultiplier));
 
   switch (getEnemyVisualType(damagedEntity.Type, damagedEntity.Variant)) {
     case EnemyVisualType.DEFAULT_BLOOD:
@@ -55,5 +55,5 @@ export function spawnGore(damagedEntity: Entity, damageAmount: number, damageFla
       break;
   }
 
-  game.SpawnParticles(damagedEntity.Position, EffectVariant.IMPACT, 10 * modStateData.configParticleMultiplier, 10);
+  game.SpawnParticles(damagedEntity.Position, EffectVariant.IMPACT, 10 * configDataObject.persistent.configParticleMultiplier, 10);
 }

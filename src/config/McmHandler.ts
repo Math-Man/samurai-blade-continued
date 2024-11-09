@@ -2,7 +2,7 @@ import { LOSCheckBehaviourAsString } from "../enums/LineOfSightCheckBehaviour";
 import { TearFiringBehaviourAsString } from "../enums/TearFiringBehaviour";
 import { flog, infoLog } from "../helpers/DebugHelper";
 import { HudPositionOptionsAsString } from "../items/samuraiBlade/hud/HudPositionOptions";
-import { modStateData } from "./ModGameDataManager";
+import {configDataObject} from "../data/saveFile/ConfigSaveDataHandler";
 
 const LOG_ID = "MCM CONFIG";
 
@@ -42,10 +42,10 @@ export function setupMCM(): void {
 function setupConfigHudPosition(modCategoryName: string) {
   ModConfigMenu?.AddSetting(modCategoryName, "Settings", {
     CurrentSetting(): number | boolean {
-      return modStateData.configHudPosition;
+      return configDataObject.persistent.configHudPosition;
     },
     Display(): string {
-      return `Hud Position: ${HudPositionOptionsAsString(modStateData.configHudPosition)}`;
+      return `Hud Position: ${HudPositionOptionsAsString(configDataObject.persistent.configHudPosition)}`;
     },
     Info: ["Change where the hud is located"],
     Maximum: 3,
@@ -53,9 +53,9 @@ function setupConfigHudPosition(modCategoryName: string) {
     ModifyBy: 1,
     OnChange(newValue: number | boolean | undefined): void {
       if (typeof newValue === "number") {
-        modStateData.configHudPosition = newValue;
+        configDataObject.persistent.configHudPosition = newValue;
       }
-      infoLog(`Hud Position Changed: ${modStateData.configHudPosition}}`);
+      infoLog(`Hud Position Changed: ${configDataObject.persistent.configHudPosition}}`);
     },
     PopupWidth: 0,
     Type: ModConfigMenuOptionType.NUMBER,
@@ -65,15 +65,15 @@ function setupConfigHudPosition(modCategoryName: string) {
 function setupConfigSpawnItemInFirstRoom(modCategoryName: string) {
   ModConfigMenu?.AddSetting(modCategoryName, "Settings", {
     CurrentSetting(): number | boolean {
-      return modStateData.configSpawnItemInFirstRoom;
+      return configDataObject.persistent.configSpawnItemInFirstRoom;
     },
     Display(): string {
-      return "Spawn in the starting room :" + modStateData.configSpawnItemInFirstRoom;
+      return "Spawn in the starting room :" + configDataObject.persistent.configSpawnItemInFirstRoom;
     },
     Info: ["Should The Samurai Blade spawn in the first room?"],
     OnChange(newValue: number | boolean | undefined): void {
       if (typeof newValue === "boolean") {
-        modStateData.configSpawnItemInFirstRoom = newValue;
+        configDataObject.persistent.configSpawnItemInFirstRoom = newValue;
       }
     },
     Type: ModConfigMenuOptionType.BOOLEAN,
@@ -82,17 +82,17 @@ function setupConfigSpawnItemInFirstRoom(modCategoryName: string) {
 function setupConfigPrintDebugInfo(modCategoryName: string) {
   ModConfigMenu?.AddSetting(modCategoryName, "Settings", {
     CurrentSetting(): number | boolean {
-      return modStateData.configPrintDebugInfo;
+      return configDataObject.persistent.configPrintDebugInfo;
     },
     Display(): string {
-      return "Print (crude) debug info :" + modStateData.configPrintDebugInfo;
+      return "Print (crude) debug info :" + configDataObject.persistent.configPrintDebugInfo;
     },
     Info: ["Display debug info on screen and log to console."],
     OnChange(newValue: number | boolean | undefined): void {
       if (typeof newValue === "boolean") {
-        modStateData.configPrintDebugInfo = newValue;
+        configDataObject.persistent.configPrintDebugInfo = newValue;
       }
-      infoLog(`Display debug info: ${modStateData.configPrintDebugInfo}`, LOG_ID);
+      infoLog(`Display debug info: ${configDataObject.persistent.configPrintDebugInfo}`, LOG_ID);
     },
     Type: ModConfigMenuOptionType.BOOLEAN,
   });
@@ -101,10 +101,10 @@ function setupConfigPrintDebugInfo(modCategoryName: string) {
 function setupConfigParticleMultiplier(modCategoryName: string) {
   ModConfigMenu?.AddSetting(modCategoryName, "Settings", {
     CurrentSetting(): number | boolean {
-      return modStateData.configParticleMultiplier;
+      return configDataObject.persistent.configParticleMultiplier;
     },
     Display(): string {
-      return `Current Particle Multiplier: ${modStateData.configParticleMultiplier}`;
+      return `Current Particle Multiplier: ${configDataObject.persistent.configParticleMultiplier}`;
     },
     Info: ["Change the intensity of particle effects."],
     Maximum: 5.0,
@@ -112,9 +112,9 @@ function setupConfigParticleMultiplier(modCategoryName: string) {
     ModifyBy: 0.1,
     OnChange(newValue: number | boolean | undefined): void {
       if (typeof newValue === "number") {
-        modStateData.configParticleMultiplier = newValue;
+        configDataObject.persistent.configParticleMultiplier = newValue;
       }
-      infoLog(`Particles value changed: ${modStateData.configParticleMultiplier}`);
+      infoLog(`Particles value changed: ${configDataObject.persistent.configParticleMultiplier}`);
     },
     PopupWidth: 0,
     Type: ModConfigMenuOptionType.NUMBER,
@@ -124,10 +124,10 @@ function setupConfigParticleMultiplier(modCategoryName: string) {
 function setupConfigTearFiringBehaviour(modCategoryName: string) {
   ModConfigMenu?.AddSetting(modCategoryName, "Settings", {
     CurrentSetting(): number | boolean {
-      return modStateData.configTearFiringBehaviour;
+      return configDataObject.persistent.configTearFiringBehaviour;
     },
     Display(): string {
-      return `Tear behaviour: ${TearFiringBehaviourAsString(modStateData.configTearFiringBehaviour)}`;
+      return `Tear behaviour: ${TearFiringBehaviourAsString(configDataObject.persistent.configTearFiringBehaviour)}`;
     },
     Info: ["Change how the tear firing behaves", "Fire Delay Hack is the default"],
     Maximum: 1,
@@ -135,9 +135,9 @@ function setupConfigTearFiringBehaviour(modCategoryName: string) {
     ModifyBy: 1,
     OnChange(newValue: number | boolean | undefined): void {
       if (typeof newValue === "number") {
-        modStateData.configTearFiringBehaviour = newValue;
+        configDataObject.persistent.configTearFiringBehaviour = newValue;
       }
-      infoLog(`Tear Firing Behaviour Changed: ${modStateData.configTearFiringBehaviour}}`);
+      infoLog(`Tear Firing Behaviour Changed: ${configDataObject.persistent.configTearFiringBehaviour}}`);
     },
     PopupWidth: 0,
     Type: ModConfigMenuOptionType.NUMBER,
@@ -147,10 +147,10 @@ function setupConfigTearFiringBehaviour(modCategoryName: string) {
 function setupConfigLineOfSightCheck(modCategoryName: string) {
   ModConfigMenu?.AddSetting(modCategoryName, "Settings", {
     CurrentSetting(): number | boolean {
-      return modStateData.configLineOfSightCheck;
+      return configDataObject.persistent.configLineOfSightCheck;
     },
     Display(): string {
-      return `Line-of-sight Check: ${LOSCheckBehaviourAsString(modStateData.configLineOfSightCheck)}`;
+      return `Line-of-sight Check: ${LOSCheckBehaviourAsString(configDataObject.persistent.configLineOfSightCheck)}`;
     },
     Info: ["Change how the Line of Sight check behaves", "Soft is the default", "Soft is more resource intensive and more accurate"],
     Maximum: 2,
@@ -158,9 +158,9 @@ function setupConfigLineOfSightCheck(modCategoryName: string) {
     ModifyBy: 1,
     OnChange(newValue: number | boolean | undefined): void {
       if (typeof newValue === "number") {
-        modStateData.configLineOfSightCheck = newValue;
+        configDataObject.persistent.configLineOfSightCheck = newValue;
       }
-      infoLog(`LOS Check Behaviour Changed: ${modStateData.configLineOfSightCheck}}`);
+      infoLog(`LOS Check Behaviour Changed: ${configDataObject.persistent.configLineOfSightCheck}}`);
     },
     PopupWidth: 0,
     Type: ModConfigMenuOptionType.NUMBER,
@@ -170,17 +170,17 @@ function setupConfigLineOfSightCheck(modCategoryName: string) {
 function setupConfigBladePicksUpItems(modCategoryName: string) {
   ModConfigMenu?.AddSetting(modCategoryName, "Settings", {
     CurrentSetting(): number | boolean {
-      return modStateData.configBladePicksUpItems;
+      return configDataObject.persistent.configBladePicksUpItems;
     },
     Display(): string {
-      return `Attacks collects items: ${modStateData.configBladePicksUpItems}`;
+      return `Attacks collects items: ${configDataObject.persistent.configBladePicksUpItems}`;
     },
     Info: ["Should attacking collect items on the ground similarly to the spirit sword"],
     OnChange(newValue: number | boolean | undefined): void {
       if (typeof newValue === "boolean") {
-        modStateData.configBladePicksUpItems = newValue;
+        configDataObject.persistent.configBladePicksUpItems = newValue;
       }
-      infoLog(`Pickup Item Behaviour Changed: ${modStateData.configBladePicksUpItems}}`);
+      infoLog(`Pickup Item Behaviour Changed: ${configDataObject.persistent.configBladePicksUpItems}}`);
     },
     Type: ModConfigMenuOptionType.BOOLEAN,
   });
@@ -189,10 +189,10 @@ function setupConfigBladePicksUpItems(modCategoryName: string) {
 function setupConfigDamageMultiplier(modCategoryName: string) {
   ModConfigMenu?.AddSetting(modCategoryName, "Tuning", {
     CurrentSetting(): number | boolean {
-      return modStateData.configAdjustmentDamageMultiplier;
+      return configDataObject.persistent.configAdjustmentDamageMultiplier;
     },
     Display(): string {
-      return `Current Damage Multiplier: ${modStateData.configAdjustmentDamageMultiplier}`;
+      return `Current Damage Multiplier: ${configDataObject.persistent.configAdjustmentDamageMultiplier}`;
     },
     Info: ["Damage multiplier for the combined contact damage of the blade."],
     Maximum: 10.0,
@@ -200,9 +200,9 @@ function setupConfigDamageMultiplier(modCategoryName: string) {
     ModifyBy: 0.1,
     OnChange(newValue: number | boolean | undefined): void {
       if (typeof newValue === "number") {
-        modStateData.configAdjustmentDamageMultiplier = newValue;
+        configDataObject.persistent.configAdjustmentDamageMultiplier = newValue;
       }
-      infoLog(`Damage value changed: ${modStateData.configAdjustmentDamageMultiplier}`);
+      infoLog(`Damage value changed: ${configDataObject.persistent.configAdjustmentDamageMultiplier}`);
     },
     PopupWidth: 0,
     Type: ModConfigMenuOptionType.NUMBER,
@@ -212,10 +212,10 @@ function setupConfigDamageMultiplier(modCategoryName: string) {
 function setupConfigRangeMultiplier(modCategoryName: string) {
   ModConfigMenu?.AddSetting(modCategoryName, "Tuning", {
     CurrentSetting(): number | boolean {
-      return modStateData.configAdjustmentRangeMultiplier;
+      return configDataObject.persistent.configAdjustmentRangeMultiplier;
     },
     Display(): string {
-      return `Current Range Multiplier: ${modStateData.configAdjustmentRangeMultiplier}`;
+      return `Current Range Multiplier: ${configDataObject.persistent.configAdjustmentRangeMultiplier}`;
     },
     Info: ["Range multiplier for the arc size."],
     Maximum: 10.0,
@@ -223,9 +223,9 @@ function setupConfigRangeMultiplier(modCategoryName: string) {
     ModifyBy: 0.1,
     OnChange(newValue: number | boolean | undefined): void {
       if (typeof newValue === "number") {
-        modStateData.configAdjustmentRangeMultiplier = newValue;
+        configDataObject.persistent.configAdjustmentRangeMultiplier = newValue;
       }
-      infoLog(`Range value changed: ${modStateData.configAdjustmentRangeMultiplier}`);
+      infoLog(`Range value changed: ${configDataObject.persistent.configAdjustmentRangeMultiplier}`);
     },
     PopupWidth: 0,
     Type: ModConfigMenuOptionType.NUMBER,
