@@ -14,6 +14,8 @@ import { postTearUpdateInit } from "./callbacks/MCPostTearUpdate";
 import { postUpdateInit } from "./callbacks/MCPostUpdate";
 import { preGameExitInit } from "./callbacks/MCPreGameExit";
 import { mod } from "./Mod";
+import {SaveDataManager} from "./data/saveFile/SaveDataManager";
+import {flog} from "./helpers/DebugHelper";
 
 const LOG_ID = "MAIN-SAMURAI";
 const MOD_NAME = "samurai-blade";
@@ -23,6 +25,7 @@ main();
 export function main(): void {
   Isaac.DebugString(`${MOD_NAME} initialized.`);
   registerCallbacks(mod);
+  registerSaveDataManager();
 }
 
 function registerCallbacks(mod: ModUpgraded) {
@@ -41,4 +44,9 @@ function registerCallbacks(mod: ModUpgraded) {
   preGameExitInit(mod);
   postCollectibleRemoved(mod);
   postPlayerInit(mod);
+}
+
+function registerSaveDataManager() {
+  flog("Registering save data manager", LOG_ID);
+  SaveDataManager.instance.register();
 }

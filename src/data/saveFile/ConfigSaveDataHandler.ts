@@ -1,6 +1,7 @@
 import {TearFiringBehaviour} from "../../enums/TearFiringBehaviour";
 import {LineOfSightCheckBehaviour} from "../../enums/LineOfSightCheckBehaviour";
-
+import {SaveDataSource} from "./SaveDataSource";
+import {AnyClass} from "isaacscript-common/src/types/AnyClass";
 
 export const configDataObject = {
     persistent: {
@@ -18,3 +19,19 @@ export const configDataObject = {
     room: {},
     level: {},
 };
+
+export class ConfigDataSource implements SaveDataSource {
+
+    getCustomClasses(): AnyClass[] {
+        return [];
+    }
+
+    getNamespace(): string {
+        return "bladeConfigData";
+    }
+
+    getSaveData(): object {
+        return configDataObject;
+    }
+
+}

@@ -1,8 +1,10 @@
 import {flog} from "../../helpers/DebugHelper";
-import {mod} from "../../Mod";
 import {BladeScalingUpgradeType} from "../../items/samuraiBlade/scaling/BladeScalingUpgradeType";
 import {CachePosition} from "../../items/samuraiBlade/scaling/CachePosition";
-import {configDataObject} from "./ConfigSaveDataHandler";
+import {SaveDataSource} from "./SaveDataSource";
+import {AnyClass} from "isaacscript-common/src/types/AnyClass";
+
+
 
 
 const saveDataObject = {
@@ -17,14 +19,21 @@ const saveDataObject = {
 };
 
 
+export class ScalingDataSource implements SaveDataSource {
 
-mod.saveDataManagerRegisterClass(CachePosition);
+    getCustomClasses(): AnyClass[] {
+        return [CachePosition];
+    }
 
-mod.saveDataManager("bladeProgressionData", saveDataObject);
-mod.saveDataManager("bladeConfigData", configDataObject);
+    getNamespace(): string {
+        return "bladeProgressionData";
+    }
 
-flog(`Save data registered: ${saveDataObject.run.damageDealt}`, `[PERSISTENT BLADE DATA]`);
-mod.saveDataManagerSetGlobal();
+    getSaveData(): object {
+        return saveDataObject;
+    }
+
+}
 
 
 export function getScalingStateCache(): Map<number, Map<BladeScalingUpgradeType, CachePosition>> {
