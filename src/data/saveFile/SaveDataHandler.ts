@@ -15,17 +15,18 @@ const saveDataObject = {
     level: {},
 };
 
+
+
+mod.saveDataManagerRegisterClass(CachePosition);
+mod.saveDataManager("bladeProgressionData", saveDataObject);
+flog(`Save data registered: ${saveDataObject.run.damageDealt}`, `[PERSISTENT BLADE DATA]`);
+mod.saveDataManagerSetGlobal();
+
+
 export function getScalingStateCache(): Map<number, Map<BladeScalingUpgradeType, CachePosition>> {
     return saveDataObject.run.scalingStateCache;
 }
 
-export function registerSaveData(): void {
-    if (!saveDataObject.run.loaded) {
-        saveDataObject.run.loaded = true;
-        mod.saveDataManager("bladeProgressionData", saveDataObject);
-    }
-    flog(`Save data registered: ${saveDataObject.run.damageDealt}`);
-}
 
 export function getTotalDamageDealt(controllerIndex: number): number {
     const value = saveDataObject.run.damageDealt.get(controllerIndex);
