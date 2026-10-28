@@ -10,7 +10,7 @@ samurai-blade is a mod for _[The Binding of Isaac: Repentance](https://store.ste
 
 Steam Workshop Link: https://steamcommunity.com/sharedfiles/filedetails/?id=2925374699
 
-This mod only adds a single item called `Samurai's Blade` which can be found as a boss drop. Picking up This item changes Isaac's attack to a unique melee weapon.
+This mod only adds a single item called `Samurai's Blade` which can be found in several item pools, most often in secret and ultra secret rooms. Picking up this item changes Isaac's attack to a unique melee weapon.
 
 `Samurai's Blade` has direct and indirect synergies with most of vanilla and dlc items, so there is a lot to discover.
 
@@ -20,7 +20,7 @@ Although `Samurai's Blade` has stats of its own, all of its stats are modified b
 
 <details>
   <summary>
-    Player stats and what they effect (Spoilers?)
+    Player stats and what they affect (Spoilers?)
   </summary>
 
 - Damage: Directly modifies damage by a factor of player's damage.
@@ -44,9 +44,31 @@ Although `Samurai's Blade` has stats of its own, all of its stats are modified b
 
 </details>
 
+#### Scaling Upgrades
+
+The item gains strength by dealing damage!
+
+<img src="media/UpgradeBar.png">
+
+Each upgrade improves the sword's capabilities by a small amount, permanently. Here is a list of upgrades:
+
+- <img src="media/Upgrade-Attack.png"> Increases attack damage.
+- <img src="media/Upgrade-Attack-Speed.png"> Increases attack speed.
+- <img src="media/Upgrade-Boss-Damage.png"> Increases damage dealt against bosses.
+- <img src="media/Upgrade-Charge-Damage.png"> Increases charged attack damage.
+- <img src="media/Upgrade-Range.png"> Increases arc size / range.
+
+These incremental upgrades are very small, but add up quickly, making the item much stronger as you deal damage with it!
+
+#### Mod Config Menu
+
+I strongly recommend getting [Mod Config Menu - Impure](https://steamcommunity.com/sharedfiles/filedetails/?id=3701683951). There are many options to customize the blade's behavior to your liking, including whether attacks collect nothing, items, or items and chests. (The Pure and Continued versions no longer work since Repentance+.)
+
 #### Known Issues
 
 - Pretty much all complex synergies are missing apart from ones that increase tear count.
+- Some enemies have the wrong visual type assigned to them, causing incorrect particles to spawn when they are damaged by the item.
+- Tainted Samson's berserk timer does not increase on getting a kill with the item. (The modding API has no writable field for the berserk cooldown, so this might be impossible to fix without doing something custom.)
 
 ### Implementation Notes
 
