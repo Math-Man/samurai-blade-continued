@@ -9,19 +9,22 @@
         [i][u]This mod works but many synergies are missing. There [strike]might also be[/strike] are [b]BUGS[/b].[/u][/i]
 
 
+        [i]Update (28/10/26): Fixed the blade being drawn in the wrong place in large mirror world rooms, fixed aiming, and added mouse control support. Attacks can now open regular chests too; in the mod config you can choose whether attacks collect nothing, items, or items and chests. Swing sounds are now mono, so they pan with Isaac's position like the rest of the game's sounds.[/i]
+
+
         [i]Quick update (15/04/23): After reading the comments, I have opted to make the item rarer. Item no longer spawns in treasure and shop rooms, the chance to appear in boss room is reduced and item now appears in other 'rarer' pools such as secret, ultra-secret, etc. I am willing to take feedback on this change and adjust it accordingly.[/i]
 
 
-        This mod only adds a single item called Samurai's Blade which can be found randomly in different item pools[i](Or be picked up at the starting room if you enable that option in the mod config)[/i]. Picking up This item changes Isaac's attack to a unique melee weapon.
+        This mod only adds a single item called Samurai's Blade which can be found randomly in different item pools[i](Or be picked up at the starting room if you enable that option in the mod config)[/i]. Picking up this item changes Isaac's attack to a unique melee weapon.
 
-        Samurai's Blade has direct and indirect synergies with vanilla and dlc items that does not directly modify tear behavior, so there is a decent amount to discover.
+        Samurai's Blade has direct and indirect synergies with vanilla and dlc items that do not directly modify tear behavior, so there is a decent amount to discover.
 
         Although Samurai's Blade has stats of its own, (Swing time, charge-up time, damage, etc.) all of its stats are modified by Isaac's own stats.
 
         [img]https://raw.githubusercontent.com/Math-Man/samurai-blade-continued/main/media/p3.gif[/img]
 
 
-        Player stats and what they effect:
+        Player stats and what they affect:
         [list]
         [*] Damage: Directly modifies damage by a factor of player's damage.
         [*] Fire Delay: Higher fire rate reduces delay between swings.
@@ -43,7 +46,7 @@
         [img]https://raw.githubusercontent.com/Math-Man/samurai-blade-continued/main/media/Upgrade-Charge-Damage.png[/img]: Increases charged attack damage.
         [img]https://raw.githubusercontent.com/Math-Man/samurai-blade-continued/main/media/Upgrade-Range.png[/img]: Increases arc size / range.
 
-        These incremental upgrades are very small, but adds up quickly, making the item much stronger as you deal damage with it!
+        These incremental upgrades are very small, but add up quickly, making the item much stronger as you deal damage with it!
 
 
         Also, do note any and all tear effect-based synergies will work but more complex synergies will not as they need custom implementations, some of which are;
@@ -54,7 +57,7 @@
         [/list]
 
 
-        [b]I strongly recommend you to get the Mod Config Menu either [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2681875787&searchtext=Mod+Config+Menu] Pure[/url] or the [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2487535818&searchtext=Mod+Config+Menu]continued [/url] version. There are many options to customize the blade's behavior to your liking.[/b]
+        [b]I strongly recommend you to get [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3701683951]Mod Config Menu - Impure[/url]. There are many options to customize the blade's behavior to your liking.[/b] [i](The Pure and Continued versions no longer work since Repentance+.)[/i]
 
 
 
@@ -65,10 +68,8 @@
 
         [h3]Known issues[/h3]
         [list]
-        [*] Large mirror rooms still cause some visual issues. (This is happening because I abused the Sprite rendering in a way I shouldn't have. Unfortunately, a proper fix to this issue would require me to rewrite a large part of the code.)
         [*] Some enemies have the wrong visual type assigned to them, causing incorrect particles to spawn when they are damaged by the item. (Fixed most of them, let me know if you find more.)
         [*] Tainted Samson's berserk timer does not increase on getting a kill with the item. (Modding API has no non-read-only field for berserk effect cooldown so this might be impossible to fix without doing something custom.)
-        [*] Swing sounds are stereo, they should be mono. (Not a real issue.)
         [/list]
 
 
@@ -83,7 +84,7 @@
         [/list]
 
     </description>
-    <version>0.0.34</version>
+    <version>0.1.0</version>
     <visibility>Public</visibility>
     <tag id="Lua"/>
     <tag id="Items"/>

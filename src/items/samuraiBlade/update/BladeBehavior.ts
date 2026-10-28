@@ -4,6 +4,7 @@ import { configDataObject } from "../../../data/saveFile/ConfigSaveDataHandler";
 import { getPlayerStateData } from "../../../data/StateData";
 import { Tuneable } from "../../../data/Tuneable";
 import { CollectibleTypeCustom } from "../../../enums/CollectibleTypeCustom";
+import { PickupBehaviour } from "../../../enums/PickupBehaviour";
 import { SoundsCustom } from "../../../enums/SoundsCustom";
 import { TearFiringBehaviour } from "../../../enums/TearFiringBehaviour";
 import {
@@ -172,7 +173,7 @@ function updatePlayerBladeBehavior(player: EntityPlayer) {
       dealSamuraiBladeDamage(player, isHitCritical(player), targets);
 
       // if it is the first frame of the swing animation, allow item pickups
-      if (configDataObject.persistent.configBladePicksUpItems && frameIndexes && frameIndexes[0] === bladeSprite.GetFrame()) {
+      if (configDataObject.persistent.configBladePickupBehaviour !== PickupBehaviour.NONE && frameIndexes && frameIndexes[0] === bladeSprite.GetFrame()) {
         pickupBasics(player, targets);
       }
     }
