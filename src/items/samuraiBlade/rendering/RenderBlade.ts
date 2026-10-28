@@ -121,6 +121,7 @@ function renderUserEmptyHolster(sprite: Sprite, player: EntityPlayer) {
   sprite.Update();
 }
 
+// Mirror world flips the rendered frame around the screen center, but sprites rendered from Lua are not flipped, so they must be mirrored in screen space.
 function getRenderPos(player: EntityPlayer): Vector {
   const pos = Isaac.WorldToScreen(player.Position);
   return game.GetRoom().IsMirrorWorld() ? Vector(Isaac.GetScreenWidth() - pos.X, pos.Y) : pos;
