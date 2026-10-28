@@ -75,12 +75,7 @@ function renderUserBlade(sprite: Sprite, player: EntityPlayer) {
       sprite.Offset = Vector(0, -3);
     }
   }
-  const playerPos = player.Position;
-  const worldPos = Vector(
-    !isInMirror ? playerPos.X : -(playerPos.X - 640), // Just don't ask about the math here, it is ugly.
-    playerPos.Y,
-  );
-  sprite.Render(Isaac.WorldToScreen(worldPos));
+  sprite.Render(getRenderPos(player));
   if (sprite.GetFrame() === -1) {
     sprite.Play(sprite.GetDefaultAnimation(), false);
     sprite.PlaybackSpeed = 0.5;
@@ -98,12 +93,7 @@ function renderUserBlade(sprite: Sprite, player: EntityPlayer) {
 
 function renderUserEmptyHolster(sprite: Sprite, player: EntityPlayer) {
   const isInMirror = game.GetRoom().IsMirrorWorld();
-  const playerPos = player.Position;
-  const worldPos = Vector(
-    !isInMirror ? playerPos.X : -(playerPos.X - 640), // Just don't ask about the math here, it is ugly.
-    playerPos.Y,
-  );
-  sprite.RenderLayer(5, Isaac.WorldToScreen(worldPos));
+  sprite.RenderLayer(5, getRenderPos(player));
   if (sprite.GetFrame() === -1) {
     sprite.Play("EmptyHolsterOverlay", true);
   }
@@ -129,6 +119,11 @@ function renderUserEmptyHolster(sprite: Sprite, player: EntityPlayer) {
   }
 
   sprite.Update();
+}
+
+function getRenderPos(player: EntityPlayer): Vector {
+  const pos = Isaac.WorldToScreen(player.Position);
+  return game.GetRoom().IsMirrorWorld() ? Vector(Isaac.GetScreenWidth() - pos.X, pos.Y) : pos;
 }
 
 export function updateVisualState(player: EntityPlayer, sprite: Sprite): void {

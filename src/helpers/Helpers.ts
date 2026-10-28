@@ -1,4 +1,4 @@
-import { ButtonAction } from "isaac-typescript-definitions";
+import { ButtonAction, ControllerIndex, Mouse } from "isaac-typescript-definitions";
 import { game } from "isaacscript-common";
 import { CollectibleTypeCustom } from "../enums/CollectibleTypeCustom";
 
@@ -15,7 +15,10 @@ export function isPlayerShooting(player: EntityPlayer): boolean {
     return false;
   }
 
+  const mouseShooting = player.ControllerIndex === ControllerIndex.KEYBOARD && Options.MouseControl && Input.IsMouseBtnPressed(Mouse.BUTTON_LEFT);
+
   return (
+    mouseShooting ||
     Input.IsActionPressed(ButtonAction.SHOOT_UP, player.ControllerIndex) ||
     Input.IsActionPressed(ButtonAction.SHOOT_RIGHT, player.ControllerIndex) ||
     Input.IsActionPressed(ButtonAction.SHOOT_DOWN, player.ControllerIndex) ||

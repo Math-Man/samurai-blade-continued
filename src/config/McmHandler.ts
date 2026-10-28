@@ -1,4 +1,5 @@
 import {LOSCheckBehaviourAsString} from "../enums/LineOfSightCheckBehaviour";
+import {PickupBehaviourAsString} from "../enums/PickupBehaviour";
 import {TearFiringBehaviourAsString} from "../enums/TearFiringBehaviour";
 import {flog, infoLog} from "../helpers/DebugHelper";
 import {HudPositionOptionsAsString} from "../items/samuraiBlade/hud/HudPositionOptions";
@@ -26,7 +27,7 @@ export function setupMCM(): void {
     setupConfigParticleMultiplier(modCategoryName);
     setupConfigTearFiringBehaviour(modCategoryName);
     setupConfigLineOfSightCheck(modCategoryName);
-    setupConfigBladePicksUpItems(modCategoryName);
+    setupConfigBladePickupBehaviour(modCategoryName);
     setupConfigHudPosition(modCategoryName);
 
     ModConfigMenu?.AddText(modCategoryName, "Tuning", () => "Change item stats");
@@ -168,22 +169,26 @@ function setupConfigLineOfSightCheck(modCategoryName: string) {
     });
 }
 
-function setupConfigBladePicksUpItems(modCategoryName: string) {
+function setupConfigBladePickupBehaviour(modCategoryName: string) {
     ModConfigMenu?.AddSetting(modCategoryName, "Settings", {
         CurrentSetting(): number | boolean {
-            return configDataObject.persistent.configBladePicksUpItems;
+            return configDataObject.persistent.configBladePickupBehaviour;
         },
         Display(): string {
-            return `Attacks collects items: ${configDataObject.persistent.configBladePicksUpItems}`;
+            return `Attacks collect: ${PickupBehaviourAsString(configDataObject.persistent.configBladePickupBehaviour)}`;
         },
-        Info: ["Should attacking collect items on the ground similarly to the spirit sword"],
+        Info: ["Should attacking collect items on the ground similarly to the spirit sword", "Chests only includes regular chests"],
+        Maximum: 2,
+        Minimum: 0,
+        ModifyBy: 1,
         OnChange(newValue: number | boolean | undefined): void {
-            if (typeof newValue === "boolean") {
-                configDataObject.persistent.configBladePicksUpItems = newValue;
+            if (typeof newValue === "number") {
+                configDataObject.persistent.configBladePickupBehaviour = newValue;
             }
-            infoLog(`Pickup Item Behaviour Changed: ${configDataObject.persistent.configBladePicksUpItems}}`);
+            infoLog(`Pickup Behaviour Changed: ${configDataObject.persistent.configBladePickupBehaviour}`);
         },
-        Type: ModConfigMenuOptionType.BOOLEAN,
+        PopupWidth: 0,
+        Type: ModConfigMenuOptionType.NUMBER,
     });
 }
 

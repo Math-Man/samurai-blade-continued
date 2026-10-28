@@ -1,5 +1,6 @@
 import {TearFiringBehaviour} from "../../enums/TearFiringBehaviour";
 import {LineOfSightCheckBehaviour} from "../../enums/LineOfSightCheckBehaviour";
+import {PickupBehaviour} from "../../enums/PickupBehaviour";
 import {SaveDataSource} from "./SaveDataSource";
 import {AnyClass} from "isaacscript-common/src/types/AnyClass";
 
@@ -12,7 +13,7 @@ export const configDataObject = {
         configAdjustmentDamageMultiplier: 1.0,
         configAdjustmentRangeMultiplier: 1.0,
         configLineOfSightCheck: LineOfSightCheckBehaviour.SOFT,
-        configBladePicksUpItems: true,
+        configBladePickupBehaviour: PickupBehaviour.ITEMS_AND_CHESTS,
         configHudPosition: 0,
     },
     run: {},

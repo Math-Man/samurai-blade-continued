@@ -1,8 +1,10 @@
 import { EffectVariant, EntityType, ItemPoolType, PickupVariant, SoundEffect } from "isaac-typescript-definitions";
 import { game, getPlayers, sfxManager, spawn } from "isaacscript-common";
+import { configDataObject } from "../../../data/saveFile/ConfigSaveDataHandler";
 import { getPlayerStateData } from "../../../data/StateData";
 import { Tuneable } from "../../../data/Tuneable";
 import { CollectibleTypeCustom } from "../../../enums/CollectibleTypeCustom";
+import { PickupBehaviour } from "../../../enums/PickupBehaviour";
 import { SoundsCustom } from "../../../enums/SoundsCustom";
 import { TearFiringBehaviour } from "../../../enums/TearFiringBehaviour";
 import {
@@ -29,7 +31,6 @@ import { isHitCritical } from "../onDealingDamage/CriticalHitHandler";
 import { clearDamageState } from "../onDealingDamage/DamageStateHandler";
 import { pickupBasics } from "../specialBehaviour/BasicPickups";
 import { dealSamuraiBladeDamage } from "./BladeDamage";
-import {configDataObject} from "../../../data/saveFile/ConfigSaveDataHandler";
 
 const LOG_ID = "BladeBehavior";
 
@@ -167,12 +168,12 @@ function updatePlayerBladeBehavior(player: EntityPlayer) {
     const canHitThisFrame = frameIndexes?.includes(bladeSprite.GetFrame());
 
     if (canHitThisFrame ?? false) {
-      const targets = getHitTargetsInsideArea(player, player.Position, player.GetAimDirection(), getBladePhysicalRange(player));
+      const targets = getHitTargetsInsideArea(player, player.Position, getPlayerStateData(player).activeAimDirection, getBladePhysicalRange(player));
 
       dealSamuraiBladeDamage(player, isHitCritical(player), targets);
 
       // if it is the first frame of the swing animation, allow item pickups
-      if (configDataObject.persistent.configBladePicksUpItems && frameIndexes && frameIndexes[0] === bladeSprite.GetFrame()) {
+      if (configDataObject.persistent.configBladePickupBehaviour !== PickupBehaviour.NONE && frameIndexes && frameIndexes[0] === bladeSprite.GetFrame()) {
         pickupBasics(player, targets);
       }
     }
